@@ -1,0 +1,13 @@
+{
+	"totalcolumns": "2",
+	"columns": [
+		{
+			"width": "70",
+			"title": "70%"
+		},
+		{
+			"width": "30",
+			"title": "30%"
+		}
+	]
+}

@@ -1,0 +1,18 @@
+# Alle hier gesetzten Werte können über $addon->getProperty($key) abgefragt werden
+
+package: gridblock																							#Pflichtfeld
+version: '0.8.1-dev'																							#Pflichtfeld
+author: Falko Müller
+supportpage: https://github.com/iceman-fx/gridblock
+
+page:
+    title: 'translate:a1620_title'
+    perm: gridblock[]
+    icon: rex-icon fa-columns
+    subpages:
+        default: { title: 'translate:a1620_default' }
+        config: { title: 'translate:a1620_config', icon: rex-icon fa-wrench }
+        help: { title: 'translate:a1620_help', icon: rex-icon fa-info-circle, itemclass: pull-right }
+
+requires:
+    redaxo: '^5.12.0'

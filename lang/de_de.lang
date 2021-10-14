@@ -1,0 +1,164 @@
+# addon: gridblock de_de
+
+a1620_title = Gridblock-Modul
+
+a1620_default = Layoutvorlagen
+a1620_cat = Vorlagengruppen
+a1620_config = Einstellungen
+a1620_help = Hilfe
+
+a1620_head_basics = Layoutvorlage / Template
+a1620_head_cat = Vorlagengruppe
+a1620_head_config = Einstellungen
+a1620_head_help = Onlinehilfe
+
+a1620_subheader_bas1 = Allgemein
+a1620_subheader_bas2 = Definition Layoutvorlage
+
+a1620_text1 = Die Definition der zulässigen oder zu ignorierenden Inhaltsmodule kann auch direkt im Modul vorgenommen werden.<br>Weitere Informationen finden Sie in der Hilfe.
+
+
+# Globale Felder
+a1620_std_status = Sichtbar / Aktiv
+
+
+# Seite: Default
+a1620_bas_title = Titel / Bezeichnung
+a1620_bas_description = Kurzbeschreibung
+a1620_bas_columns = Anzahl Spalten
+a1620_bas_template = Template-Ausgabecode
+a1620_bas_template_placeholder = Mögliche Platzhalter: REX_GRID[1] ... REX_GRID[16]
+a1620_bas_preview = Definition Layoutvorschau (JSON)
+a1620_bas_preview_example = Beispiel einfügen ...
+a1620_bas_priority = Priorität
+a1620_bas_cat = Vorlagengruppe
+a1620_bas_cat_empty = - keine Vorlagengruppe ausgewählt -
+
+a1620_bas_list_name = Titel / Bezeichnung
+a1620_bas_list_columns = Spalten
+a1620_bas_list_preview = Layoutvorschau
+a1620_bas_list_priority = Prio
+
+
+# Seite: Einstellungen
+a1620_config_modulesmode = Modus für Inhaltsmodule
+a1620_config_modulesmode_allow = Zulässige Inhaltsmodule
+a1620_config_modulesmode_deny = Zu ignorierende Inhaltsmodule
+a1620_config_modules = Auswahl Inhaltsmodule
+a1620_config_showtemplatetitles = Layoutvorlagen
+a1620_config_showtemplatetitles_info = Kurzbeschreibung in Auswahl Layoutvorlagen ausgeben
+a1620_config_previewtabnames = Spaltenbezeichnungen
+a1620_config_previewtabnames_info = Spaltenbezeichnungen aus Definition Layoutvorschau nutzen
+a1620_config_useoptions = Native Optionen
+a1620_config_useoptions_info = Native Optionen für Block & Spalten aktivieren
+
+
+# Modulausgabe
+a1620_mod_template = Layoutvorlage
+a1620_mod_template_options = Weitere Blockoptionen ...
+a1620_mod_template_modal = Layoutvorlage wählen
+a1620_mod_templatelist = Layoutvorlage wählen
+a1620_mod_templatelist_noentrys = <strong>Es wurden noch keine Layoutvorlagen angelegt.</strong><br>Bitte hinterlegen Sie Ihre Vorlagen über die Addon-Verwaltung.
+a1620_mod_totalcolumns = 12
+
+a1620_mod_columnintro = Hinterlegen Sie hier Ihre Spalteninhalte durch Auswahl eines Inhaltsblockes.
+
+a1620_mod_column = Spalte
+a1620_mod_column_options = Weitere Spaltenoptionen ...
+
+a1620_mod_choose_modul = - Inhaltsblock wählen -
+a1620_mod_choose_template = Layoutvorlage auswählen
+a1620_mod_choose = wählen
+a1620_mod_add_modul = Weiteren Inhaltsblock hinzufügen
+a1620_mod_delete_modul = Inhaltsblock entfernen
+a1620_mod_move_modul_up = Nach oben verschieben
+a1620_mod_move_modul_down = Nach oben verschieben
+a1620_mod_move_modul_drag = per Drag´n´Drop verschieben
+a1620_mod_confirm_delete = Block wirklich löschen?
+
+a1620_mod_gutter = Abstand Spalten
+a1620_mod_gutter_v = oben/unten
+a1620_mod_gutter_h = links/rechts
+
+a1620_mod_align_left = links
+a1620_mod_align_center = mitte
+a1620_mod_align_right = rechts
+
+a1620_mod_valign = Ausrichtung Inhalte
+a1620_mod_valign_normal = normal
+a1620_mod_valign_top = oben
+a1620_mod_valign_center = mitte
+a1620_mod_valign_bottom = unten
+a1620_mod_bgcolor = Hintergrundfarbe
+a1620_mod_paddingcss = Abstand innen
+a1620_mod_paddingcss_none = - kein Abstand -
+a1620_mod_paddingcss_small = klein
+a1620_mod_paddingcss_medium = mittel
+a1620_mod_paddingcss_large = groß
+
+a1620_mod_header1 = Blocküberschrift
+a1620_mod_header2 = Zeile 2
+a1620_mod_header_align = Ausrichtung Überschrift
+
+a1620_mod_error_loadmodule = Beim Laden ist ein Fehler aufgetreten.
+
+
+# Sonstige Vorgaben
+a1620_settoday = heutiges Datum einfügen
+a1620_example = Beispiel
+a1620_examples = Beispiele...
+a1620_days = Tage
+a1620_clock = Uhr
+a1620_overview = Übersicht:
+
+a1620_search_all = alle
+a1620_search_noselection = - keine Auswahl -
+a1620_search_sort = Ansicht
+a1620_search_sort_onlyactive = nur aktive Einträge (online)
+a1620_search_sort_onlyinactive = nur deaktivierte Einträge (offline)
+a1620_search_keyword = Suchbegriff
+a1620_search_submit = suchen
+a1620_search_reset = Suche zurücksetzen
+a1620_search_notfound = Es wurden keine Einträge gefunden.
+a1620_search_more = mehr Optionen
+a1620_search_cat = Kategorie
+a1620_search_archive = Nur Archiveinträge anzeigen
+
+a1620_edit = ändern
+a1620_duplicate = duplizieren
+a1620_delete = löschen
+a1620_online = online
+a1620_offline = offline
+a1620_new = hinzufügen
+a1620_create = erstellen
+a1620_save = Speichern
+a1620_apply = Übernehmen
+a1620_abort = Abbrechen
+a1620_close = Schließen
+a1620_accept = übernehmen
+a1620_open= öffnen
+a1620_remove = entfernen
+a1620_copiedname = _Kopie
+a1620_yes = ja
+a1620_no = nein
+a1620_all = alle
+a1620_details = Details
+a1620_statusfunc = Funktionen
+a1620_setstatus = Status ändern
+a1620_showhide = anzeigen/ausblenden
+a1620_showbox = anzeigen/ausblenden
+
+a1620_notice = Hinweis
+a1620_error = Es ist ein Fehler aufgetreten!
+a1620_settings_saved = Die Einstellungen wurden gespeichert
+a1620_entry_saved = Eintrag gespeichert
+a1620_entry_deleted = Eintrag gelöscht
+a1620_entry_used = Eintrag ist einem anderen Datensatz zugeordnet.
+a1620_entry_exists = Ein Eintrag mit dieser Bezeichnung/Kennung existiert bereits.
+a1620_entry_emptyfields = Es wurden nicht alle Pflichtfelder ausgefüllt.
+a1620_entry_emptyfield = Ein zusätzlich benötigtes Feld wurde nicht ausgefüllt
+a1620_entry_badchars = Es wurden unzulässige Zeichen eingegeben
+a1620_error_saved = Fehler beim Speichern
+a1620_error_deleted = Fehler beim Löschen
+a1620_error_setstatus = Fehler beim Statusändern
+a1620_error_setstatus_info = Hinweis: Status wegen bestehender Zuweisung nicht geändert!

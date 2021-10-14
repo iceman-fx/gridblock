@@ -11,8 +11,8 @@ BILD!!!
 
 Features
 --------
-- Definition verschiedener Spaltenvorlagen (Templates)
-- Hinzufügen beliebiger Inhaltsmodule (Modulblöcke)
+- Definition verschiedener Spaltenvorlagen/Templates zur Definition der Spalten und deren Frontenddarstellung
+- Hinzufügen beliebiger Inhaltsmodule (Modulblöcke) je Spalte
 - Definition zusätzlicher Block- oder Spaltenoptionen
 
 -----

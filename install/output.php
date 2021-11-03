@@ -14,5 +14,11 @@ $grid->getSliceValues("REX_SLICE_ID");
 
 
 //Ausgabe
+if (rex::isBackend()):
+	//optionale Korrektur der .row-Darstellung im BE
+	echo '<style>.rex-slice .panel-default .panel-body div.row { margin-left: 0px; margin-right: 0px; }</style>';
+endif;
+
+
 echo $grid->getModuleOutput();
 ?>

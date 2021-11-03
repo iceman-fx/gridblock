@@ -8,6 +8,9 @@ Layoutvorlagen/Templates (Spaltenraster) können selbst definiert werden und ste
 
 
 BILD!!!
+![screenshot](https://user-images.githubusercontent.com/4291047/140056725-8fd334ac-58e5-4f8f-9313-c85bbb45606b.png)
+
+
 
 Features
 --------

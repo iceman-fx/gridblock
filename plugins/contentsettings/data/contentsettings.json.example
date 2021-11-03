@@ -1,0 +1,118 @@
+{
+	"showOptions" : [
+		"class","marginTop","marginBottom","divider","bgColor","bgImage","imageList","link","openNewTab","linkList","theme","customLink"		
+	],
+	"template": {
+		"showOptions": [
+			"marginBottom","divider","customLink","bgColor"
+		],
+		"options": [
+			{
+				"key": "marginBottom",
+				"default": "mb-3"
+			}
+		]
+	},
+	"columns": {
+			"showOptions": [
+				"marginBottom",
+				"bgColor",
+				"bgImage",
+				"customLink"
+			],
+			"options": [
+				{
+					"key": "marginBottom",
+					"default": "mb-1"
+				}
+			]
+	},
+	"options": [
+		{
+			"key": "class",
+			"label": "Block Klasse",
+			"placeholder": "BeispielKlasse",
+			"type": "text"
+		},
+		{
+			"key": "marginTop",
+			"label": "Block Außenabstand Oben",
+			"type": "select",
+			"data": {
+				"mt-0": "Kein",
+				"mt-1": "Sehr klein",
+				"mt-2": "Klein",
+				"mt-3": "Mittel",
+				"mt-4": "Groß",
+				"mt-5": "Sehr groß"
+			},
+			"default": "mt-0"
+		},
+		{
+			"key": "marginBottom",
+			"label": "Block Außenabstand Unten",
+			"type": "select",
+			"data": {
+				"mb-0": "Kein",
+				"mb-1": "Sehr klein",
+				"mb-2": "Klein",
+				"mb-3": "Mittel",
+				"mb-4": "Groß",
+				"mb-5": "Sehr groß"
+			},
+			"default": "mb-4"
+		},
+		{
+			"key": "bgColor",
+			"label": "Hintergrundfarbe",
+			"type": "colorpicker"
+		},
+		{
+			"key": "openNewTab",
+			"label": "In neuem Tab öffnen",
+			"type": "checkbox"
+		},
+		{
+			"key": "theme",
+			"label": "Theme",
+			"type": "radio",
+			"data": {
+				"bright": "Hell",
+				"dark": "Dunkel"
+			},
+			"default": "dark"
+		},
+		{
+			"key": "bgImage",
+			"label": "Hintergrundbild",
+			"type": "media",
+			"preview": "1"
+		},
+		{
+			"key": "imageList",
+			"label": "Bilderliste",
+			"type": "medialist"
+		},
+		{
+			"key": "link",
+			"label": "Link",
+			"type": "link"
+		},
+		{
+			"key": "linkList",
+			"label": "Linksammlung",
+			"type": "linklist"
+		},
+		{
+			"key": "customLink",
+			"label": "CustomLink Label",
+			"type": "customlink"
+		},
+		{
+			"key": "divider",
+			"label": "",
+			"type": "html",
+			"text": "<br><hr><br>"
+		}		
+	]
+}

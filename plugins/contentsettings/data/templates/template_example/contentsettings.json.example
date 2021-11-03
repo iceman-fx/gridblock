@@ -1,0 +1,42 @@
+{
+	"template": {
+		"showOptions": [
+			"marginBottom"
+		],
+		"options": [
+			{
+				"key": "marginBottom",
+				"default": "mb-2"
+			}
+		]
+	},
+	"columns": {
+		"1": {
+			"showOptions": [
+				"class",
+				"marginTop",
+				"marginBottom"
+			]
+		},
+		"2": {
+			"showOptions": [
+				"marginBottom",
+				"bgColor",
+				"bgImage",
+				"customLink"
+			],
+			"options": [
+				{
+					"key": "marginBottom",
+					"default": "mb-4"
+				}
+			]
+		}
+	},
+	"options": [
+		{
+			"key": "marginBottom",
+			"default": "mb-2"
+		}
+	]
+}

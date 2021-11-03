@@ -1,0 +1,21 @@
+<?php 
+// zugriff auf alle settings über contentsettings
+dump($contentsettings); 
+
+// zugriff auf settings des templates: $contentsettings->template->$key
+// zugriff auf settings einer spalte: $contentsettings->column_$colNr->$key 
+// customlink parsen GridblockContentSettings::parseCustomLink($key)
+?>
+
+<div class="container 2-spalter <?= $contentsettings->template->sliceClass ?>" style="background-color:<?=$contentsettings->template->bgColor?>;">
+	<?php dump($contentsettings->template); ?>
+	<? dump(GridblockContentSettings::parseCustomLink($contentsettings->template->customLink)); ?>
+	<div class="row">
+		<div class="col-12 mb-5 col-lg-6 mb-lg-0 <?= $contentsettings->column_1->sliceClass ?>" style="background-color:<?=$contentsettings->column_1->bgColor?>">
+			<?php dump($contentsettings->column_1); ?>
+			REX_GRID[1]</div>
+		<div class="col-12 mb-5 col-lg-6 mb-lg-0 <?= $contentsettings->column_2->sliceClass ?> bg-info" style="background-color:<?=$contentsettings->column_2->bgColor?>;">
+			<?php dump($contentsettings->column_2); ?>
+			REX_GRID[2]</div>
+	</div>
+</div>

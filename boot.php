@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Boot (weitere Konfigurationen & Einbindung)
-	v0.8
+	v1.0
 	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
 */
 
@@ -64,8 +64,10 @@ if (rex::isBackend()):
 			$_POST['REX_INPUT_VALUE'] = $values;
 			$_REQUEST['REX_INPUT_VALUE'] = $values;
 			
+			/*
 			echo "\n\$_POST: $uID\n";
-			print_r($_POST);	
+			print_r($_POST);
+			*/	
 			
 		endif;
 		

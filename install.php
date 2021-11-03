@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Installation
-	v0.8
+	v1.0
 	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
 */
 
@@ -14,11 +14,10 @@ $error = "";
 //Vorgaben vornehmen
 if (!$this->hasConfig()):
 	$this->setConfig('config', [
-		'modulesmode'			=> 'allow',
-		'modules'				=> '',
-		'previewtabnames'		=> '',
-		'useoptions'			=> '',
-		'showtemplatetitles'	=> '',
+		'modulesmode'				=> 'allow',
+		'modules'					=> '',
+		'previewtabnames'			=> '',
+		'showtemplatetitles'		=> '',
 	]);
 endif;
 
@@ -34,6 +33,7 @@ rex_sql_table::get(rex::getTable('1620_gridtemplates'))
 	->ensureColumn(new rex_sql_column('columns', 'int(2)'))
 	->ensureColumn(new rex_sql_column('template', 'text'))
 	->ensureColumn(new rex_sql_column('preview', 'text'))
+	->ensureGlobalColumns()
 	->setPrimaryKey('id')
 	->ensure();
 

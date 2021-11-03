@@ -1,12 +1,13 @@
 @charset "utf-8";
 /* CSS Document for gridblock */
-/* v0.7 */
+/* v1.0 */
 
 .gridblock {}
 .gridblock .content { display: none; padding: 15px; border-top: 1px solid #c1c9d4; }
 .gridblock-top { margin-bottom: 40px; }
 
 .gridblock .tab-nav { margin-bottom: 0; }
+.gridblock .tab-nav > li { display: none; }
 .gridblock .tab-nav > li > a { border-radius: 4px 4px 0px 0px; border-top-width: 2px; border-color: #9ca5b2 #9ca5b2 #9ca5b2; background: #EEE; color: #555; padding: 7px 10px; }
 	.gridblock .tab-nav > li > a:hover { background: #FFF; color: #555; border-color: #9ca5b2 #9ca5b2 #9ca5b2; }
 	.gridblock .tab-nav > li.active > a, .gridblock .tab-nav > li.active > a:hover, .gridblock .tab-nav > li.active > a:focus { background: #FFF; border: 1px solid #9ca5b2; border-bottom-color: transparent; border-top-width: 2px; }	
@@ -15,7 +16,7 @@
 	.gridblock .tab-content > div.active { display: block; }
 
 .gridblock .column-settings { position: relative; background: #FFF; padding: 20px; }
-	.gridblock .column-settings .optionstoggler { position: absolute; background: #9ca5b2; padding: 0px; line-height: 5px; vertical-align: top; height: 13px; letter-spacing: 1px; color: #FFF; border-radius: 2px; font-size: 13px;    font-weight: bold; left: 50%; bottom: -7px; margin: 0px 0px 0px -30px; width: 60px; text-align: center; cursor: pointer; }
+	.gridblock .column-settings .optionstoggler { display: none; position: absolute; background: #9ca5b2; padding: 0px; line-height: 5px; vertical-align: top; height: 13px; letter-spacing: 1px; color: #FFF; border-radius: 2px; font-size: 13px;    font-weight: bold; left: 50%; bottom: -7px; margin: 0px 0px 0px -30px; width: 60px; text-align: center; cursor: pointer; }
 	.gridblock .column-settings .optionstoggler:hover { background: #5bb585; }
 
 .gridblock .column-input { background: rgba(255,255,255, 1); padding: 20px 20px 20px; }
@@ -42,9 +43,9 @@ ul.gridblock-moduleselector a { cursor: pointer; }
 
 .gridblock .gridblock-group > span { font-weight: bold; display: block; margin-top: 25px; margin-bottom: -5px; }
 	.gridblock .gridblock-group:nth-child(1) > span { margin-top: 0px; }
-.gridblock .gridblock-group-inline dl { display: inline-block; width: auto; vertical-align: top; margin: 7px 15px 0px 0px; }
+.gridblock .gridblock-group-inline dl { display: inline-block; width: auto; vertical-align: top; margin: 7px 25px 0px 0px; }
 .gridblock .gridblock-group-inline dt { display: block; width: auto; min-width: 0px; padding-top: 0px; padding-right: 0px; }
-	.gridblock .gridblock-group-inline dt label { font-weight: normal; margin-bottom: 2px; min-width: 130px; }
+	.gridblock .gridblock-group-inline dt label { font-weight: normal; margin-bottom: 2px; /*min-width: 130px;*/ }
 
 
 /* Checkbox / Radio */
@@ -63,11 +64,17 @@ ul.gridblock-moduleselector a { cursor: pointer; }
 
 /* Options */
 .gridblock .hiddenOpt { display: none; }
+	.gridblock .hiddenOpt.gridblockoptions { padding-top: 17px; }
+	.gridblock .hiddenOpt.gridcolumnoptions { padding-top: 37px; }
+.gridblock-topmargin { margin-top: 35px; }
+	.gridblock-topmargin:nth-child(1) { margin-top: 0px; }
 .gridblock-colorinput-group {}
 .gridblock-colorinput { position: relative; min-width: 100px; background: #FFF; padding: 3px 3px; padding: 0px; }
 .gridblock-colorinput input { position: absolute !important; top: 0px; left: 0px; -webkit-appearance: none; background: #FFF; border: none; width: 100%; height: 100%; /* height: 26px; */ padding: 0px; cursor: pointer; }
 	.gridblock-colorinput input::-webkit-color-swatch-wrapper, .gridblock-colorinput input::-webkit-color-swatch { padding: 0px; border: none; }
 	.gridblock-colorinput input+i { display: inline-block; position: absolute; z-index: 5; top: 50%; right: 5px; margin-top: -7px; pointer-events: none; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+.gridblockoptions select, .gridcolumnoptions select { margin: 0px !important; }
+.gridblockoptions .bootstrap-select>.dropdown-toggle { border-radius: 0px; }
 
 
 /* Disabled */
@@ -88,10 +95,6 @@ ul.gridblock-moduleselector a { cursor: pointer; }
 .gridblock-preview span { display: block; color: #FFF; font-size: 9px; align-self: center; text-align: center; width: 100%; word-break: break-word; }
 .gridblock-previewtext span { color: inherit; font-size: 0.85em; }
 
-
-
-
-
 .gridblock-previewlist { background: #FFF; padding: 10px; max-height: 180px; overflow: auto; border: 1px solid #c1c9d4; }
 .gridblock-previewlist > div { display: inline-flex; flex-wrap: wrap; flex-direction: column; background: #FFF; vertical-align: top; }
 .gridblock-previewlist > div > div { padding: 6px; -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; }
@@ -101,11 +104,12 @@ ul.gridblock-moduleselector a { cursor: pointer; }
 	.gridblock-previewlist > div > div.selected { background: #ebebeb; }
 	.gridblock-previewlist > div > div > div { border-radius: 4px; }
 
+/* Templateauswahl */
 .rex-js-widget-gridblock .input-group { display: flex; }
 	.rex-js-widget-gridblock .gridblock-template { position: relative; min-width: 214px; min-height: 56px; padding: 6px; background: #FFF; border: 1px solid #c1c9d4; -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%); box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%); }
 	.rex-js-widget-gridblock .input-group-btn { width: auto; height: auto; }
 	.rex-js-widget-gridblock .input-group-btn .btn { display: inline-flex; height: 100%; min-width: 50px; }
-		.rex-js-widget-gridblock .input-group-btn .btn-options { color: #9ca5b2; min-width: 38px; }
+		.rex-js-widget-gridblock .input-group-btn .btn-options { display: none; color: #9ca5b2; min-width: 38px; }
 	.rex-js-widget-gridblock .input-group-btn .btn i { align-self: center; width: 100%; }
 	
 .gridblock.noGridTemplate .rex-js-widget-gridblock .gridblock-template { min-height: 38px; }
@@ -134,18 +138,3 @@ body.modal-open { overflow: hidden; height: auto; }
 @media (min-width: 900px){
 	.gridblock-modal-large .modal-dialog { width: 100%; max-width: 830px;}
 }
-
-
-
-
-/* alt */
-/*
-.fmGridBlock dl { display: table; table-layout: fixed; width: 100%; margin: 20px 0px 0px; }
-	.fmGridBlock dl > * { display: table-cell; vertical-align: top; }
-	.fmGridBlock dt { width: 25%; min-width: 175px; padding: 0px 3% 0px 0px; font-weight: normal; }
-	.fmGridBlock dd {}
-.fmGridBlock dl.radio { margin-top: 0px; }
-.fmGridBlock dd > select { margin: 0px !important; }
-.fmGridBlock dd input[type="radio"], .fmGridBlock dd input[type="checkbox"] { margin-right: 4px; }
-.fmGridBlock dd input[type="radio"] + label, .fmGridBlock dd input[type="checkbox"] + label { font-weight: normal; }
-*/

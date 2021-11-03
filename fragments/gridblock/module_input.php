@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Fragment für Moduleingabe (BE)
-	v0.8.1
+	v1.0
 	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
 	
 	
@@ -11,7 +11,7 @@
 	17		Templateauswahl & -optionen
 	18		weitere Optionen (ehemals [13])
 	19		ausgewählte Inhaltsmodule aller Spalten
-	20		reserviert für Blocksettings
+	20		reserviert für Plugin contentsettings
 */
 
 //Vorgaben
@@ -19,6 +19,8 @@ $config = rex_addon::get('gridblock')->getConfig('config');
 
 $template =	isset($this->values[17]) ? rex_var::toArray($this->values[17]) : array();								//liefert kein Array zurück wenn leer / REX_INPUT_VALUE[17][name]
 $options = 	isset($this->values[18]) ? rex_var::toArray($this->values[18]) : array();								//liefert kein Array zurück wenn leer / REX_INPUT_VALUE[18][name]
+$settings = isset($this->values[20]) ? $this->values[20] : "";
+	$_SESSION['gridContentSettings'] = $settings;
 
 
 $selTemplate = intval(@$template['selectedTemplate']);																//gespeichertes Template einladen
@@ -42,9 +44,11 @@ $selColumns = $selColumnNames = 0;
 		endif;
 	endif;
 
-$useoptions = (@$config['useoptions'] == 'checked') ? true : false;
+
+$useSettingPlugin = ( rex_plugin::get('gridblock', 'contentsettings')->isAvailable() ) ? true : false;
 
 
+/*
 if (false):
 	echo "<br>options:<br>";
 	dump($options);
@@ -54,8 +58,9 @@ if (false):
 	echo "<br>selTemplate: $selTemplate";
 	echo "<br>selColumns: $selColumns";
 	
-	echo "<br><br><hr><br>";
+	echo "<br><hr><br>";
 endif;
+*/
 ?>
 
 
@@ -120,10 +125,10 @@ endif;
 
                 <div class="rex-js-widget rex-js-widget-gridblock">
                 	<div class="input-group">
-                    	<div class="gridblock-template" id="gridblock-template">- keine Vorlage ausgewählt -</div>
+                    	<div class="gridblock-template" id="gridblock-template"><?php echo rex_i18n::msg('a1620_mod_template_empty'); ?></div>
                         <span class="input-group-btn">
 							<a data-toggle="modal" data-target="#gridblockModal" class="btn btn-popup" title="<?php echo rex_i18n::msg('a1620_mod_choose_template'); ?>"><i class="rex-icon fa-th-large"></i></a>
-                            <?php if ($useoptions): ?><a class="btn btn-popup btn-options" title="<?php echo rex_i18n::msg('a1620_mod_template_options'); ?>" onclick="$('#gridblockoptions').slideToggle();"><i class="rex-icon fa-cog"></i></a><?php endif; ?>
+                            <?php if ($useSettingPlugin): ?><a class="btn btn-popup btn-options" title="<?php echo rex_i18n::msg('a1620_mod_template_options'); ?>" onclick="$('#gridblockoptions').slideToggle();"><i class="rex-icon fa-cog"></i></a><?php endif; ?>
 						</span>
 					</div>
 				</div>
@@ -134,58 +139,18 @@ endif;
 			</dd>
 		</dl>
         
-        
-        <?php if ($useoptions): ?>
-        <!-- Optionen -->
-        <div class="hiddenOpt" id="gridblockoptions">
-
-            <dl class="rex-form-group form-group">
-                <dt><label for=""><?php echo rex_i18n::msg('a1620_mod_gutter'); ?>:</label></dt>
-                <dd>
-                    <div class="gridblock-group gridblock-group-inline">
-                    
-                        <dl class="rex-form-group form-group">
-                            <dt><label><?php echo rex_i18n::msg('a1620_mod_gutter_v'); ?></label></dt>
-                            <dd><div class="input-group" style="width:75px"><input data-parsley-excluded="true" type="number" name="REX_INPUT_VALUE[18][gap_v]" value="<?php echo intval(@$options['gap_v']); ?>" maxlength="3" min="0" max="100" class="form-control" style="width:75px"><span class="input-group-addon"><div>px</div></span></div></dd>
-                        </dl>
-                        
-                        <dl class="rex-form-group form-group">
-                            <dt><label><?php echo rex_i18n::msg('a1620_mod_gutter_h'); ?></label></dt>
-                            <dd><div class="input-group" style="width:75px"><input data-parsley-excluded="true" type="number" name="REX_INPUT_VALUE[18][gap_h]" value="<?php echo intval(@$options['gap_h']); ?>" maxlength="3" min="0" max="100" class="form-control" style="width:75px"><span class="input-group-addon"><div>px</div></span></div></dd>
-                        </dl>
-
-                    </div>
-				</dd>
-            </dl>
-
-
-			<dl class="rex-form-group form-group">&nbsp;</dl>
-            
-
-            <dl class="rex-form-group form-group">
-                <dt><label for=""><?php echo rex_i18n::msg('a1620_mod_header1'); ?>:</label></dt>
-                <dd><input name="REX_INPUT_VALUE[18][header1]" type="text" class="form-control" value="<?php echo @$options['header1']; ?>" size="40" maxlength="100"></dd>
-            </dl>
-
-
-            <dl class="rex-form-group form-group">
-                <dt><label for=""><?php echo rex_i18n::msg('a1620_mod_header_align'); ?>:</label></dt>
-                <dd>
-                    <select name="REX_INPUT_VALUE[18][header_align]" class="form-control">
-                    <?php
-                    $arr = array("left"=>rex_i18n::msg('a1620_mod_align_left'), "center"=>rex_i18n::msg('a1620_mod_align_center'), "right"=>rex_i18n::msg('a1620_mod_align_right'));
-                    
-                    foreach ($arr as $key=>$value):
-                        $sel = ($key == @$options['header_align']) ? 'selected="selected"' : '';
-                        echo '<option value="'.$key.'" '.$sel.'>'.$value.'</option>';
-                    endforeach;
-                    ?>
-                    </select>
-                </dd>
-            </dl>
-            
-        </div>
-        <?php endif; ?>
+    
+        <?php
+        if ($useSettingPlugin):
+			//Optionen anzeigen
+			echo '<div class="hiddenOpt gridblockoptions" id="gridblockoptions">';
+	
+				//Plugin contentsettings
+				//wird über Ajax nachgeladen
+			
+			echo '</div>';
+        endif;
+		?>
         
     </fieldset>
     
@@ -254,8 +219,8 @@ $(function(){
 			$('input#gridblock-selectedColumnNames').val(colnames);
 			$('div.gridblock').removeClass('noGridTemplate');
 			
-			gridblock_showGridTemplate(id);
-			gridblock_showGridColumns(cols);
+			gridblock_showGridTemplate();			//gridblock_showGridTemplate(id);
+			gridblock_showGridColumns();			//gridblock_showGridColumns(cols);
 		}
 		
 		$('#gridblockModal').modal('hide');
@@ -417,21 +382,25 @@ function gridblock_setGridSortedSlices(colID) {
 //Spalten je nach Template setzen
 function gridblock_showGridColumns(cols) {
 	var maxcols = <?php echo $this->maxCols; ?>;
+	var templateID = parseInt($('#gridblock-selectedTemplate').val());
 	var cols = parseInt($('#gridblock-selectedColumns').val());
 	var colnames = $('#gridblock-selectedColumnNames').val();
-		colnames = (colnames.length > 5) ? JSON.parse(decodeURIComponent(colnames)) : '';
+		colnames = (colnames.length > 5) ? JSON.parse( decodeURIComponent( colnames.replace(/\+/g, '%20') ) ) : '';
 	
 	var colsset = 0;
 	for (var i=1; i <= maxcols; ++i) {
 		if (i <= cols) {
-			$('#gridblockTab'+i).show();
+			var colID = i;
+			
+			$('#gridblockTab'+colID).show();
 			
 			<?php if ($config['previewtabnames'] == 'checked'): ?>
-				//Spaltenname aus Layoutvorschau nutzen
-				tabname = colnames[i-1];
-				if (tabname != undefined && tabname != "") { $('a[href="#gridblockCol'+i+'"]').text(tabname); }
+			//Spaltenname aus Layoutvorschau nutzen
+			tabname = colnames[colID-1];
+			if (tabname != undefined && tabname != "") { $('a[href="#gridblockCol'+colID+'"]').text(tabname); }
 			<?php endif; ?>
 			
+			gridblock_loadContentSettings(templateID, colID);
 			colsset+=1;
 		} else {
 			$('#gridblockTab'+i).hide();
@@ -451,6 +420,51 @@ function gridblock_showGridTemplate(id) {
 	if (id > 0) {
 		html = $('#gridblock-template'+id).prop("outerHTML");
 		if (html != undefined && html.length > 10) { $('div#gridblock-template').html(html); }
+		
+		gridblock_loadContentSettings(id);
+	}
+}
+
+
+//contentSettings per Ajax nachladen
+function gridblock_loadContentSettings(templateID, colID = 0) {
+	var templateID = parseInt(templateID);
+	var colID = parseInt(colID);
+	
+	<?php if ($useSettingPlugin): ?>
+	if (templateID > 0) {
+		var dst = (colID <= 0) ? $('#gridblockoptions') : $('#grid-coloptions'+colID);
+		
+		$.ajax({
+			url: 'index.php?page=structure&rex-api-call=gridblock_loadContentSettings&templateid=' +templateID+ '&colid=' +colID,
+		}).done(function(data) {
+			//contentOptions ausgeben
+			dst.html(data);
+			gridblock_showHideContentSettings(data.length, templateID, colID);
+			
+			$('body').trigger('rex:ready', [$('body')]);					//macht Probleme -> setzt die Spalten-Navigation zurück
+			$(document).trigger('ready');
+			$(document).trigger('pjax:success');
+		}).fail(function() {
+			dst.html('<div class="alert alert-danger"><?php echo rex_i18n::msg('a1620_mod_error_loadcontentoptions'); ?></div>');
+		})
+	}
+	<?php endif; ?>
+}
+
+
+//Settings anzeigen/ausblenden
+function gridblock_showHideContentSettings(datalen, templateID, colID = 0) {
+	var datalen = parseInt(datalen);
+	var templateID = parseInt(templateID);
+	var colID = parseInt(colID);
+
+	if (datalen > 0 && templateID > 0) {
+		if (colID == 0) { $('.gridblock-top a.btn-options').css('display', 'inline-flex'); }
+		if (colID > 0) { $('#gridblockColumnWrapper'+colID+' div.optionstoggler').show(); }
+	} else {
+		if (colID == 0) { $('.gridblock-top a.btn-options, .gridblock-top .gridblockoptions').hide(); }
+		if (colID > 0) { $('#gridblockColumnWrapper'+colID+' div.optionstoggler, #gridblockColumnWrapper'+colID+' .gridcolumnoptions').hide(); }
 	}
 }
 

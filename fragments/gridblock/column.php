@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Fragment für Moduleingabe (BE - innerer Spalteninhalt)
-	v0.8
+	v1.0
 	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
 	
 	
@@ -11,20 +11,23 @@
 	17		Templateauswahl & -optionen
 	18		weitere Optionen (ehemals [13])
 	19		ausgewählte Inhaltsmodule aller Spalten
-	20		reserviert für Blocksettings
+	20		reserviert für Plugin contentsettings
 */
 
 //Vorgaben
-$config = rex_addon::get('gridblock')->getConfig('config');
+$config = rex_addon::get('gridblock')->getConfig('config');															//Addon-Eisntellungen holen
 
 $template =	isset($this->values[17]) ? rex_var::toArray($this->values[17]) : array();								//liefert kein Array zurück wenn leer / REX_INPUT_VALUE[17][name]
 $options = 	isset($this->values[18]) ? rex_var::toArray($this->values[18]) : array();								//liefert kein Array zurück wenn leer / REX_INPUT_VALUE[18][name]
 $modules = 	isset($this->values[19]) ? rex_var::toArray($this->values[19]) : array();								//liefert kein Array zurück wenn leer / REX_INPUT_VALUE[19][name]
+$settings = isset($this->values[18]) ? $this->values[18] : "";
+	$_SESSION['gridContentSettings'] = $settings;
 
 
 $colID = $this->id;
 
-$useoptions = (@$config['useoptions'] == 'checked') ? true : false;
+
+$useSettingPlugin = ( rex_plugin::get('gridblock', 'contentsettings')->isAvailable() ) ? true : false;
 ?>
 
 <div id="gridblockColumnWrapper<?php echo $colID; ?>">
@@ -32,68 +35,18 @@ $useoptions = (@$config['useoptions'] == 'checked') ? true : false;
     <div class="column-settings">
     	<span><?php echo rex_i18n::msg('a1620_mod_columnintro'); ?></span>
 
-        
-        <?php if ($useoptions): ?>
-        <!-- Optionen -->
-        <div class="hiddenOpt" id="grid-coloptions<?php echo $colID; ?>">
-            <dl class="rex-form-group form-group">&nbsp;</dl>
-        
-    
-            <dl class="rex-form-group form-group">
-                <dt><label for=""><?php echo rex_i18n::msg('a1620_mod_valign'); ?>:</label></dt>
-                <dd>
-                    <select name="REX_INPUT_VALUE[18][valign][<?php echo $colID; ?>]" class="form-control">
-                    <?php
-                    $arr = array(	"normal"=>rex_i18n::msg('a1620_mod_valign_normal'), 
-                                    "start"=>rex_i18n::msg('a1620_mod_valign_top'), 
-                                    "center"=>rex_i18n::msg('a1620_mod_valign_center'), 
-                                    "end"=>rex_i18n::msg('a1620_mod_valign_bottom')
-                                );
-                    
-                    foreach ($arr as $key=>$value):
-                        $sel = ($key == @$options['valign'][$colID]) ? 'selected="selected"' : '';
-                        echo '<option value="'.$key.'" '.$sel.'>'.$value.'</option>';
-                    endforeach;
-                    ?>
-                    </select>
-                </dd>
-            </dl>
-        
-    
-            <dl class="rex-form-group form-group">
-                <dt><label for=""><?php echo rex_i18n::msg('a1620_mod_paddingcss'); ?>:</label></dt>
-                <dd>
-                    <select name="REX_INPUT_VALUE[18][paddingcss][<?php echo $colID; ?>]" class="form-control">
-                    <?php
-                    $arr = array(	""=>rex_i18n::msg('a1620_mod_paddingcss_none'), 
-                                    "sm"=>rex_i18n::msg('a1620_mod_paddingcss_small'), 
-                                    "md"=>rex_i18n::msg('a1620_mod_paddingcss_medium'), 
-                                    "lg"=>rex_i18n::msg('a1620_mod_paddingcss_large')
-                                );
-                    
-                    foreach ($arr as $key=>$value):
-                        $sel = ($key == @$options['paddingcss'][$colID]) ? 'selected="selected"' : '';
-                        echo '<option value="'.$key.'" '.$sel.'>'.$value.'</option>';
-                    endforeach;
-                    ?>
-                    </select>
-                </dd>
-            </dl>
-            
-    
-            <dl class="rex-form-group form-group">
-                <dt><label for=""><?php echo rex_i18n::msg('a1620_mod_bgcolor'); ?>:</label></dt>
-                <dd>        
-                    <div class="input-group gridblock-colorinput-group"><input data-parsley-excluded="true" type="text" name="REX_INPUT_VALUE[18][bgcol][<?php echo $colID; ?>]" value="<?php echo @$options['bgcol'][$colID]; ?>" maxlength="7" placeholder="Bsp: #11AA99" pattern="^#([A-Fa-f0-9]{6})$" class="form-control"><span class="input-group-addon gridblock-colorinput"><input type="color" value="<?php echo @$options['bgcol'][$colID]; ?>" pattern="^#([A-Fa-f0-9]{6})$" class="form-control"></span></div>
-                </dd>
-            </dl>
-    
-        </div>
-        
-        
-        <!-- Optionen-Toggler -->
-        <div class="optionstoggler" onclick="jQuery('#grid-coloptions<?php echo $colID; ?>').slideToggle();" title="<?php echo rex_i18n::msg('a1620_mod_column_options'); ?>">.....</div>
-        <?php endif; ?>
+        <?php
+        if ($useSettingPlugin):
+			//Optionen anzeigen
+			echo '<div class="hiddenOpt gridcolumnoptions" id="grid-coloptions'.$colID.'">';
+
+				//Plugin contentsettings
+				//wird über Ajax nachgeladen
+			
+			echo '</div>';
+			echo '<div class="optionstoggler" onclick="jQuery(\'#grid-coloptions'.$colID.'\').slideToggle();" title="'.rex_i18n::msg('a1620_mod_column_options').'">.....</div>';
+        endif;
+		?>
         
     </div>
     

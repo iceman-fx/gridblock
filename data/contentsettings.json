@@ -1,0 +1,163 @@
+{
+	"template": {
+		"showOptions": [
+			"gutter", "padding", "divider", "bgcolor", "bgimage", "divider", "width", "width_inner", "divider", "header", "header_align", "header_type", "divider", "class"
+		]		
+	},
+	
+	"columns": {
+		"showOptions": [
+			"valign", "padding", "divider", "bgcolor", "bgimage", "divider", "class"
+		]
+	},
+	
+	"options": [
+		{
+			"key": "gutter",
+			"label": "Spaltenabstände",
+			"placeholder": "",
+			"type": "select",
+			"data": {
+				"": "- kein Abstand -",
+				"gutter-1px": "1 Pixel",
+				"gutter-sm": "klein",
+				"gutter-md": "mittel",
+				"gutter-lg": "groß"
+			},
+			"default": ""
+		},
+		
+		{
+			"key": "padding",
+			"label": "Abstand innen",
+			"placeholder": "",
+			"type": "select",
+			"data": {
+				"": "- kein Abstand -",
+				"padding-sm": "klein",
+				"padding-md": "mittel",
+				"padding-lg": "groß"
+			},
+			"default": ""
+		},
+		
+		{
+			"key": "width",
+			"label": "Breite",
+			"placeholder": "",
+			"type": "select",
+			"data": {
+				"": "- volle Breite -",
+				"width-default": "Standardbreite",
+				"width-500": "500 Pixel",
+				"width-600": "600 Pixel",
+				"width-700": "700 Pixel",
+				"width-800": "800 Pixel",
+				"width-900": "900 Pixel",
+				"width-1000": "1000 Pixel",
+				"width-1100": "1100 Pixel",
+				"width-1200": "1200 Pixel"
+			},
+			"default": ""
+		},
+		
+		{
+			"key": "valign",
+			"label": "Vertikale Ausrichtung",
+			"placeholder": "",
+			"type": "select",
+			"data": {
+				"": "- normal -",
+				"valign-start": "oben",
+				"valign-center": "mitte",
+				"valign-end": "unten"
+			},
+			"default": ""
+		},
+		
+		{
+			"key": "width_inner",
+			"label": "Innere Breite (alle Spalten)",
+			"placeholder": "",
+			"type": "select",
+			"data": {
+				"": "- volle Breite -",
+				"width-default": "Standardbreite",
+				"width-500": "500 Pixel",
+				"width-600": "600 Pixel",
+				"width-700": "700 Pixel",
+				"width-800": "800 Pixel",
+				"width-900": "900 Pixel",
+				"width-1000": "1000 Pixel",
+				"width-1100": "1100 Pixel",
+				"width-1200": "1200 Pixel"
+			},
+			"default": ""
+		},
+
+		{
+			"key": "bgcolor",
+			"label": "Hintergrundfarbe",
+			"type": "colorpicker",
+			"placeholder": "Bsp: #11AA99"
+		},
+		
+		{
+			"key": "bgimage",
+			"label": "Hintergrundbild",
+			"type": "media",
+			"preview": "1",
+			"types": "gif,jpg,jpeg,png"
+		},
+	
+		{
+			"key": "header",
+			"label": "Überschrift",
+			"placeholder": "",
+			"type": "text"
+		},
+		
+		{
+			"key": "header_align",
+			"label": "Überschrift Ausrichtung",
+			"placeholder": "",
+			"type": "select",
+			"data": {
+				"left": "links",
+				"center": "mittig",
+				"right": "rechts"
+			},
+			"default": "left"
+		},
+		
+		{
+			"key": "header_type",
+			"label": "Überschrift Typ",
+			"placeholder": "",
+			"type": "select",
+			"data": {
+				"h2": "H2",
+				"h3": "H3",
+				"h4": "H4",
+				"h5": "H5",
+				"h6": "H6"
+			},
+			"default": "h2"
+		},
+	
+		{
+			"key": "class",
+			"label": "CSS-Klasse",
+			"placeholder": "",
+			"type": "text"
+		},
+		
+		{
+			"key": "divider",
+			"label": "",
+			"type": "html",
+			"text": "<div style='height: 20px;'></div>"
+		}
+		
+	]
+}

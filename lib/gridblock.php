@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Grid-Basisklasse
-	v0.8
+	v1.0
 	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
 */
 
@@ -22,8 +22,10 @@ class rex_gridblock {
     private $modules = [];					//array
 
 	public $maxCols = 12;					//int
+	
 
-    public function getModules() {
+    public function getModules()
+	{
         $sql = rex_sql::factory();
 		
 		//Standard-Modulauswahl holen
@@ -65,17 +67,20 @@ class rex_gridblock {
     }
 	
 
-    public function ignoreModule($moduleID) {
+    public function ignoreModule($moduleID)
+	{
 		$this->checkModule($moduleID, 'ignore');
     }
 
 
-    public function allowModule($moduleID) {
+    public function allowModule($moduleID)
+	{
 		$this->checkModule($moduleID, 'allow');
     }
 
 
-    private function checkModule($moduleID, $type = 'allow') {
+    private function checkModule($moduleID, $type = 'allow')
+	{
 		if (is_array($moduleID)):
 			foreach ($moduleID as $mid):
 				if (!empty($mid)):
@@ -97,7 +102,8 @@ class rex_gridblock {
     }
 	
 
-    public function getModuleInput() {
+    public function getModuleInput()
+	{
         $this->modules = self::getModules();
         $cols = [];
 
@@ -117,7 +123,8 @@ class rex_gridblock {
     }
 	
 
-    private function genCol($id) {
+    private function genCol($id)
+	{
         $fragment = new rex_fragment();
         $fragment->setVar('id', $id, true);
         $fragment->setVar('modules', $this->modules, false);
@@ -156,7 +163,8 @@ class rex_gridblock {
     }
 
 
-    public function getModuleOutput() {
+    public function getModuleOutput()
+	{
         $fragment = new rex_fragment();
         $fragment->setVar('maxCols', $this->maxCols, false);
 		$fragment->setVar('values', $this->values, false);
@@ -166,7 +174,8 @@ class rex_gridblock {
     }
 	
 
-    public static function getBlankValues() {
+    public static function getBlankValues()
+	{
         $values = [];
 		
         for ($i = 1; $i <= 20; ++$i):
@@ -192,3 +201,4 @@ class rex_gridblock {
         return $values;
     }
 }
+?>

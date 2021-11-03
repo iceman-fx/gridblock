@@ -1,6 +1,6 @@
 # addon: gridblock de_de
 
-a1620_title = Gridblock-Modul
+a1620_title = Gridblock
 
 a1620_default = Layoutvorlagen
 a1620_cat = Vorlagengruppen
@@ -27,7 +27,7 @@ a1620_bas_title = Titel / Bezeichnung
 a1620_bas_description = Kurzbeschreibung
 a1620_bas_columns = Anzahl Spalten
 a1620_bas_template = Template-Ausgabecode
-a1620_bas_template_placeholder = Mögliche Platzhalter: REX_GRID[1] ... REX_GRID[16]
+a1620_bas_template_placeholder = Mögliche Platzhalter: REX_GRID[1] ... REX_GRID[12]
 a1620_bas_preview = Definition Layoutvorschau (JSON)
 a1620_bas_preview_example = Beispiel einfügen ...
 a1620_bas_priority = Priorität
@@ -39,6 +39,11 @@ a1620_bas_list_columns = Spalten
 a1620_bas_list_preview = Layoutvorschau
 a1620_bas_list_priority = Prio
 
+a1620_bas_list_btn_createtemplate = Beispieltemplates erstellen
+a1620_bas_list_btn_importtemplate = Eigene Templates importieren
+a1620_bas_list_modal_import = Importieren
+a1620_bas_list_modal_text = Wählen Sie das ZIP-Archiv mit Ihren Templatedefinitionen aus und starten den Vorgang mit "Importieren".
+
 
 # Seite: Einstellungen
 a1620_config_modulesmode = Modus für Inhaltsmodule
@@ -49,11 +54,11 @@ a1620_config_showtemplatetitles = Layoutvorlagen
 a1620_config_showtemplatetitles_info = Kurzbeschreibung in Auswahl Layoutvorlagen ausgeben
 a1620_config_previewtabnames = Spaltenbezeichnungen
 a1620_config_previewtabnames_info = Spaltenbezeichnungen aus Definition Layoutvorschau nutzen
-a1620_config_useoptions = Native Optionen
-a1620_config_useoptions_info = Native Optionen für Block & Spalten aktivieren
 
 
 # Modulausgabe
+a1620_mod_template_empty = - keine Vorlage ausgewählt -
+a1620_mod_template_notselected = Bisher wurde keine Layoutvorlage ausgewählt.
 a1620_mod_template = Layoutvorlage
 a1620_mod_template_options = Weitere Blockoptionen ...
 a1620_mod_template_modal = Layoutvorlage wählen
@@ -76,31 +81,8 @@ a1620_mod_move_modul_down = Nach oben verschieben
 a1620_mod_move_modul_drag = per Drag´n´Drop verschieben
 a1620_mod_confirm_delete = Block wirklich löschen?
 
-a1620_mod_gutter = Abstand Spalten
-a1620_mod_gutter_v = oben/unten
-a1620_mod_gutter_h = links/rechts
-
-a1620_mod_align_left = links
-a1620_mod_align_center = mitte
-a1620_mod_align_right = rechts
-
-a1620_mod_valign = Ausrichtung Inhalte
-a1620_mod_valign_normal = normal
-a1620_mod_valign_top = oben
-a1620_mod_valign_center = mitte
-a1620_mod_valign_bottom = unten
-a1620_mod_bgcolor = Hintergrundfarbe
-a1620_mod_paddingcss = Abstand innen
-a1620_mod_paddingcss_none = - kein Abstand -
-a1620_mod_paddingcss_small = klein
-a1620_mod_paddingcss_medium = mittel
-a1620_mod_paddingcss_large = groß
-
-a1620_mod_header1 = Blocküberschrift
-a1620_mod_header2 = Zeile 2
-a1620_mod_header_align = Ausrichtung Überschrift
-
 a1620_mod_error_loadmodule = Beim Laden ist ein Fehler aufgetreten.
+a1620_mod_error_loadcontentoptions = Beim Laden der Optionen ist ein Fehler aufgetreten.
 
 
 # Sonstige Vorgaben
@@ -162,3 +144,7 @@ a1620_error_saved = Fehler beim Speichern
 a1620_error_deleted = Fehler beim Löschen
 a1620_error_setstatus = Fehler beim Statusändern
 a1620_error_setstatus_info = Hinweis: Status wegen bestehender Zuweisung nicht geändert!
+
+a1620_templates_imported = Templatearchiv erfolgreich importiert
+a1620_error_templates_notimported = Das Templatearchiv konnte nicht importiert werden.
+a1620_error_templates_fileerror = Beim Übertragen des Templatearchives trat ein Fehler auf.

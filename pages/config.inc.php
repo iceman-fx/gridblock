@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Verwaltung: Einstellungen (config)
-	v0.8
+	v1.0
 	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
 */
 
@@ -19,11 +19,10 @@ if ($func == "save" && isset($_POST['submit'])):
 
 	//Konfig speichern
 	$res = $this->setConfig('config', [
-		'modulesmode'			=> rex_post('modulesmode'),
-		'modules'				=> '#'.$mods.'#',
-		'previewtabnames'		=> rex_post('previewtabnames'),
-		'useoptions'			=> rex_post('useoptions'),
-		'showtemplatetitles'	=> rex_post('showtemplatetitles'),		
+		'modulesmode'				=> rex_post('modulesmode'),
+		'modules'					=> '#'.$mods.'#',
+		'previewtabnames'			=> rex_post('previewtabnames'),
+		'showtemplatetitles'		=> rex_post('showtemplatetitles'),		
 	]);
 
 	//Rückmeldung
@@ -111,22 +110,28 @@ endif;
                     </div>
                 </dd>
             </dl>
-           
-            
-            <dl class="rex-form-group form-group">
-                <dt><label for=""><?php echo $this->i18n('a1620_config_useoptions'); ?></label></dt>
-                <dd>
-                    <div class="checkbox toggle">
-						<label for="useoptions">
-                        	<input type="checkbox" name="useoptions" id="useoptions" value="checked" <?php echo @$config['useoptions']; ?> /> <?php echo $this->i18n('a1620_config_useoptions_info'); ?>
-						</label>
-                    </div>
-                </dd>
-            </dl>
             
 
 		</div>
-
+        
+        
+		<script type="text/javascript">
+		$(function() {
+			$('.hiddencontent').not('.checked').hide();
+			
+			$('input[data-opener]').change(function(){
+				dst = $(this).attr('data-opener');
+				
+				if (dst != undefined && dst.length > 2) {
+					if ($(this).is(':checked')) {
+						$(dst).slideDown();
+					} else {
+						$(dst).slideUp();
+					}
+				}
+			});
+		});
+        </script>
         
 		
 		<footer class="panel-footer">

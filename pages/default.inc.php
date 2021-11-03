@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Verwaltung: default
-	v0.8
+	v1.0
 	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
 */
 
@@ -49,16 +49,18 @@ if ($func == "save" && (isset($_POST['submit']) || isset($_POST['submit-apply'])
 		$db->setValue("preview", 		rex_post('f_preview'));
 
 		if ($id > 0):
+			$db->addGlobalUpdateFields();						//Standard Datumsfelder hinzufügen
 			$db->setWhere("id = '".$id."'");
 			$dbreturn = $db->update();
 			$lastID = $id;
 				
 			$form_error = (isset($_POST['submit-apply'])) ? 1 : $form_error;
 		else:
+			$db->addGlobalCreateFields();						//Standard Datumsfelder hinzufügen
 			$dbreturn = $db->insert();
 			$lastID = $db->getLastId();
 		endif;
-
+		
 		if ($dbreturn):
 			//gespeichert
 			echo rex_view::info($this->i18n('a1620_entry_saved'));
@@ -146,6 +148,8 @@ elseif ($func == "duplicate" && $id > 0):
 		endforeach;
 		
 		$dbreturn = $db->insert();
+
+		$lastID = $db->getLastId();
 	endif;
 
 elseif ($func == "insert_default_templates"):
@@ -155,6 +159,23 @@ elseif ($func == "insert_default_templates"):
 	
 	if ($db->getRows() <= 0):
 		rex_sql_util::importDump($this->getPath('install/install.sql'));
+	endif;
+
+elseif ($func == "import_templatearchive"):
+	//Templatearchiv importieren
+	if ($_FILES["importfile"]["error"] > 0):
+		echo rex_view::warning($this->i18n('a1620_error_templates_fileerror'));
+		
+		echo "<!--\n";
+		echo "Importfehler:\n";
+		print_r($_FILES["importfile"]["error"]);
+		echo "\n-->\n";
+	else:
+		if (rex_gridblock_helper::importTemplateArchive($_FILES["importfile"])):
+			echo rex_view::info($this->i18n('a1620_templates_imported'));
+		else:
+			echo rex_view::warning($this->i18n('a1620_error_templates_notimported'));
+		endif;
 	endif;
 
 endif;
@@ -356,11 +377,18 @@ else:
 			<tr>
 				<td class="td1" valign="middle">
 				<?php
+				//Button für Import Beispieltemplates
 				$db = rex_sql::factory();
 				$db->setQuery("SELECT id FROM ".rex::getTable('1620_gridtemplates'));
 				
 				if ($db->getRows() <= 0):
-					echo '<div class="btn-group btn-group-xs"><a href="index.php?page='.$page.'&amp;func=insert_default_templates" class="btn btn-default">Beispieltemplates erstellen</a></div>';
+					?>
+                    
+					<div class="btn-group btn-group-xs"><a href="index.php?page=<?php echo $page; ?>&amp;func=insert_default_templates" class="btn btn-default"><?php echo $this->i18n('a1620_bas_list_btn_createtemplate'); ?></a></div>
+					
+					<div class="btn-group btn-group-xs"><a data-toggle="modal" data-target="#gridblockModal" class="btn btn-default"><?php echo $this->i18n('a1620_bas_list_btn_importtemplate'); ?></a></div>
+                    
+                    <?php
 				else:
 					echo '&nbsp;';
 				endif;
@@ -408,4 +436,37 @@ else:
 
 <?php
 endif;
+
+
+//alle Templates synchronisieren
+if ( rex_plugin::get('gridblock', 'synchronizer')->isAvailable() ):
+	GridblockSynchronizer::sync();
+endif;
 ?>
+
+
+<!-- Modalfenster Import Template-Archive -->
+<div class="modal fade bd-example-modal-lg gridblock-modal" id="gridblockModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><?php echo rex_i18n::msg('a1620_bas_list_btn_importtemplate'); ?></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
+            </div>
+            
+            <form action="index.php?page=<?php echo $page; ?>&amp;func=import_templatearchive" method="post" enctype="multipart/form-data">
+            <div class="modal-body">
+                <?php echo rex_i18n::msg('a1620_bas_list_modal_text'); ?>
+                
+				<dl class="rex-form-group form-group"><dt></dt></dl>
+                <dl class="rex-form-group form-group"><dt></dt></dl>
+                
+                <input type="file" name="importfile" />
+                
+                <dl class="rex-form-group form-group"><dt></dt></dl>
+            </div>
+            <div class="modal-footer"><button type="submit" class="btn btn-save"><?php echo rex_i18n::msg('a1620_bas_list_modal_import'); ?></button></div>
+            </form>
+        </div>
+    </div>
+</div>

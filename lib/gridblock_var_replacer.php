@@ -2,14 +2,14 @@
 /*
 	Redaxo-Addon Gridblock
 	VAR-Replacer (REX-VARS und Widget-Buttons umschreiben)
-	v0.8
+	v1.0
 	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
 */
 
 class rex_gridblock_var_replacer
 {
-    public static function replaceVars($colID, $moduleContent, $uID, $rexVars = array()) {
-
+    public static function replaceVars($colID, $moduleContent, $uID, $rexVars = array())
+	{
         $moduleContent = self::replaceInput($colID, $moduleContent, $uID);
         $moduleContent = self::replaceMedia($colID, $moduleContent, $uID);
         $moduleContent = self::replaceMediaList($colID, $moduleContent, $uID);
@@ -19,6 +19,7 @@ class rex_gridblock_var_replacer
 		
         return $moduleContent;
     }
+	
 
     private static function replaceInput($colID, $moduleContent, $uID)
     {
@@ -27,6 +28,7 @@ class rex_gridblock_var_replacer
 
         return $moduleContent;
     }
+	
 
     private static function replaceMedia($colID, $moduleContent, $uID)
     {
@@ -42,6 +44,7 @@ class rex_gridblock_var_replacer
 		
         return $moduleContent;
     }
+	
 
     private static function replaceMediaList($colID, $moduleContent, $uID)
     {
@@ -60,6 +63,7 @@ class rex_gridblock_var_replacer
 		
         return $moduleContent;
     }
+	
 
     private static function replaceLink($colID, $moduleContent, $uID)
     {
@@ -77,6 +81,7 @@ class rex_gridblock_var_replacer
 		
         return $moduleContent;
     }
+	
 
     private static function replaceLinkList($colID, $moduleContent, $uID)
     {
@@ -93,6 +98,7 @@ class rex_gridblock_var_replacer
 		
         return $moduleContent;
     }
+	
 
     public static function replaceModuleVars($moduleContent, $rexVars)
     {
@@ -107,3 +113,4 @@ class rex_gridblock_var_replacer
         return $moduleContent;
     }
 }
+?>

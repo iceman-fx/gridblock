@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Ein-/Ausgabesteuerung der Inhaltsmodule
-	v0.8
+	v1.0
 	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
 */
 
@@ -189,12 +189,15 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 		*/
 
 		//additional values from the source-column
+		/*
         if (isset($values['COLUMN'])) {
             foreach ($values['COLUMN'] as $i => $value) {
                 $this->values['column_'.strtolower($i)] = $value;
             }
         }
+		*/
     }
+
 
     public function getModuleOutput($moduleID, $uID, $rexVars = array())
 	{
@@ -231,11 +234,11 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 			//Variablen ersetzen
 			$op = $MOD->getValue('output');
 				$op = rex_gridblock_var_replacer::replaceModuleVars($op, $rexVars);																//zuerst die RexVars ersetzen
-				$op = str_replace("COLUMN_ID", 			str_replace('"', "&quot;", $this->values['column_id']), $op);
-				//$op = str_replace("COLUMN_WIDTH", 		str_replace('"', "&quot;", $this->values['column_width']), $op);
-				$op = str_replace("COLUMN_VALIGN", 		str_replace('"', "&quot;", $this->values['column_valign']), $op);
 				
 				/*
+				$op = str_replace("COLUMN_ID", 			str_replace('"', "&quot;", $this->values['column_id']), $op);
+				$op = str_replace("COLUMN_WIDTH", 		str_replace('"', "&quot;", $this->values['column_width']), $op);
+				$op = str_replace("COLUMN_VALIGN", 		str_replace('"', "&quot;", $this->values['column_valign']), $op);
 				$op = str_replace("COLUMN_PADDING", 	str_replace('"', "&quot;", $this->values['column_padding']), $op);
 				$op = str_replace("COLUMN_PADDINGCSS", 	str_replace('"', "&quot;", $this->values['column_paddingcss']), $op);
 				*/
@@ -247,3 +250,4 @@ class rex_article_content_gridblock extends rex_article_content_editor {
         return $slice_content;
     }
 }
+?>

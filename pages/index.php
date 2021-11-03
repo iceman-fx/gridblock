@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Verwaltung: index
-	v0.8
+	v1.0
 	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
 */
 
@@ -41,6 +41,7 @@ td.name { position: relative; padding-right: 20px !important; }
 .toggler { width: 15px; height: 12px; position: absolute; top: 10px; right: 3px; }
 .toggler a { display: block; height: 11px; background-image: url(../assets/addons/<?php echo $mypage; ?>/arrows.png); background-repeat: no-repeat; background-position: center -6px; cursor: pointer; }
 .required { font-weight: bold; }
+.nobold { font-weight: normal; }
 .inlinelabel { display: inline !important; width: auto !important; float: none !important; clear: none !important; padding: 0px  !important; margin: 0px !important; font-weight: normal !important; }
 .inlineform { display: inline-block !important; }
 .form_auto { width: auto !important; }
@@ -94,6 +95,8 @@ td.name { position: relative; padding-right: 20px !important; }
 .addon_input-group-field {}
 .addon_input-group-btn {}
 
+.addon_search .btn-group-xs { margin-right: 7px; }
+
 .info { font-size: 0.825em; font-weight: normal; }
 .info-labels { display: inline-block; padding: 3px 6px; background: #EAEAEA; margin-right: 5px; font-size: 0.80em; }
 	.info-green { background: #360; color: #FFF; }
@@ -121,6 +124,12 @@ span.ajaxNavSel { background-color: #CCC; }
 .radio.switch label input::before { background: #5791CE; opacity: 0; box-shadow: none; }
 	.radio.switch label input:checked::before { animation: radioswitcheffect 0.65s; }
 @keyframes radioswitcheffect { 0% { opacity: 0.75; } 100% { opacity: 0; transform: scale(2.5); } }
+
+.optionsblock { display: inline-block; vertical-align: top; min-width: 182px; margin: 0px 23px 18px 0px; padding: 7px 14px; transition: all .3s ease; }
+	.optionsblock:hover { background: #FFF; }
+.optionsblock label { margin-right: 0px !important; }
+.optionsblock ul { list-style: none; margin: 0px; padding: 0px;}
+.optionsblock li { margin: 0px 0px 5px; }
 </style>
 
 <script type="text/javascript">

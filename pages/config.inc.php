@@ -74,7 +74,7 @@ endif;
 					<select name="modules[]" id="modules" size="10" multiple class="form-control">
 					<?php
                     $db = rex_sql::factory();
-                    $db->setQuery("SELECT id, name FROM ".rex::getTable('module')." ORDER BY name, id");
+                    $db->setQuery('SELECT id, name FROM '.rex::getTable('module').' WHERE input NOT LIKE "%/* GRID_MODULE_IDENTIFIER | DONT REMOVE */%" ORDER BY name, id');
                     
                     foreach ($db as $dbi):
 						$sel = (preg_match("/#".$dbi->getValue('id')."#/i", @$config['modules'])) ? 'selected="selected"' : '';

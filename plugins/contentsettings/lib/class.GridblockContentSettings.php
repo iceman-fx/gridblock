@@ -241,7 +241,7 @@
                                     if (isset($aOption["placeholder"])) {
                                         $sPlaceholder = 'placeholder="' . $aOption['placeholder'] . '"';
                                     }
-                                    $sForm .= '<dd><div class="input-group gridblock-colorinput-group"><input data-parsley-excluded="true" type="text" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="' . @$aSavedOptions[$sType][$sKey] . '" maxlength="7" placeholder="' . $sPlaceholder . '" pattern="^#([A-Fa-f0-9]{6})$" class="form-control novinet"><span class="input-group-addon gridblock-colorinput"><input type="color" value="' . @$aSavedOptions[$sType][$sKey] . '" pattern="^#([A-Fa-f0-9]{6})$" class="form-control"></span></div>' . PHP_EOL;
+                                    $sForm .= '<dd><div class="input-group gridblock-colorinput-group"><input data-parsley-excluded="true" type="text" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="' . @$aSavedOptions[$sType][$sKey] . '" maxlength="7" ' . $sPlaceholder . ' pattern="^#([A-Fa-f0-9]{6})$" class="form-control novinet"><span class="input-group-addon gridblock-colorinput"><input type="color" value="' . @$aSavedOptions[$sType][$sKey] . '" pattern="^#([A-Fa-f0-9]{6})$" class="form-control"></span></div>' . PHP_EOL;
                                     break;
 
                                 case "select":

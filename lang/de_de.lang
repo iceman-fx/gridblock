@@ -56,6 +56,8 @@ a1620_config_previewtabnames = Spaltenbezeichnungen
 a1620_config_previewtabnames_info = Spaltenbezeichnungen aus Definition Layoutvorschau nutzen
 a1620_config_hidepreviewcoltitles = Layoutvorschau Spalten
 a1620_config_hidepreviewcoltitles_info = Spaltenbezeichnungen nicht in Vorschau ausgeben
+a1620_config_hideinfotexts = Einleitungstexte
+a1620_config_hideinfotexts_info = Einleitungs- & Informationstexte im Modul verbergen
 
 
 # Modulausgabe

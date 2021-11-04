@@ -149,4 +149,5 @@ a1620_error_setstatus_info = Hinweis: Status wegen bestehender Zuweisung nicht g
 
 a1620_templates_imported = Templatearchiv erfolgreich importiert
 a1620_error_templates_notimported = Das Templatearchiv konnte nicht importiert werden.
+a1620_error_templates_notimported_file_missing = Das Templatearchiv konnte nicht importiert werden, da mindestens eine Datei (template.php, template.json, definition.json) fehlt.
 a1620_error_templates_fileerror = Beim Übertragen des Templatearchives trat ein Fehler auf.

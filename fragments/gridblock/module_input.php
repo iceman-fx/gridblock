@@ -422,7 +422,7 @@ function gridblock_showGridTemplate(id) {
 		capt = $('#gridblock-template'+id).next('.gridblock-preview-caption').prop("outerHTML");
 			capt = (capt != undefined) ? capt : '';
 		
-		if (html != undefined && html.length > 10) { $('div#gridblock-template').html(html+capt); }
+		if (html != undefined && html.length > 10) { $('div#gridblock-template').html(capt+html); }
 		gridblock_loadContentSettings(id);
 	}
 }

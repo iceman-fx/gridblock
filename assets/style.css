@@ -94,7 +94,7 @@ ul.gridblock-moduleselector a { cursor: pointer; }
 	.gridblock-preview > div:last-child { margin-right: 0px; }
 .gridblock-preview span { display: block; color: #FFF; font-size: 9px; align-self: center; text-align: center; width: 100%; word-break: break-word; }
 .gridblock-previewtext span { color: inherit; font-size: 0.85em; }
-.gridblock-preview-caption { font-size: 0.8em; text-align: center; padding: 6px 6px 0px; }
+.gridblock-preview-caption { font-size: 0.8em; text-align: center; padding: 0px 6px 6px; }
 
 .gridblock-previewlist { background: #FFF; padding: 10px; max-height: 180px; overflow: auto; border: 1px solid #c1c9d4; }
 .gridblock-previewlist > div { display: inline-flex; flex-wrap: wrap; flex-direction: column; background: #FFF; vertical-align: top; }

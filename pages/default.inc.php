@@ -167,7 +167,7 @@ elseif ($func == "import_templatearchive"):
 		echo rex_view::warning($this->i18n('a1620_error_templates_fileerror'));
 		
 		echo "<!--\n";
-		echo "Importfehler:\n";
+		echo "Import-Error:\n";
 		print_r($_FILES["importfile"]["error"]);
 		echo "\n-->\n";
 	else:

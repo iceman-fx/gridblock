@@ -24,4 +24,4 @@ siehe CHANGELOG.md des AddOns
 
 Credits
 -------
-Vielen Dank für die tolle Zusammenarbeit Daniel Steffen und für die Grundidee Marcel Kuhmann.
+Vielen Dank für die tolle Zusammenarbeit Daniel Steffen ([@novinet-dsteffen](https://github.com/novinet-dsteffen)) und für die Grundidee Marcel Kuhmann ([@bloep](https://github.com/bloep)).

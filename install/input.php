@@ -17,17 +17,18 @@ $grid->getSliceValues("REX_SLICE_ID");
 //$grid->ignoreModule( array(2) );				//Optional: IDs der nicht auswählbaren Inhaltsmodule als INT oder ARRAY => 1 | array(1,2,3)
 ?>
 
-
+<?php if (!$grid->getConfig("hideinfodescriptions")) { ?>
 Bitte wählen Sie die gewünschte Layoutvorlage aus und hinterlegen Ihre Inhalte in den entsprechenden Spalten. Speichern Sie Ihre Änderungen mit "Block speichern" bzw. "Block übernehmen".
 <br><br>
-
+<?php } ?>
 
 <?php
 echo $grid->getModuleInput();
 ?>
 
-
+<?php if (!$grid->getConfig("hideinfodescriptions")) { ?>
 <br><br>
 <strong>Quickinfo:</strong><br>
 Mit diesem Modul legen Sie an der entsprechenden Stelle verschiedene Inhalte in einem Spaltenraster an.
 <br><br>
+<?php } ?>

@@ -200,5 +200,13 @@ class rex_gridblock {
 		
         return $values;
     }
+
+    public static function getConfig($sKey=null) {
+        $aConfig = rex_addon::get('gridblock')->getConfig('config');
+        if ($sKey != "") {
+            return $aConfig[$sKey];
+        }
+        return $aConfig;
+    }
 }
 ?>

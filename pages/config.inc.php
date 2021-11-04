@@ -24,6 +24,7 @@ if ($func == "save" && isset($_POST['submit'])):
 		'previewtabnames'			=> rex_post('previewtabnames'),
 		'showtemplatetitles'		=> rex_post('showtemplatetitles'),
 		'hidepreviewcoltitles'		=> rex_post('hidepreviewcoltitles'),
+		'hideinfodescriptions'		=> rex_post('hideinfodescriptions'),
 	]);
 
 	//Rückmeldung
@@ -124,6 +125,16 @@ endif;
                 </dd>
             </dl>
             
+            <dl class="rex-form-group form-group">
+                <dt><label for=""><?php echo $this->i18n('a1620_config_hideinfodescriptions'); ?></label></dt>
+                <dd>
+                    <div class="checkbox toggle">
+						<label for="hidepreviewcoltitles">
+                        	<input type="checkbox" name="hideinfodescriptions" id="hideinfodescriptions" value="checked" <?php echo @$config['hideinfodescriptions']; ?> /> <?php echo $this->i18n('a1620_config_hideinfodescriptions_info'); ?>
+						</label>
+                    </div>
+                </dd>
+            </dl>			
 
 		</div>
         

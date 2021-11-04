@@ -14,11 +14,12 @@ $error = "";
 //Vorgaben vornehmen
 if (!$this->hasConfig()):
 	$this->setConfig('config', [
-		'modulesmode'				=> 'allow',
+		'modulesmode'				=> 'ignore',
 		'modules'					=> '',
 		'previewtabnames'			=> '',
 		'showtemplatetitles'		=> '',
 		'hidepreviewcoltitles'		=> '',
+		'hideinfodescriptions'		=> '',
 	]);
 endif;
 
@@ -61,5 +62,8 @@ else:
 	$db2->addGlobalCreateFields();
 	$db2->setValue('name', '01 - Gridblock');
 	$db2->insert();
+	$this->setConfig('config', [
+		'modules' => '#'.$db2->getValue('id').'#'
+	]);
 endif;
 ?>

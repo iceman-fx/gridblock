@@ -59,7 +59,7 @@ if ($db->hasNext()):
 	$db2->update();
 else:
 	$db2->addGlobalCreateFields();
-	$db2->setValue('name', '01 - Grid-Inhalte');
+	$db2->setValue('name', '01 - Gridblock');
 	$db2->insert();
 endif;
 ?>

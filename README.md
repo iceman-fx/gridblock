@@ -25,4 +25,5 @@ siehe CHANGELOG.md des AddOns
 Credits
 -------
 Vielen Dank für die tolle Zusammenarbeit Daniel Steffen.
+
 Vielen Dank für die Grundidee Marcel Kuhmann.

@@ -57,12 +57,12 @@ endif;
 				<dt><label for=""><?php echo $this->i18n('a1620_config_modulesmode'); ?></label></dt>
 				<dd>
                     <div class="radio toggle switch">
-                        <label for="pos1">
-                            <input name="modulesmode" type="radio" value="allow" <?php echo (@$config['modulesmode'] != 'ignore') ? 'checked' : ''; ?> /> <?php echo $this->i18n('a1620_config_modulesmode_allow'); ?>
+                        <label for="mode1">
+                            <input name="modulesmode" type="radio" id="mode1" value="allow" <?php echo (@$config['modulesmode'] != 'ignore') ? 'checked' : ''; ?> /> <?php echo $this->i18n('a1620_config_modulesmode_allow'); ?>
                         </label>
                         
-                        <label for="pos2">
-                            <input name="modulesmode" type="radio" value="ignore" <?php echo (@$config['modulesmode'] == 'ignore') ? 'checked' : ''; ?> /> <?php echo $this->i18n('a1620_config_modulesmode_deny'); ?>
+                        <label for="mode2">
+                            <input name="modulesmode" type="radio" id="mode2" value="ignore" <?php echo (@$config['modulesmode'] == 'ignore') ? 'checked' : ''; ?> /> <?php echo $this->i18n('a1620_config_modulesmode_deny'); ?>
                         </label>
                     </div>
                 </dd>

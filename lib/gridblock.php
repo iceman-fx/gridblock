@@ -26,8 +26,6 @@ class rex_gridblock {
 
     public function getModules()
 	{
-        $sql = rex_sql::factory();
-		
 		//Standard-Modulauswahl holen
 		$config = rex_addon::get('gridblock')->getConfig('config');
 		if (!empty($config['modules'])):
@@ -45,22 +43,28 @@ class rex_gridblock {
 		$where = "";	
 			$where .= (!empty($where_im)) ? " AND $where_im" : '';
 			$where .= (!empty($where_am)) ? " AND $where_am" : '';
-		$where = (!empty($where)) ? '1 '.$where : '0';								//keine Module ausgeben, wenn nichts definiert oder ausgewählt
+		$where = (!empty($where) || @$config['modulesmode'] == 'ignore') ? 'input NOT LIKE "%/* GRID_MODULE_IDENTIFIER | DONT REMOVE */%" '.$where : '0';
 		
-		//dump($where);
-		
-		$sql->setQuery('SELECT id, name, output, input FROM '.rex::getTable('module').' WHERE '.$where.' ORDER BY name, id');
+		//Module aus DB holen und zwischenspeichern
+		$sql = 'SELECT id, name, output, input FROM '.rex::getTable('module').' WHERE '.$where.' ORDER BY name, id';
+		$db = rex_sql::factory();
+		$db->setQuery($sql);
 
         $modules = [];
-        while ($sql->hasNext()):
-            $modules[$sql->getValue('id')] = [
-                'name' => $sql->getValue('name'),
-                'output' => $sql->getValue('output'),
-                'input' => $sql->getValue('input'),
+        while ($db->hasNext()):
+            $modules[$db->getValue('id')] = [
+                'name' => $db->getValue('name'),
+                'output' => $db->getValue('output'),
+                'input' => $db->getValue('input'),
             ];
 			
-            $sql->next();
+            $db->next();
         endwhile;
+		
+		/*
+		echo $sql;
+		dump($modules);
+		*/		
 		
 		$_SESSION['gridAllowedModules'] = $modules;
         return $modules;

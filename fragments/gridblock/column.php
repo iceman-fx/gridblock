@@ -33,9 +33,7 @@ $useSettingPlugin = ( rex_plugin::get('gridblock', 'contentsettings')->isAvailab
 <div id="gridblockColumnWrapper<?php echo $colID; ?>">
 
     <div class="column-settings">
-    	<?php if (!@$config["hideinfodescriptions"]) { ?>
-        <span><?php echo rex_i18n::msg('a1620_mod_columnintro'); ?></span>
-        <?php } ?>
+        <?php if (@$config['hideinfotexts'] != 'checked'): ?><span><?php echo rex_i18n::msg('a1620_mod_columnintro'); ?></span><?php endif; ?>
 
         <?php
         if ($useSettingPlugin):

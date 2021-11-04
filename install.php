@@ -19,7 +19,7 @@ if (!$this->hasConfig()):
 		'previewtabnames'			=> '',
 		'showtemplatetitles'		=> '',
 		'hidepreviewcoltitles'		=> '',
-		'hideinfodescriptions'		=> '',
+		'hideinfotexts'				=> '',
 	]);
 endif;
 
@@ -42,9 +42,8 @@ rex_sql_table::get(rex::getTable('1620_gridtemplates'))
 
 
 //Module anlegen
-$identifier = '/* GRID_MODULE_IDENTIFIER | DONT REMOVE */';
 $db = rex_sql::factory();
-$db->setQuery('SELECT id FROM '.rex::getTable('module').' WHERE input LIKE "%/* GRID_MODULE_IDENTIFIER | DONT REMOVE */%" AND output LIKE "%/* GRID_MODULE_IDENTIFIER | DONT REMOVE */%"');
+$db->setQuery('SELECT id FROM '.rex::getTable('module').' WHERE input LIKE "%/* GRID_MODULE_IDENTIFIER | DONT REMOVE */%"');
 
 $input 	= rex_file::get($this->getPath('install/input.php'));
 $output = rex_file::get($this->getPath('install/output.php'));
@@ -62,8 +61,5 @@ else:
 	$db2->addGlobalCreateFields();
 	$db2->setValue('name', '01 - Gridblock');
 	$db2->insert();
-	$this->setConfig('config', [
-		'modules' => '#'.$db2->getValue('id').'#'
-	]);
 endif;
 ?>

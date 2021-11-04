@@ -24,7 +24,7 @@ if ($func == "save" && isset($_POST['submit'])):
 		'previewtabnames'			=> rex_post('previewtabnames'),
 		'showtemplatetitles'		=> rex_post('showtemplatetitles'),
 		'hidepreviewcoltitles'		=> rex_post('hidepreviewcoltitles'),
-		'hideinfodescriptions'		=> rex_post('hideinfodescriptions'),
+		'hideinfotexts'				=> rex_post('hideinfotexts'),
 	]);
 
 	//Rückmeldung
@@ -74,7 +74,7 @@ endif;
 					<select name="modules[]" id="modules" size="10" multiple class="form-control">
 					<?php
                     $db = rex_sql::factory();
-                    $db->setQuery("SELECT id, name FROM ".rex::getTable('module')." ORDER BY name, id");
+                    $db->setQuery('SELECT id, name FROM '.rex::getTable('module').' WHERE input NOT LIKE "%/* GRID_MODULE_IDENTIFIER | DONT REMOVE */%" ORDER BY name, id');
                     
                     foreach ($db as $dbi):
 						$sel = (preg_match("/#".$dbi->getValue('id')."#/i", @$config['modules'])) ? 'selected="selected"' : '';
@@ -124,17 +124,19 @@ endif;
                     </div>
                 </dd>
             </dl>
+              
             
             <dl class="rex-form-group form-group">
-                <dt><label for=""><?php echo $this->i18n('a1620_config_hideinfodescriptions'); ?></label></dt>
+                <dt><label for=""><?php echo $this->i18n('a1620_config_hideinfotexts'); ?></label></dt>
                 <dd>
                     <div class="checkbox toggle">
-						<label for="hidepreviewcoltitles">
-                        	<input type="checkbox" name="hideinfodescriptions" id="hideinfodescriptions" value="checked" <?php echo @$config['hideinfodescriptions']; ?> /> <?php echo $this->i18n('a1620_config_hideinfodescriptions_info'); ?>
+						<label for="hideinfotexts">
+                        	<input type="checkbox" name="hideinfotexts" id="hideinfotexts" value="checked" <?php echo @$config['hideinfotexts']; ?> /> <?php echo $this->i18n('a1620_config_hideinfotexts_info'); ?>
 						</label>
                     </div>
                 </dd>
-            </dl>			
+            </dl>
+           
 
 		</div>
         

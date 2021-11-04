@@ -283,11 +283,15 @@
 
                                 case "media":
                                     $aArgs = array();
-                                    if ($aOption["preview"]) {
-                                        $aArgs["preview"] = "1";
+                                    if (isset($aOption["preview"])) {
+                                        if ($aOption["preview"]) {
+                                            $aArgs["preview"] = "1";
+                                        }
                                     }
-                                    if ($aOption["types"]) {
-                                        $aArgs["types"] = $aOption["types"];
+                                    if (isset($aOption["types"])) {
+                                        if ($aOption["types"]) {
+                                            $aArgs["types"] = $aOption["types"];
+                                        }
                                     }
                                     $iRand = rand(0, 1000000) * rand(0, 100000);
                                     $sForm .= rex_var_media::getWidget($iRand, "REX_INPUT_VALUE[$this->iSettingsId][$sType][$sKey]", @$aSavedOptions[$sType][$sKey], $aArgs);

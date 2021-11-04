@@ -95,8 +95,8 @@ endif;
                             $sel = ($selTemplate == $eid) ? true : false;
                             
 							echo '<div>';
-								echo a1620_generatePreview($preview, $eid, $columns, $title, $desc, $sel, true);
 								echo (@$config['showtemplatetitles'] == 'checked') ? '<div class="gridblock-preview-caption">'.$title.'</div>' : '';
+								echo a1620_generatePreview($preview, $eid, $columns, $title, $desc, $sel, true);
 							echo '</div>';
 							
                             $db->next();
@@ -419,7 +419,7 @@ function gridblock_showGridTemplate(id) {
 
 	if (id > 0) {
 		html = $('#gridblock-template'+id).prop("outerHTML");
-		capt = $('#gridblock-template'+id).next('.gridblock-preview-caption').prop("outerHTML");
+		capt = $('#gridblock-template'+id).prev('.gridblock-preview-caption').prop("outerHTML");
 			capt = (capt != undefined) ? capt : '';
 		
 		if (html != undefined && html.length > 10) { $('div#gridblock-template').html(capt+html); }

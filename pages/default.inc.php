@@ -395,8 +395,8 @@ else:
 				<td class="td2"><img src="/assets/addons/<?php echo $mypage; ?>/indicator.gif" width="16" height="16" border="0" id="ajax_loading" style="display:none;" /></td>
 				<td class="td3">
 				
-					<div class="input-group">
-						<input class="form-control sbeg" type="text" name="s_sbeg" id="s_sbeg" maxlength="50" value="<?php echo aFM_maskChar($_SESSION['as_sbeg_gridtemplatelist']); ?>" placeholder="<?php echo $this->i18n('a1620_search_keyword'); ?>">
+					<div class="input-group sbeg">
+						<input class="form-control" type="text" name="s_sbeg" id="s_sbeg" maxlength="50" value="<?php echo aFM_maskChar($_SESSION['as_sbeg_gridtemplatelist']); ?>" placeholder="<?php echo $this->i18n('a1620_search_keyword'); ?>">
 						<span class="input-group-btn">
 							<a class="btn btn-popup form-control-btn" title="<?php echo $this->i18n('a1620_search_reset'); ?>" id="s_resetsbeg"><i class="rex-icon fa-close"></i></a>
 						</span>
@@ -457,11 +457,37 @@ endif;
                 <?php echo rex_i18n::msg('a1620_bas_list_modal_text'); ?>
                 
 				<dl class="rex-form-group form-group"><dt></dt></dl>
+                <input type="file" name="importfile" class="form-control modalupload" />
+                <dl class="rex-form-group form-group"><dt></dt></dl>
                 <dl class="rex-form-group form-group"><dt></dt></dl>
                 
-                <input type="file" name="importfile" />
                 
-                <dl class="rex-form-group form-group"><dt></dt></dl>
+                <p class="faq" data-toggle="collapse" data-target="#f001"><span class="caret"></span> <strong>Informationen zur Struktur des Importarchives</strong></p>
+                <div id="f001" class="collapse">
+                    Die Importdatei muss als ZIP-Archiv vorliegen.<br>
+                    Um den Import korrekt durchführen zu können, wird folgende Struktur der zu importierenden Templates erwartet:
+                    <br><br>
+                    
+                    <ul>
+                        <li>Jedes Template befindet sich in einem eigenen Ordner (z.B. template_1)</li>
+                        <li>Im Templateordner müssen sich folgende Dateien befinden:</li>
+                            <ul>
+                                <li>definition.json = enthält die Definition der Layoutvorschau</li>
+                                <li>template.json = enthält die allgemeinen Definitionen des Templates (Titel, Kurzbeschreibung &amp; Priorität)</li>
+                                <li>template.php = enthält den Template-Ausgabecode<br>&nbsp;</li>
+                                
+                                <li>OPTIONAL: <br>
+                                contentsettings.json = enthält die Definition der individuellen Template-Einstellungen für das Plugin ContentSettings</li>
+                            </ul>
+                    </ul>
+                    
+                    <br>
+                    <a href="<?php echo rex_url::addonAssets($mypage, 'gridblock_import_example.zip'); ?>" target="_blank">Beispiel herunterladen ... </a>
+                    
+                    <br><br>
+                    <strong>Hinweis:</strong> Beim Import werden <strong>keine</strong> vorhandenen Templates überschrieben.
+                </div>
+                
             </div>
             <div class="modal-footer"><button type="submit" class="btn btn-save"><?php echo rex_i18n::msg('a1620_bas_list_modal_import'); ?></button></div>
             </form>

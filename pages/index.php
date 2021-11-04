@@ -72,8 +72,8 @@ td.name { position: relative; padding-right: 20px !important; }
 .addon_search .form-control { padding: 1px 8px; font-size: 13px; float: none; }
 .addon_search .form-control-btn { padding: 2px 8px; font-size: 12px; }
 
-.addon_search input { }
-.addon_search input.sbeg { max-width: 150px; }
+.addon_search .input-group.sbeg { margin-left: auto; }
+@media (min-width: 768px){ .addon_search .input-group.sbeg { max-width: 180px; } }
 		
 .addon_search select { margin: 0px !important; padding: 0px 10px 0px 0px !important; height: 20px !important; min-width: 230px; max-width: 230px; }
 	.addon_search select option { margin-right: -10px; padding-right: 10px; }
@@ -130,6 +130,11 @@ span.ajaxNavSel { background-color: #CCC; }
 .optionsblock label { margin-right: 0px !important; }
 .optionsblock ul { list-style: none; margin: 0px; padding: 0px;}
 .optionsblock li { margin: 0px 0px 5px; }
+
+.faq { margin: 0px !important; cursor: pointer; }
+.faq + div { margin: 0px 0px 15px; }
+
+.modalupload { padding: 12px; }
 </style>
 
 <script type="text/javascript">

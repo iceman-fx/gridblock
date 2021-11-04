@@ -94,10 +94,10 @@ $addPath = "index.php?page=".$page;
                     <tr id="entry<?php echo $eid; ?>">
                         <td class="rex-table-icon"><a href="<?php echo $editPath; ?>" title="<?php echo $this->i18n('a1620_edit'); ?>"><i class="rex-icon rex-icon-article"></i></a></td>
                         <td class="rex-table-id"><?php echo $eid; ?></td>
-                        <td><a href="<?php echo $editPath; ?>"><?php echo $title; ?></a></td>
-                        <td><?php echo $columns; ?></td>
-                        <td><?php echo $preview; ?></td>
-                        <td><?php echo $prio; ?></td>
+                        <td data-title="<?php echo $this->i18n('a1620_bas_list_name'); ?>"><a href="<?php echo $editPath; ?>"><?php echo $title; ?></a></td>
+                        <td data-title="<?php echo $this->i18n('a1620_bas_list_columns'); ?>"><?php echo $columns; ?></td>
+                        <td data-title="<?php echo $this->i18n('a1620_bas_list_preview'); ?>"><?php echo $preview; ?></td>
+                        <td data-title="<?php echo $this->i18n('a1620_bas_list_priority'); ?>"><?php echo $prio; ?></td>
                         <td class="rex-table-action"><a href="<?php echo $editPath; ?>"><i class="rex-icon rex-icon-edit"></i> <?php echo $this->i18n('a1620_edit'); ?></a></td>
                         <td class="rex-table-action"><a href="<?php echo $addPath; ?>&func=duplicate&id=<?php echo $eid; ?>"><i class="rex-icon rex-icon-duplicate"></i> <?php echo $this->i18n('a1620_duplicate'); ?></a></td>
                         <td class="rex-table-action"><a href="<?php echo $addPath; ?>&func=delete&id=<?php echo $eid; ?>" data-confirm="<?php echo $this->i18n('a1620_delete'); ?> ?"><i class="rex-icon rex-icon-delete"></i> <?php echo $this->i18n('a1620_delete'); ?></a></td>

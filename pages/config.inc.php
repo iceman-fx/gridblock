@@ -22,7 +22,8 @@ if ($func == "save" && isset($_POST['submit'])):
 		'modulesmode'				=> rex_post('modulesmode'),
 		'modules'					=> '#'.$mods.'#',
 		'previewtabnames'			=> rex_post('previewtabnames'),
-		'showtemplatetitles'		=> rex_post('showtemplatetitles'),		
+		'showtemplatetitles'		=> rex_post('showtemplatetitles'),
+		'hidepreviewcoltitles'		=> rex_post('hidepreviewcoltitles'),
 	]);
 
 	//Rückmeldung
@@ -94,6 +95,18 @@ endif;
                     <div class="checkbox toggle">
 						<label for="showtemplatetitles">
                         	<input type="checkbox" name="showtemplatetitles" id="showtemplatetitles" value="checked" <?php echo @$config['showtemplatetitles']; ?> /> <?php echo $this->i18n('a1620_config_showtemplatetitles_info'); ?>
+						</label>
+                    </div>
+                </dd>
+            </dl>
+             
+            
+            <dl class="rex-form-group form-group">
+                <dt><label for=""><?php echo $this->i18n('a1620_config_hidepreviewcoltitles'); ?></label></dt>
+                <dd>
+                    <div class="checkbox toggle">
+						<label for="hidepreviewcoltitles">
+                        	<input type="checkbox" name="hidepreviewcoltitles" id="hidepreviewcoltitles" value="checked" <?php echo @$config['hidepreviewcoltitles']; ?> /> <?php echo $this->i18n('a1620_config_hidepreviewcoltitles_info'); ?>
 						</label>
                     </div>
                 </dd>

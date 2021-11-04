@@ -18,6 +18,7 @@ if (!$this->hasConfig()):
 		'modules'					=> '',
 		'previewtabnames'			=> '',
 		'showtemplatetitles'		=> '',
+		'hidepreviewcoltitles'		=> '',
 	]);
 endif;
 

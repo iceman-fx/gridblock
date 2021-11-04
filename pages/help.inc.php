@@ -57,8 +57,8 @@
 <p>Über die  Definition von Layoutvorlagen geben Sie dem Redakteur die Möglichkeit, verschiedene Darstellungen und Spaltenraster auswählen zu können.<br>
   Des Weiteren können  damit verschiedene Definitionen für unterschiedliche CSS-Gridysteme definiert werden (z.B. UIKit, Bootstrap, CSS-Grid).
 </p>
-<p>Um dem Redakteur ein Auswahl bieten zu können, legen Sie die gewünschte Anzahl an Vorlagen an oder installieren bei der ersten Verwendung einige Beispielvorlagen über die entsprechende Schaltfläche.<br>
-Die hinterlegten Vorlagen können anschließend vom Redakteur im Gridmodul gewählt werden.</p>
+<p>Um dem Redakteur eine Auswahl bieten zu können, legen Sie die gewünschte Anzahl an Vorlagen an oder installieren bei der ersten Verwendung einige Beispielvorlagen über die entsprechende Schaltfläche. Auch können eigene Templates über die Schaltfläche &quot;Eigene Templates importieren&quot; jederzeit importiert werden.</p>
+<p>Nach dem Anlegen Ihrer Vorlagen können diese vom Redakteur im Gridmodul ausgewählt und genutzt werden.</p>
 <p>Es empfiehlt sich, beim Anlegen einer Vorlage auch eine Layoutvorschau zu definieren, um dem Redakteur einen kleinen Einblick in die spätere Spaltendarstellung zu ermöglichen.</p>
 <p>&nbsp;</p>
 

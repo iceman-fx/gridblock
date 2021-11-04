@@ -96,7 +96,7 @@ endif;
                             
 							echo '<div>';
 								echo a1620_generatePreview($preview, $eid, $columns, $title, $desc, $sel, true);
-								echo (@$config['showtemplatetitles'] == 'checked') ? '<div class="gridblock-preview-caption">'.$desc.'</div>' : '';
+								echo (@$config['showtemplatetitles'] == 'checked') ? '<div class="gridblock-preview-caption">'.$title.'</div>' : '';
 							echo '</div>';
 							
                             $db->next();
@@ -219,8 +219,8 @@ $(function(){
 			$('input#gridblock-selectedColumnNames').val(colnames);
 			$('div.gridblock').removeClass('noGridTemplate');
 			
-			gridblock_showGridTemplate();			//gridblock_showGridTemplate(id);
-			gridblock_showGridColumns();			//gridblock_showGridColumns(cols);
+			gridblock_showGridTemplate();
+			gridblock_showGridColumns();
 		}
 		
 		$('#gridblockModal').modal('hide');
@@ -419,8 +419,10 @@ function gridblock_showGridTemplate(id) {
 
 	if (id > 0) {
 		html = $('#gridblock-template'+id).prop("outerHTML");
-		if (html != undefined && html.length > 10) { $('div#gridblock-template').html(html); }
+		capt = $('#gridblock-template'+id).next('.gridblock-preview-caption').prop("outerHTML");
+			capt = (capt != undefined) ? capt : '';
 		
+		if (html != undefined && html.length > 10) { $('div#gridblock-template').html(html+capt); }
 		gridblock_loadContentSettings(id);
 	}
 }

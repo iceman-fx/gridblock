@@ -171,10 +171,12 @@ elseif ($func == "import_templatearchive"):
 		print_r($_FILES["importfile"]["error"]);
 		echo "\n-->\n";
 	else:
-		if (rex_gridblock_helper::importTemplateArchive($_FILES["importfile"])):
+		$return = rex_gridblock_importer::import($_FILES["importfile"]);
+	
+		if ($return == "success"):
 			echo rex_view::info($this->i18n('a1620_templates_imported'));
 		else:
-			echo rex_view::warning($this->i18n('a1620_error_templates_notimported'));
+			echo rex_view::warning($return);
 		endif;
 	endif;
 
@@ -383,16 +385,12 @@ else:
 				
 				if ($db->getRows() <= 0):
 					?>
-                    
 					<div class="btn-group btn-group-xs"><a href="index.php?page=<?php echo $page; ?>&amp;func=insert_default_templates" class="btn btn-default"><?php echo $this->i18n('a1620_bas_list_btn_createtemplate'); ?></a></div>
-					
-					<div class="btn-group btn-group-xs"><a data-toggle="modal" data-target="#gridblockModal" class="btn btn-default"><?php echo $this->i18n('a1620_bas_list_btn_importtemplate'); ?></a></div>
-                    
                     <?php
-				else:
-					echo '&nbsp;';
 				endif;
 				?>
+                
+                	<div class="btn-group btn-group-xs"><a data-toggle="modal" data-target="#gridblockModal" class="btn btn-default"><?php echo $this->i18n('a1620_bas_list_btn_importtemplate'); ?></a></div>
                 </td>
 				<td class="td2"><img src="/assets/addons/<?php echo $mypage; ?>/indicator.gif" width="16" height="16" border="0" id="ajax_loading" style="display:none;" /></td>
 				<td class="td3">

@@ -149,20 +149,5 @@ class rex_gridblock_helper
         return trim($op);
     }
 	
-
-    public static function importTemplateArchive($file)
-	{
-		$return = false;
-		
-		if (!empty($file)):
-			//hier dein PHP-Code rein
-			dump($file);
-			
-		
-			$return = true;
-		endif;
-		
-		return $return;
-	}
 }
 ?>

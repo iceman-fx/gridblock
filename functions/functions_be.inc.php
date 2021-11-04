@@ -31,8 +31,14 @@ function a1620_duplicateName($str)
 
 //erstellt die Layoutvorschau
 function a1620_generatePreview($preview, $id = 0, $columns = 0, $title = "", $desc = "", $selected = false, $setid = false)
-{	$id = intval($id);
+{	global $a1620_mypage;
+
+	//Vorgaben einlesen/setzen
+	$id = intval($id);
 	$columns = intval($columns);
+	
+	$config = rex_config::get($a1620_mypage, 'config');						//Addon-Konfig einladen
+	
 	
 	$op = '';
 	if ($id > 0 && $columns > 0):
@@ -49,8 +55,9 @@ function a1620_generatePreview($preview, $id = 0, $columns = 0, $title = "", $de
 			for ($p=0; $p < $count; $p++):
 				$w = intval($cols[$p]['width']);
 				$t = $cols[$p]['title'];
-				
-				array_push($colnames, $t);
+					array_push($colnames, $t);
+					
+				$t = (@$config['hidepreviewcoltitles'] != 'checked') ? $t : '';
 				$preview .= '<div style="width: '.$w.'%"><span>'.$t.'</span></div>';
 			endfor;
 			$op = (!empty($preview)) ? '<div class="gridblock-preview '.$selected.'" title="'.$desc.'" '.$data.' data-colnames="'.urlencode(json_encode($colnames)).'">'.$preview.'</div>' : '';

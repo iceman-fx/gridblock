@@ -54,6 +54,8 @@ a1620_config_showtemplatetitles = Layoutvorlagen
 a1620_config_showtemplatetitles_info = Kurzbeschreibung in Auswahl Layoutvorlagen ausgeben
 a1620_config_previewtabnames = Spaltenbezeichnungen
 a1620_config_previewtabnames_info = Spaltenbezeichnungen aus Definition Layoutvorschau nutzen
+a1620_config_hidepreviewcoltitles = Layoutvorschau Spalten
+a1620_config_hidepreviewcoltitles_info = Spaltenbezeichnungen nicht in Vorschau ausgeben
 
 
 # Modulausgabe

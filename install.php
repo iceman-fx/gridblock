@@ -14,11 +14,12 @@ $error = "";
 //Vorgaben vornehmen
 if (!$this->hasConfig()):
 	$this->setConfig('config', [
-		'modulesmode'				=> 'allow',
+		'modulesmode'				=> 'ignore',
 		'modules'					=> '',
 		'previewtabnames'			=> '',
 		'showtemplatetitles'		=> '',
 		'hidepreviewcoltitles'		=> '',
+		'hideinfotexts'				=> '',
 	]);
 endif;
 

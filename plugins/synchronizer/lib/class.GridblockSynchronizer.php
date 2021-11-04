@@ -78,7 +78,7 @@
                 copy($sFileOrigin, $sFile);
             } else if (file_exists($sFile) && !file_exists($sFileOrigin)) {
                 copy($sFile, $sFileOrigin);
-            } else {
+            } else if (file_exists($sFile) && file_exists($sFileOrigin)) {
                 if (filemtime($sFile) > filemtime($sFileOrigin)) {
                     copy($sFile, $sFileOrigin);
                 } else {
@@ -276,7 +276,7 @@
                     copy($sFileOrigin, $sFile);
                 } else if (file_exists($sFile) && !file_exists($sFileOrigin)) {
                     copy($sFile, $sFileOrigin);
-                } else {
+                } else if (file_exists($sFile) && file_exists($sFileOrigin)) {
                     if (filemtime($sFile) > filemtime($sFileOrigin)) {
                         copy($sFile, $sFileOrigin);
                     } else {

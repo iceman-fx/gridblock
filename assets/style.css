@@ -20,6 +20,7 @@
 	.gridblock .column-settings .optionstoggler:hover { background: #5bb585; }
 
 .gridblock .column-input { background: rgba(255,255,255, 1); padding: 20px 20px 20px; }
+.gridblock .column-input:after, .gridblock .clearfix { content: ''; clear: both; display: block; height: 0px; }
 
 .gridblock .column-slices { background: rgba(255,255,255, 0.5); padding: 20px 20px 20px; }
 .gridblock .column-slices .column-slice { margin-top: 25px; }

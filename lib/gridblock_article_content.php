@@ -67,7 +67,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 		//Modul-Edit ausgeben
 		$op .= '<div id="gridblockModuleContent'.$uID.'" class="column-input">';
 			$op .= $slice_content;
-			$op .= '<div class="addmodule"><a class="btn btn-default btn-block btn-addgridmodule" title="'.rex_i18n::msg('a1620_mod_add_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'"><i class="fa fa-plus"></i>'.rex_i18n::msg('a1620_mod_add_modul').'</a></div>';
+			$op .= '<div class="clearfix"></div><div class="addmodule"><a class="btn btn-default btn-block btn-addgridmodule" title="'.rex_i18n::msg('a1620_mod_add_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'"><i class="fa fa-plus"></i>'.rex_i18n::msg('a1620_mod_add_modul').'</a></div>';
 		$op .= '</div>';
 		
         return $op;

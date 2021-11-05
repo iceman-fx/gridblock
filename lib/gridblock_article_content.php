@@ -74,7 +74,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
     }
 	
 	
-    public function addModuleSelector($colID, $uID = "")
+    public static function addModuleSelector($colID, $uID = "")
 	{	$cnt = "";
 		$colID = intval($colID);
 
@@ -100,7 +100,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 	}	
 	
 	
-    public function getModuleSelector($colID, $selectedModuleID = 0, $uID = "")
+    public static function getModuleSelector($colID, $selectedModuleID = 0, $uID = "")
     {	$cnt = "";
 		$colID = intval($colID);
 		$selectedModuleID = intval($selectedModuleID);

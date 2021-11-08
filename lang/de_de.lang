@@ -40,7 +40,7 @@ a1620_bas_list_preview = Layoutvorschau
 a1620_bas_list_priority = Prio
 
 a1620_bas_list_btn_createtemplate = Beispieltemplates erstellen
-a1620_bas_list_btn_importtemplate = Eigene Templates importieren
+a1620_bas_list_btn_importtemplate = Eigene Templates & Settings importieren
 a1620_bas_list_modal_import = Importieren
 a1620_bas_list_modal_text = Wählen Sie das ZIP-Archiv mit Ihren Templatedefinitionen aus und starten den Vorgang mit "Importieren".
 

@@ -370,10 +370,13 @@
         // template
         if (isset($this->aSettings["showOptions"])) {
             foreach ($this->aSettings["showOptions"] as $sKey) {
-                if ($aArr["template"][$sKey] == "gridblockcontentsettingsdefault") {
-                    $aData["template"][$sKey] = $this->getDefault($sKey);
-                } else {
-                    $aData["template"][$sKey] = $aArr["template"][$sKey];
+                if ($this->aSettings["options"][$sKey]["type"] != "html") {
+                    $aData["template"][$sKey] = "";
+                    if ($aArr["template"][$sKey] == "gridblockcontentsettingsdefault") {
+                        $aData["template"][$sKey] = $this->getDefault($sKey);
+                    } else {
+                        $aData["template"][$sKey] = $aArr["template"][$sKey];
+                    }
                 }
             }
         }
@@ -384,14 +387,18 @@
             $this->getAllSettings("columns");
             if (isset($this->aSettings["showOptions"])) {
                 foreach ($this->aSettings["showOptions"] as $sKey) {
-                    if ($aArr["column_" . $iX][$sKey] == "gridblockcontentsettingsdefault") {
-                        $aArr["column_" . $iX][$sKey] = $this->getDefault($sKey);
-                    } else {
-                        $aData["column_" . $iX][$sKey] = $aArr["column_" . $iX][$sKey];
+                    if ($this->aSettings["options"][$sKey]["type"] != "html") {
+                        $aData["column_" . $iX][$sKey] = "";
+                        if ($aArr["column_" . $iX][$sKey] == "gridblockcontentsettingsdefault") {
+                            $aData["column_" . $iX][$sKey] = $this->getDefault($sKey);
+                        } else {
+                            $aData["column_" . $iX][$sKey] = $aArr["column_" . $iX][$sKey];
+                        }
                     }
                 }
             }
         }
+
         $oData = json_decode(json_encode($aData), FALSE);
         return $oData;
     }
@@ -479,7 +486,7 @@
         if (file_exists($sFile)) {
             $sContent = file_get_contents($sFile);
             json_decode($sContent);
-            if (json_last_error() != "JSON_ERROR_NONE") {
+            if ($sContent && json_last_error() != "JSON_ERROR_NONE") {
                 if (rex::isBackend()) {
                     throw new rex_exception("gridblockContentSettings: json Error in File $sFile");
                 }

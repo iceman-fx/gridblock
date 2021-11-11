@@ -35,6 +35,7 @@ rex_sql_table::get(rex::getTable('1620_gridtemplates'))
 	->ensureColumn(new rex_sql_column('columns', 'int(2)'))
 	->ensureColumn(new rex_sql_column('template', 'text'))
 	->ensureColumn(new rex_sql_column('preview', 'text'))
+	->ensureColumn(new rex_sql_column('status', 'varchar(10)'))
 	->ensureGlobalColumns()
 	->setPrimaryKey('id')
 	->ensure();

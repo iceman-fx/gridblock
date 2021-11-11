@@ -77,7 +77,7 @@ endif;
                 <div class="modal-body">
 					<?php
 					$db = rex_sql::factory();
-                    $db->setQuery("SELECT id, title, description, columns, preview FROM ".rex::getTable('1620_gridtemplates')." ORDER BY prio ASC, columns ASC, title ASC, id ASC");
+                    $db->setQuery("SELECT id, title, description, columns, preview FROM ".rex::getTable('1620_gridtemplates')." WHERE status = 'checked' ORDER BY prio ASC, columns ASC, title ASC, id ASC");
                     
                     if ($db->getRows() > 0):
                         echo '<div class="gridblock-previewlist">';
@@ -256,18 +256,7 @@ $(function(){
 		var uID = $(this).data('uid');
 		
 		if (colID > 0 && uID != undefined) {
-			console.log( "click > a.btn-addgridmodule: " + colID +" (uID: "+uID+")");
-			
-			$.ajax({
-				url: 'index.php?page=structure&rex-api-call=gridblock_getModuleSelector&colid=' +colID+ '&uid=' +uID,
-			}).done(function(data) {
-				console.log( "done > a.btn-addgridmodule: " + colID +" (uID: "+uID+")");
-				
-				block = $('#gridblockColumnSlice'+uID);
-				block.after(data).show();
-				
-				gridblock_checkDeleteButtons(colID);
-			})
+			gridblock_loadModuleSelector(colID, '#gridblockColumnSlice'+uID, 'after');
 		}
 	});	
 	
@@ -341,6 +330,7 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName) {
 			dst = $('#gridblockColumnSlice' +uID);
 			dst.children('.column-input').remove();
 			dst.append(data).show();
+			//dst.trigger('rex:change', [dst]);
 			
 			//Modulselector ausblenden
 			dstSF = dst.children('.column-slice-functions');
@@ -379,7 +369,7 @@ function gridblock_setGridSortedSlices(colID) {
 }
 
 
-//Spalten je nach Template setzen
+//Spalten je nach Template setzen/anzeigen
 function gridblock_showGridColumns(cols) {
 	var maxcols = <?php echo $this->maxCols; ?>;
 	var templateID = parseInt($('#gridblock-selectedTemplate').val());
@@ -389,9 +379,9 @@ function gridblock_showGridColumns(cols) {
 	
 	var colsset = 0;
 	for (var i=1; i <= maxcols; ++i) {
+		var colID = i;
+		
 		if (i <= cols) {
-			var colID = i;
-			
 			$('#gridblockTab'+colID).show();
 			
 			<?php if ($config['previewtabnames'] == 'checked'): ?>
@@ -403,10 +393,13 @@ function gridblock_showGridColumns(cols) {
 			gridblock_loadContentSettings(templateID, colID);
 			colsset+=1;
 		} else {
-			$('#gridblockTab'+i).hide();
+			$('#gridblockTab'+colID).hide();
+			$('#gridblockColumnSlices'+colID).children().remove();
+			
+			gridblock_loadModuleSelector(colID, '#gridblockColumnSlices'+colID);
 		}
 		
-		gridblock_checkDeleteButtons(i);
+		gridblock_checkDeleteButtons(colID);
 	}
 	
 	if (colsset > 0) { $('a[href="#gridblockCol1"]').tab("show"); }
@@ -424,6 +417,42 @@ function gridblock_showGridTemplate(id) {
 		
 		if (html != undefined && html.length > 10) { $('div#gridblock-template').html(capt+html); }
 		gridblock_loadContentSettings(id);
+	}
+}
+
+
+//moduleSelector per Ajax nachladen
+function gridblock_loadModuleSelector(colID = 0, dst = "", mode = "html") {
+	var colID = parseInt(colID);
+	
+	if (colID > 0 && dst != undefined && dst != "") {
+		var dst = $(dst);
+		
+		$.ajax({
+			url: 'index.php?page=structure&rex-api-call=gridblock_getModuleSelector&colid=' +colID,
+		}).done(function(data) {
+			switch (mode) {
+				case 'prepend':	$(dst).prepend(data).show();
+				break;
+				
+				case 'append':	$(dst).append(data).show();
+				break;
+				
+				case 'before':	$(dst).before(data).show();
+				break;
+				
+				case 'after':	$(dst).after(data).show();
+				break;
+				
+				default:		$(dst).html(data).show();
+				break;
+			}
+			
+			gridblock_checkDeleteButtons(colID);
+			
+		}).fail(function() {
+			dst.html('<div class="alert alert-danger"><?php echo rex_i18n::msg('a1620_mod_error_loadmoduleselector'); ?></div>');
+		})
 	}
 }
 

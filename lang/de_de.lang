@@ -87,6 +87,7 @@ a1620_mod_confirm_delete = Block wirklich löschen?
 
 a1620_mod_error_loadmodule = Beim Laden ist ein Fehler aufgetreten.
 a1620_mod_error_loadcontentoptions = Beim Laden der Optionen ist ein Fehler aufgetreten.
+a1620_mod_error_loadmoduleselector = Beim Laden der Modulauswahl ist ein Fehler aufgetreten.
 
 
 # Sonstige Vorgaben

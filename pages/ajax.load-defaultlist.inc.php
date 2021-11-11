@@ -29,7 +29,7 @@ echo '<!-- ###AJAX### -->';
 
 
 //SQL erstellen und Filterung berücksichtigen
-$sql = "SELECT id, prio, title, description, columns, preview FROM ".rex::getTable('1620_gridtemplates');
+$sql = "SELECT id, prio, title, description, columns, preview, status FROM ".rex::getTable('1620_gridtemplates');
 $sql_where = " WHERE 1";
 
 
@@ -76,7 +76,7 @@ $addPath = "index.php?page=".$page;
 					$eid = intval($db->getValue('id'));
 					$editPath = $addPath.'&amp;func=update&amp;id='.$eid;
 						
-					//$status = ($db->getValue('status') == "checked") ? 'online' : 'offline';
+					$status = ($db->getValue('status') == "checked") ? 'online' : 'offline';
 
 					$prio = $db->getValue('prio', 'int');
 					$title = aFM_maskChar(aFM_textOnly($db->getValue('title'), true));
@@ -101,18 +101,7 @@ $addPath = "index.php?page=".$page;
                         <td class="rex-table-action"><a href="<?php echo $editPath; ?>"><i class="rex-icon rex-icon-edit"></i> <?php echo $this->i18n('a1620_edit'); ?></a></td>
                         <td class="rex-table-action"><a href="<?php echo $addPath; ?>&func=duplicate&id=<?php echo $eid; ?>"><i class="rex-icon rex-icon-duplicate"></i> <?php echo $this->i18n('a1620_duplicate'); ?></a></td>
                         <td class="rex-table-action"><a href="<?php echo $addPath; ?>&func=delete&id=<?php echo $eid; ?>" data-confirm="<?php echo $this->i18n('a1620_delete'); ?> ?"><i class="rex-icon rex-icon-delete"></i> <?php echo $this->i18n('a1620_delete'); ?></a></td>
-                        <!--
-                        <td class="sortbuttons">
-                            <div class="btn-group btn-group-xs">
-                                <a href="<?php echo $addPath; ?>&func=move&id=<?php echo $eid; ?>&dir=up" class="btn btn-move"><i class="rex-icon rex-icon-up" title="<?php echo $this->i18n('a1620_sort_up'); ?>"></i></a>
-                                <a href="<?php echo $addPath; ?>&func=move&id=<?php echo $eid; ?>&dir=down" class="btn btn-move"><i class="rex-icon rex-icon-up" title="<?php echo $this->i18n('a1620_sort_down'); ?>"></i></a>
-                            </div>
-                        </td>
-                        -->
-                        
-                        <?php /*
                         <td class="rex-table-action"><a href="<?php echo $addPath; ?>&func=status&id=<?php echo $eid; ?>" class="rex-<?php echo $status; ?>"><i class="rex-icon rex-icon-<?php echo $status; ?>"></i> <?php echo ($status == "online") ? $this->i18n('a1620_online') : $this->i18n('a1620_offline'); ?></a></td>
-						*/ ?>
                     </tr>
 
                     <?php

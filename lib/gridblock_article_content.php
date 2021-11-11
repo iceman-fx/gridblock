@@ -96,6 +96,13 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 			$cnt .= '</div>';
 		endif;
 		
+		//ExtensionPoint zur nachträglichen Änderung des Modulselektors
+		$cnt = rex_extension::registerPoint(new rex_extension_point('GRIDBLOCK_MODULESELECTOR_ADD', $cnt, [
+			'colid' => $colID,
+			'uid' => $uID,
+			'allowedmodules' => $_SESSION['gridAllowedModules'],
+		]));
+		
 		return $cnt;
 	}	
 	

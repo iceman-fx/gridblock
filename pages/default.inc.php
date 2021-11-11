@@ -47,6 +47,7 @@ if ($func == "save" && (isset($_POST['submit']) || isset($_POST['submit-apply'])
 		$db->setValue("columns", 		rex_post('f_columns', 'int'));
 		$db->setValue("template", 		rex_post('f_template'));
 		$db->setValue("preview", 		rex_post('f_preview'));
+		$db->setValue("status", 		rex_post('f_status'));
 
 		if ($id > 0):
 			$db->addGlobalUpdateFields();						//Standard Datumsfelder hinzufügen
@@ -123,7 +124,22 @@ elseif ($func == "delete" && $id > 0):
 		//nicht löschen aufgrund gültiger Zuweisung
 		echo rex_view::warning($this->i18n('a1620_entry_used'));
 	endif;	
+
+elseif ($func == "status" && $id > 0):
+	//Status setzen
+	$db = rex_sql::factory();
+	$db->setQuery("SELECT status FROM ".rex::getTable('1620_gridtemplates')." WHERE id = '".$id."' LIMIT 0,1"); 
+	$dbe = $db->getArray();	//mehrdimensionales Array kommt raus
 	
+	$newstatus = ($dbe[0]['status'] != "checked") ? "checked" : "";
+	
+	$db = rex_sql::factory();
+	$db->setTable(rex::getTable('1620_gridtemplates'));
+	$db->setWhere("id = '".$id."'");
+
+	$db->setValue("status", $newstatus);
+	$db->update();
+
 elseif ($func == "duplicate" && $id > 0):
 	//Eintrag duplizieren
 	$db = rex_sql::factory();
@@ -142,6 +158,7 @@ elseif ($func == "duplicate" && $id > 0):
 		foreach ($dbe[0] as $key=>$val):			
 			if ($key == 'id') { continue; }
 			if ($key == 'prio') { continue; }
+			if ($key == 'status') { continue; }
 			if ($key == 'title') { $val = a1620_duplicateName($val); }
 			
 			$db->setValue($key, $val);
@@ -194,7 +211,7 @@ if ($func == "update" || $func == "insert" || $form_error == 1):
 	
 	//Std.vorgaben der Felder setzen
 	if (!isset($dbe) || (is_array($dbe) && count($dbe) <= 0)):
-		$dbe[0]['title'] = $dbe[0]['description'] = $dbe[0]["columns"] = $dbe[0]['template'] = $dbe[0]['preview'] = '';
+		$dbe[0]['title'] = $dbe[0]['description'] = $dbe[0]["columns"] = $dbe[0]['template'] = $dbe[0]['preview'] = $dbe[0]['status'] = '';
 	endif;
 	//$dbe[0] = array_map('htmlspecialchars', $dbe[0]);
 	
@@ -212,6 +229,7 @@ if ($func == "update" || $func == "insert" || $form_error == 1):
 		$dbe[0]["columns"] = 		rex_post('f_columns', 'int');
 		$dbe[0]["template"] = 		rex_post('f_template');
 		$dbe[0]["preview"] = 		rex_post('f_preview');
+		$dbe[0]["status"] = 		rex_post('f_status');
 
 		$func = $mode;
 	endif;
@@ -240,6 +258,18 @@ if ($func == "update" || $func == "insert" || $form_error == 1):
             <header class="panel-heading"><div class="panel-title"><?php echo $this->i18n('a1620_head_basics'); ?></div></header>
             
             <div class="panel-body">
+            
+                <dl class="rex-form-group form-group">
+                    <dt><label for=""><?php echo $this->i18n('a1620_std_status'); ?></label></dt>
+                    <dd>
+                    	<div class="checkbox toggle">
+                        	<label for="f_status"> <input type="checkbox" name="f_status" id="f_status" value="checked" <?php echo $dbe[0]['status']; ?> class="" /> <?php echo $this->i18n('a1620_yes'); ?> </label>
+                        </div>
+                    </dd>
+                </dl>
+    
+    
+                <dl class="rex-form-group form-group"><dt></dt></dl>
             
                 <legend><?php echo $this->i18n('a1620_subheader_bas1'); ?></legend>
                 

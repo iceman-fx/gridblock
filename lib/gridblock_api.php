@@ -30,12 +30,14 @@ class rex_api_gridblock_getModuleSelector extends rex_api_function
     public function execute()
     {
         $colID 		= rex_request::get('colid', 'int', null);
-		$uID 		= rex_request::get('uid');
+		//$uID 		= rex_request::get('uid');
 		
-        if ($colID && $uID):
+		//if ($colID && $uID):
+		if ($colID ):
             $ed = new rex_article_content_gridblock();
-            echo $ed->getModuleSelector($colID, $uID);
-            exit;
+			//echo $ed->getModuleSelector($colID, $uID);
+			echo $ed->getModuleSelector($colID);
+			exit;
         endif;
 		
         throw new rex_functional_exception('Column-ID and unique-ID parameters are required!');

@@ -82,6 +82,7 @@ class rex_gridblock_importer
 						$oDb->setValue("prio", $iPrio);
 						$oDb->setValue("template", $sTemplate);
 						$oDb->setValue("preview", $sDefinition);
+						$oDb->setValue("status",$aTemplate["status"]);
 						$oDb->addGlobalCreateFields();
 						$oDb->insert();
 

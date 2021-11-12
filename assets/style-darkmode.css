@@ -1,0 +1,44 @@
+@charset "utf-8";
+/* CSS Document for Gridblock - DarkMode */
+/* v1.0 */
+
+
+@media (prefers-color-scheme: dark){
+
+	body:not(.rex-theme-light) .rex-js-widget-gridblock .gridblock-template { color: rgba(255, 255, 255, 0.75); background-color: rgba(32,43,53, 0.6); border-color: rgba(27,35,44, 0.6); }
+	
+	body:not(.rex-theme-light) .gridblock-modal .modal-header { background: inherit; }
+	body:not(.rex-theme-light) .gridblock-previewlist, body:not(.rex-theme-light) .gridblock-previewlist > div { background: inherit; }
+	
+	body:not(.rex-theme-light) .gridblock-preview { background: #9ca5b2; border-color: #0d1215; }
+	body:not(.rex-theme-light) .gridblock-preview > div { background: #1867a6; }
+	body:not(.rex-theme-light) .gridblock-previewlist > div > div.selected { #CCC; }
+	body:not(.rex-theme-light) .gridblock-preview span { color: rgba(255, 255, 255, 0.75); }
+	body:not(.rex-theme-light) .gridblock-previewlist > div > div.gridblock-preview { border-color: #0d1215; }
+
+	body:not(.rex-theme-light) .gridblock .column-settings .optionstoggler { background: #1c282f; border: 1px solid rgba(21,28,34, 0.8); line-height: 3px; color: rgba(255, 255, 255, 0.75); }
+	body:not(.rex-theme-light) .gridblock .column-settings .optionstoggler:hover { background: rgba(35,45,57, 0.8); }
+	
+	body:not(.rex-theme-light) .gridblock .tab-nav > li > a { background: #1f3238; color: rgba(255, 255, 255, 0.75); border-color: rgba(21,28,34, 0.8) rgba(21,28,34, 0.8) rgba(21,28,34, 0.8); }
+	
+	body:not(.rex-theme-light) .nav-tabs,
+	body:not(.rex-theme-light) .gridblock .tab-content
+		{ border-color: rgba(21,28,34, 0.8); }
+
+	body:not(.rex-theme-light) .gridblock .column-settings, 
+	body:not(.rex-theme-light) .gridblock .tab-nav > li.active > a,
+	body:not(.rex-theme-light) .gridblock .tab-nav > li.active > a:hover,
+	body:not(.rex-theme-light) .gridblock .tab-nav > li.active > a:focus
+		{ background: #365150; border-color: rgba(21,28,34, 0.8) rgba(21,28,34, 0.8); border-bottom-color: #365150; }
+
+	body:not(.rex-theme-light) .gridblock .column-input { background: #1f3d3c; }
+	body:not(.rex-theme-light) .gridblock .column-slice	{ background: #0d1215; }
+	body:not(.rex-theme-light) .gridblock .column-slices { background: #1a3332; }
+	body:not(.rex-theme-light) .gridblock .column-slice-functions { -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6); box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6); }
+
+	body:not(.rex-theme-light) .gridblock a.btn-addgridmodule { background: #213c51; border-color: #213c51; color: rgba(255, 255, 255, 0.75) !important; }
+	body:not(.rex-theme-light) .gridblock a.btn-addgridmodule:hover { background: #1c4260 !important; border-color: #1c4260 !important; }
+
+	body:not(.rex-theme-light) .gridblock .column-slice-nodelete .column-slice-sorter .btn-group-delete a.btn { background: rgba(128,25,25, 0.3); border-color: rgba(128,25,25, 0.3); color: rgba(255,255,255, 0.1); }
+
+}

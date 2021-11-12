@@ -135,6 +135,25 @@ span.ajaxNavSel { background-color: #CCC; }
 .faq + div { margin: 0px 0px 15px; }
 
 .modalupload { padding: 12px; }
+
+
+<?php if (rex_string::versionCompare(rex::getVersion(), '5.13.0-dev', '>=')): ?>
+body:not(.rex-theme-light) .checkbox.toggle label input,
+body:not(.rex-theme-light) .radio.toggle label input
+	{ background: #202b35; }
+body:not(.rex-theme-light) .checkbox.toggle label input::after, 
+body:not(.rex-theme-light) .radio.toggle label input::after, 
+body:not(.rex-theme-light) .radio.switch label input::before
+	{ background: #CCC; }
+
+body:not(.rex-theme-light) .checkbox.toggle label input:checked,
+body:not(.rex-theme-light) .radio.toggle label input:checked 
+	{ background: #409be4; }
+body:not(.rex-theme-light) .checkbox.toggle label input:checked::after, 
+body:not(.rex-theme-light) .radio.toggle label input:checked::after, 
+body:not(.rex-theme-light) .radio.switch label input:checked::before
+	{ background: #EEE; }
+<?php endif; ?>
 </style>
 
 <script type="text/javascript">

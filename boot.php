@@ -23,6 +23,10 @@ $config = rex_addon::get($mypage)->getConfig('config');			//Addon-Konfig einlade
 global $a1620_mypage;
 $a1620_mypage = $mypage;
 
+global $a1620_darkmode;
+$a1620_darkmode = (rex_string::versionCompare(rex::getVersion(), '5.13.0-dev', '>=')) ? true : false;
+
+
 require_once(rex_path::addon($mypage)."/functions/functions.inc.php");
 
 
@@ -86,7 +90,9 @@ endif;
 
 
 // Assets im Backend einbinden (z.B. style.css) - es wird eine Versionsangabe angehängt, damit nach einem neuen Release des Addons die Datei nicht aus dem Browsercache verwendet wird
-rex_view::addJsFile($this->getAssetsUrl('sortable.min.js?v=' . $this->getVersion()));
 rex_view::addCssFile($this->getAssetsUrl('style.css?v=' . $this->getVersion()));
+if ($a1620_darkmode) { rex_view::addCssFile($this->getAssetsUrl('style-darkmode.css')); }
+
+rex_view::addJsFile($this->getAssetsUrl('sortable.min.js?v=' . $this->getVersion()));
 rex_view::addJsFile($this->getAssetsUrl('script.js?v=' . $this->getVersion()));
 ?>

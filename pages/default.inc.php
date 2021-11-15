@@ -433,7 +433,7 @@ else:
 
 							<div class="btn-group btn-group-xs"><a data-toggle="modal" data-target="#gridblockModal" class="btn btn-default"><?php echo $this->i18n('a1620_bas_list_btn_importtemplate'); ?></a></div>
 							
-							<?php if ($db->getRows() <= 0): ?>
+							<?php if ($db->getRows() > 0): ?>
 							<div class="btn-group btn-group-xs"><a href="index.php?page=<?php echo $page; ?>&amp;func=export_templates" class="btn btn-default"><?php echo $this->i18n('a1620_bas_list_btn_exporttemplate'); ?></a></div>
 							<?php endif; ?>
 						</td>

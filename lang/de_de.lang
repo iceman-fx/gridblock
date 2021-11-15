@@ -41,6 +41,7 @@ a1620_bas_list_priority = Prio
 
 a1620_bas_list_btn_createtemplate = Beispieltemplates erstellen
 a1620_bas_list_btn_importtemplate = Eigene Templates & Settings importieren
+a1620_bas_list_btn_exporttemplate = Eigene Templates & Settings exportieren
 a1620_bas_list_modal_import = Importieren
 a1620_bas_list_modal_text = Wählen Sie das ZIP-Archiv mit Ihren Templatedefinitionen aus und starten den Vorgang mit "Importieren".
 
@@ -55,7 +56,7 @@ a1620_config_showtemplatetitles_info = Titel/Bezeichnung in Auswahl Layoutvorlag
 a1620_config_previewtabnames = Spaltenbezeichnungen
 a1620_config_previewtabnames_info = Spaltenbezeichnungen aus Definition Layoutvorschau nutzen
 a1620_config_hidepreviewcoltitles = Layoutvorschau Spalten
-a1620_config_hidepreviewcoltitles_info = Spaltenbezeichnungen nicht in Vorschau ausgeben
+a1620_config_hidepreviewcoltitles_info = Spaltenbezeichnungen in Vorschau verbergen
 a1620_config_hideinfotexts = Einleitungstexte
 a1620_config_hideinfotexts_info = Einleitungs- & Informationstexte im Modul verbergen
 
@@ -154,3 +155,7 @@ a1620_templates_imported = Templatearchiv erfolgreich importiert
 a1620_error_templates_notimported = Das Templatearchiv konnte nicht importiert werden.
 a1620_error_templates_notimported_file_missing = Das Templatearchiv konnte nicht importiert werden, da mindestens eine Datei (template.php, template.json, definition.json) fehlt.
 a1620_error_templates_fileerror = Beim Übertragen des Templatearchives trat ein Fehler auf.
+
+a1620_templates_exported = Templatearchiv erfolgreich exportiert
+a1620_error_templates_notexported = Das Templatearchiv konnte nicht exportiert werden.
+

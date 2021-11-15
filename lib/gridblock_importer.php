@@ -82,7 +82,7 @@ class rex_gridblock_importer
 						$oDb->setValue("prio", $iPrio);
 						$oDb->setValue("template", $sTemplate);
 						$oDb->setValue("preview", $sDefinition);
-						$oDb->setValue("status",$aTemplate["status"]);
+						$oDb->setValue("status", $aTemplate["status"]);
 						$oDb->addGlobalCreateFields();
 						$oDb->insert();
 
@@ -119,6 +119,99 @@ class rex_gridblock_importer
 		return $sReturn;
 	}
 
+	public static function export()
+	{
+		$oAddon = rex_addon::get('gridblock');
+		$oPluginSettings = rex_plugin::get('gridblock', 'contentsettings');
+
+		$sReturn = $oAddon->i18n('a1620_error_templates_notexported');
+
+		$bDirCreated = false;
+
+		if (!is_dir($oAddon->getDataPath())) {
+			$bDirCreated = true;
+			mkdir($oAddon->getDataPath(), 0775, true);
+		}
+
+		$iRand = rand(1000, 100000) . time();
+		$sFolderExport = $oAddon->getDataPath("export/export_" . $iRand);
+		mkdir($sFolderExport, 0775, true);
+
+		$oDb = rex_sql::factory();
+		$oDb->setQuery("SELECT * FROM " . rex::getTable('1620_gridtemplates') . " ORDER BY prio ASC");
+		foreach ($oDb as $oRes) {
+			mkdir($sFolderExport . "/template_" . $oRes->getValue("id"), 0775, true);
+
+			if ($oPluginSettings->isAvailable()) {
+				if (file_exists($oPluginSettings->getDataPath("templates/template_" . $oRes->getValue("id") . "/contentsettings.json"))) {
+					copy($oPluginSettings->getDataPath("templates/template_" . $oRes->getValue("id") . "/contentsettings.json"), $sFolderExport . "/template_" . $oRes->getValue("id") . "/contentsettings.json");
+				}
+			}
+			$sFileMarkup = $sFolderExport . "/template_" . $oRes->getValue("id") . "/template.php";
+			file_put_contents($sFileMarkup, $oRes->getValue("template"));
+
+			$sFileDefinition = $sFolderExport . "/template_" . $oRes->getValue("id") . "/definition.json";
+			file_put_contents($sFileDefinition, $oRes->getValue("preview"));
+
+			$sFileData = $sFolderExport . "/template_" . $oRes->getValue("id") . "/template.json";
+			$aData = array(
+				"title" => $oRes->getValue("title"),
+				"prio" => $oRes->getValue("prio"),
+				"description" => $oRes->getValue("description"),
+				"status" => $oRes->getValue("status")
+			);
+			file_put_contents($sFileData, json_encode($aData));
+		}
+
+		if ($oPluginSettings->isAvailable()) {
+			if (file_exists($oPluginSettings->getDataPath("contentsettings.json"))) {
+				copy($oPluginSettings->getDataPath("contentsettings.json"), $sFolderExport . "/contentsettings.json");
+			}
+		}
+
+		$sZipFile = $oAddon->getDataPath("export/export_gridblock.zip");
+
+		$oZip = new ZipArchive;
+		$oZip->open($sZipFile, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+		// Create recursive directory iterator
+
+		$aFiles = new RecursiveIteratorIterator(
+			new RecursiveDirectoryIterator($sFolderExport),
+			RecursiveIteratorIterator::LEAVES_ONLY
+		);
+
+		foreach ($aFiles as $sName => $sFile) {
+			// Skip directories (they would be added automatically)
+			if (!$sFile->isDir()) {
+				// Get real and relative path for current file
+				$sFilePath = $sFile->getRealPath();
+				$sRelativePath = substr($sFilePath, strlen($sFolderExport) + 1);
+
+				// Add current file to archive
+				$oZip->addFile($sFilePath, $sRelativePath);
+			}
+		}
+
+		$oZip->close();
+
+		ob_clean();
+		header("Content-type: application/zip"); 
+		header("Content-Disposition: attachment; filename=gridblock_export.zip"); 
+		header("Pragma: no-cache"); 
+		header("Expires: 0"); 
+		readfile($sZipFile);
+	
+		if ($bDirCreated) {
+			self::rmDir($oAddon->getDataPath());
+		} else {
+			self::rmDir($oAddon->getDataPath("export/"));
+		}
+		$sReturn = "success";
+
+		return $sReturn;
+	}
+
 	private static function rmDir($sDir)
 	{
 		if (is_dir($sDir)) {
@@ -135,4 +228,3 @@ class rex_gridblock_importer
 		}
 	}
 }
-?>

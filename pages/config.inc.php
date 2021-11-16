@@ -25,6 +25,7 @@ if ($func == "save" && isset($_POST['submit'])):
 		'showtemplatetitles'		=> rex_post('showtemplatetitles'),
 		'hidepreviewcoltitles'		=> rex_post('hidepreviewcoltitles'),
 		'hideinfotexts'				=> rex_post('hideinfotexts'),
+		'showcontentsettingsbe'		=> rex_post('showcontentsettingsbe'),
 	]);
 
 	//Rückmeldung
@@ -136,7 +137,18 @@ endif;
                     </div>
                 </dd>
             </dl>
-           
+			<?php if (rex_plugin::get('gridblock', 'contentsettings')->isAvailable()) { ?>
+				<dl class="rex-form-group form-group">
+					<dt><label for=""><?php echo $this->i18n('a1620_config_showcontentsettingsbe'); ?></label></dt>
+					<dd>
+						<div class="checkbox toggle">
+							<label for="showcontentsettingsbe">
+								<input type="checkbox" name="showcontentsettingsbe" id="showcontentsettingsbe" value="checked" <?php echo @$config['showcontentsettingsbe']; ?> /> <?php echo $this->i18n('a1620_config_showcontentsettingsbe_info'); ?>
+							</label>
+						</div>
+					</dd>
+				</dl>
+			<?php } ?>           
 
 		</div>
         

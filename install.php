@@ -20,6 +20,7 @@ if (!$this->hasConfig()):
 		'showtemplatetitles'		=> '',
 		'hidepreviewcoltitles'		=> '',
 		'hideinfotexts'				=> '',
+		'showcontentsettingsbe'		=> '',
 	]);
 endif;
 

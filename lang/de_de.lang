@@ -60,7 +60,8 @@ a1620_config_hidepreviewcoltitles = Layoutvorschau Spalten
 a1620_config_hidepreviewcoltitles_info = Spaltenbezeichnungen in Vorschau verbergen
 a1620_config_hideinfotexts = Einleitungstexte
 a1620_config_hideinfotexts_info = Einleitungs- & Informationstexte im Modul verbergen
-
+a1620_config_showcontentsettingsbe = Contentsettings
+a1620_config_showcontentsettingsbe_info = Zeige Zusammenfassung der Contentsettings im Backend
 
 # Modulausgabe
 a1620_mod_template_empty = - keine Vorlage ausgewählt -

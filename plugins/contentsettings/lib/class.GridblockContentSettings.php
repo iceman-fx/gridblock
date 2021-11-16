@@ -366,17 +366,23 @@
         $this->getAllSettings();
 
         $aData = array();
+        $aDataLabels = array();
 
         // template
         if (isset($this->aSettings["showOptions"])) {
             foreach ($this->aSettings["showOptions"] as $sKey) {
                 if ($this->aSettings["options"][$sKey]["type"] != "html") {
                     $aData["template"][$sKey] = "";
+
                     if ($aArr["template"][$sKey] == "gridblockcontentsettingsdefault") {
                         $aData["template"][$sKey] = $this->getDefault($sKey);
                     } else {
                         $aData["template"][$sKey] = $aArr["template"][$sKey];
                     }
+
+                    $aDataLabels["template"][$sKey] = "";
+                    $sValue = $aData["template"][$sKey];
+                    $aDataLabels["template"][$sKey] = array("key" => $sValue, "label" => $this->aSettings["options"][$sKey]["label"], "value" => $this->aSettings["options"][$sKey]["data"][$sValue]);
                 }
             }
         }
@@ -394,10 +400,16 @@
                         } else {
                             $aData["column_" . $iX][$sKey] = $aArr["column_" . $iX][$sKey];
                         }
+
+                        $aDataLabels["column_" . $iX][$sKey] = "";
+                        $sValue = $aData["column_" . $iX][$sKey];
+                        $aDataLabels["column_" . $iX][$sKey] = array("key" => $sValue, "label" => $this->aSettings["options"][$sKey]["label"], "value" => $this->aSettings["options"][$sKey]["data"][$sValue]);
                     }
                 }
             }
         }
+
+        $aData["data_with_labels"] = $aDataLabels;
 
         $oData = json_decode(json_encode($aData), FALSE);
         return $oData;
@@ -493,5 +505,84 @@
             }
         }
         return $sContent;
+    }
+
+    public function getBackendSummary($oData="",$iTemplateId=0)
+    {
+
+        $aColumns = array();
+        $iColumns = "16";
+        if ($iTemplateId) {
+            $iTemplateId = intval($iTemplateId);
+            $oDb = rex_sql::factory();
+            $oDb->setQuery("SELECT columns,preview FROM " . rex::getTable('1620_gridtemplates') . " WHERE id = '$iTemplateId' Limit 1");
+            $iColumns = $oDb->getValue("columns");
+            $aPreview = json_decode($oDb->getValue("preview"),true);
+        }
+
+
+
+
+        $sHtml = "";
+        $iBlockId = rand(0, 100000) . time() . rand(0, 10000000);
+        $sHtml .= '<br /><a href="javascript:void(0)" class="btn btn-abort w-100 text-center nv-contentsettings-toggler-' . $iBlockId . '" data-id="#nv-contentsettings-' . $iBlockId . '" style="width:100%"><strong><span class = "caret"></span> &nbsp; ContentSettings</strong> &nbsp; <span class = "caret"></span></a><br />'.PHP_EOL;
+        $sHtml .= '<div id="nv-contentsettings-' . $iBlockId . '" style="border: 1px solid #c1c9d4;border-top:none; padding: 10px 20px;display:none"><br>'.PHP_EOL;
+        
+        if (isset($oData->template)) {
+            $sHtml .= '<strong>Template</strong>'.PHP_EOL;
+            $sHtml .= '<ul class="list-group">' . PHP_EOL;
+            foreach ($oData->template as $sKey => $oItem) {
+                if ($oItem->key != "") {
+                    $sLabel = $oItem->label . " (" . $sKey . ")";
+                    $sValue = $oItem->key;
+                    if ($oItem->value != "") {
+                        $sValue .= " (". $oItem->value. ")";
+                    }
+                    $sHtml .= '<li class="list-group-item"><strong>' . $sLabel . '</strong></li>' . PHP_EOL;
+                    $sHtml .= '<li class="list-group-item">' . $sValue . '</li>' . PHP_EOL;
+                }
+            }
+            $sHtml .= '</ul>' . PHP_EOL;
+        }
+        for($iX=1;$iX<=$iColumns;$iX++) {
+            if (isset($oData->{"column_".$iX})) {
+                $sColumnLabel = "Spalte ".$iX;
+                $iColumn = $iX-1;
+                if ($aPreview["columns"][$iColumn]["title"] != "") {
+                    $sColumnLabel = "Spalte ".$aPreview["columns"][$iColumn]["title"];
+                }
+
+                $sHtml .= '<strong>'.$sColumnLabel.'</strong>'.PHP_EOL;
+                $sHtml .= '<ul class="list-group">' . PHP_EOL;
+                foreach ($oData->{"column_".$iX} as $sKey => $oItem) {
+                    if ($oItem->key != "") {
+                        $sLabel = $oItem->label . " (" . $sKey . ")";
+                        $sValue = $oItem->key;
+                        if ($oItem->value != "") {
+                            $sValue .= " (". $oItem->value. ")";
+                        }
+                        $sHtml .= '<li class="list-group-item"><strong>' . $sLabel . '</strong></li>' . PHP_EOL;
+                        $sHtml .= '<li class="list-group-item">' . $sValue . '</li>' . PHP_EOL;
+                    }
+                }
+                $sHtml .= '</ul>' . PHP_EOL;
+            } 
+        }
+        $sHtml .= '</div>' . PHP_EOL;
+        $sHtml .= '<script>' . PHP_EOL;
+        $sHtml .= '$( document ).ready(function() {
+			$(".nv-contentsettings-toggler-' . $iBlockId . '").click(function(){
+				var iBlockId = $(this).attr("data-id");
+				$(iBlockId).slideToggle();
+                console.log("click "+iBlockId);
+			});
+		})' . PHP_EOL;
+        $sHtml .= '</script>' . PHP_EOL;
+
+
+        #$sHtml .= "<pre>" . print_r($oData, 1) . "</pre>";
+
+
+        return $sHtml;
     }
 }

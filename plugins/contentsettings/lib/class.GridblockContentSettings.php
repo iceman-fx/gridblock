@@ -382,7 +382,7 @@
 
                     $aDataLabels["template"][$sKey] = "";
                     $sValue = $aData["template"][$sKey];
-                    $aDataLabels["template"][$sKey] = array("key" => $sValue, "label" => $this->aSettings["options"][$sKey]["label"], "value" => $this->aSettings["options"][$sKey]["data"][$sValue]);
+                    $aDataLabels["template"][$sKey] = array("key" => $sValue, "label" => @$this->aSettings["options"][$sKey]["label"], "value" => @$this->aSettings["options"][$sKey]["data"][$sValue]);
                 }
             }
         }
@@ -403,7 +403,7 @@
 
                         $aDataLabels["column_" . $iX][$sKey] = "";
                         $sValue = $aData["column_" . $iX][$sKey];
-                        $aDataLabels["column_" . $iX][$sKey] = array("key" => $sValue, "label" => $this->aSettings["options"][$sKey]["label"], "value" => $this->aSettings["options"][$sKey]["data"][$sValue]);
+                        $aDataLabels["column_" . $iX][$sKey] = array("key" => $sValue, "label" => @$this->aSettings["options"][$sKey]["label"], "value" => @$this->aSettings["options"][$sKey]["data"][$sValue]);
                     }
                 }
             }

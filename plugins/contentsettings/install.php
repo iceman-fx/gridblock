@@ -5,5 +5,7 @@ if (!$this->hasConfig()) {
     $this->setConfig('date_install', time());
 
     $oAddon = rex_addon::get('gridblock');
-    $oAddon->setConfig('showcontentsettingsbe','checked');
+    $aConfig = $oAddon->getConfig('config');
+    $aConfig['showcontentsettingsbe'] = 'checked';
+    $oAddon->setConfig('config',$aConfig);
 }

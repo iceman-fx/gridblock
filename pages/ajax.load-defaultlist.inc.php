@@ -86,6 +86,10 @@ $addPath = "index.php?page=".$page;
 						$preview = (!empty($preview)) ? json_decode($preview, TRUE) : '';
 						
 					$preview = a1620_generatePreview($preview, $eid, $columns, $title, $desc);
+					
+					$dbu = rex_sql::factory();
+					$dbu->setQuery("SELECT id FROM ".rex::getTable('article_slice')." WHERE value17 like '%selectedTemplate\":\"".$eid."\"%'");
+					$inuse = ($dbu->getRows() > 0) ? '<i class="rex-icon rex-icon-active-true"></i> '.$this->i18n('a1620_yes') : '<i class="rex-icon rex-icon-active-false"></i> '.$this->i18n('a1620_no');;
 						
 					
 					//Ausgabe
@@ -97,6 +101,7 @@ $addPath = "index.php?page=".$page;
                         <td data-title="<?php echo $this->i18n('a1620_bas_list_name'); ?>"><a href="<?php echo $editPath; ?>"><?php echo $title; ?></a></td>
                         <td data-title="<?php echo $this->i18n('a1620_bas_list_columns'); ?>"><?php echo $columns; ?></td>
                         <td data-title="<?php echo $this->i18n('a1620_bas_list_preview'); ?>"><?php echo $preview; ?></td>
+                        <td data-title="<?php echo $this->i18n('a1620_bas_list_inuse'); ?>"><?php echo $inuse; ?></td>
                         <td data-title="<?php echo $this->i18n('a1620_bas_list_priority'); ?>"><?php echo $prio; ?></td>
                         <td class="rex-table-action"><a href="<?php echo $editPath; ?>"><i class="rex-icon rex-icon-edit"></i> <?php echo $this->i18n('a1620_edit'); ?></a></td>
                         <td class="rex-table-action"><a href="<?php echo $addPath; ?>&func=duplicate&id=<?php echo $eid; ?>"><i class="rex-icon rex-icon-duplicate"></i> <?php echo $this->i18n('a1620_duplicate'); ?></a></td>

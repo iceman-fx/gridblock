@@ -463,6 +463,7 @@ else:
 						<th><?php echo $this->i18n('a1620_bas_list_name'); ?></th>
 						<th><?php echo $this->i18n('a1620_bas_list_columns'); ?></th>
 						<th><?php echo $this->i18n('a1620_bas_list_preview'); ?></th>
+                        <th><?php echo $this->i18n('a1620_bas_list_inuse'); ?></th>
 						<th><?php echo $this->i18n('a1620_bas_list_priority'); ?> <a class="db-order db-order-asc" id="db-order" data-order="asc"><i class="rex-icon fa-sort"></i></a></th>
 						<th class="rex-table-action" colspan="3"><?php echo $this->i18n('a1620_statusfunc'); ?></th>
 					</tr>

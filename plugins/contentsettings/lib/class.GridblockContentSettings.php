@@ -507,7 +507,7 @@
         return $sContent;
     }
 
-    public function getBackendSummary($oData="",$iTemplateId=0)
+    public function getBackendSummary($oData = "", $iTemplateId = 0)
     {
 
         $aColumns = array();
@@ -517,7 +517,7 @@
             $oDb = rex_sql::factory();
             $oDb->setQuery("SELECT columns,preview FROM " . rex::getTable('1620_gridtemplates') . " WHERE id = '$iTemplateId' Limit 1");
             $iColumns = $oDb->getValue("columns");
-            $aPreview = json_decode($oDb->getValue("preview"),true);
+            $aPreview = json_decode($oDb->getValue("preview"), true);
         }
 
 
@@ -525,48 +525,42 @@
 
         $sHtml = "";
         $iBlockId = rand(0, 100000) . time() . rand(0, 10000000);
-        $sHtml .= '<br /><a href="javascript:void(0)" class="btn btn-abort w-100 text-center nv-contentsettings-toggler-' . $iBlockId . '" data-id="#nv-contentsettings-' . $iBlockId . '" style="width:100%"><strong><span class = "caret"></span> &nbsp; ContentSettings</strong> &nbsp; <span class = "caret"></span></a><br />'.PHP_EOL;
-        $sHtml .= '<div id="nv-contentsettings-' . $iBlockId . '" style="border: 1px solid #c1c9d4;border-top:none; padding: 10px 20px;display:none"><br>'.PHP_EOL;
-        
+        $sHtml .= '<br /><a href="javascript:void(0)" class="btn btn-abort w-100 text-center nv-contentsettings-toggler-' . $iBlockId . '" data-id="#nv-contentsettings-' . $iBlockId . '" style="width:100%"><strong><span class = "caret"></span> &nbsp; ContentSettings</strong> &nbsp; <span class = "caret"></span></a><br />' . PHP_EOL;
+        $sHtml .= '<div id="nv-contentsettings-' . $iBlockId . '" style="border: 1px solid #c1c9d4;border-top:none; padding: 10px 20px;display:none"><br>' . PHP_EOL;
+
         if (isset($oData->template)) {
-            $sHtml .= '<strong>Template</strong>'.PHP_EOL;
+            $sHtml .= '<strong>Template</strong>' . PHP_EOL;
             $sHtml .= '<ul class="list-group">' . PHP_EOL;
             foreach ($oData->template as $sKey => $oItem) {
-                if ($oItem->key != "") {
-                    $sLabel = $oItem->label . " (" . $sKey . ")";
-                    $sValue = $oItem->key;
-                    if ($oItem->value != "") {
-                        $sValue .= " (". $oItem->value. ")";
-                    }
-                    $sHtml .= '<li class="list-group-item"><strong>' . $sLabel . '</strong></li>' . PHP_EOL;
-                    $sHtml .= '<li class="list-group-item">' . $sValue . '</li>' . PHP_EOL;
+                $sLabel = $oItem->label . " (" . $sKey . ")";
+                $sValue = $oItem->key;
+                if ($oItem->value != "") {
+                    $sValue .= " (" . $oItem->value . ")";
                 }
+                $sHtml .= '<li class="list-group-item"><div class="row"><div class="col-12 col-lg-6" style="padding:0">' . $sLabel . '</div><div class="col-12 col-lg-6" style="padding:0">' . $sValue . '</div></div></li>' . PHP_EOL;
             }
             $sHtml .= '</ul>' . PHP_EOL;
         }
-        for($iX=1;$iX<=$iColumns;$iX++) {
-            if (isset($oData->{"column_".$iX})) {
-                $sColumnLabel = "Spalte ".$iX;
-                $iColumn = $iX-1;
+        for ($iX = 1; $iX <= $iColumns; $iX++) {
+            if (isset($oData->{"column_" . $iX})) {
+                $sColumnLabel = "Spalte " . $iX;
+                $iColumn = $iX - 1;
                 if ($aPreview["columns"][$iColumn]["title"] != "") {
-                    $sColumnLabel = "Spalte ".$aPreview["columns"][$iColumn]["title"];
+                    $sColumnLabel = "Spalte $iX - " . $aPreview["columns"][$iColumn]["title"];
                 }
 
-                $sHtml .= '<strong>'.$sColumnLabel.'</strong>'.PHP_EOL;
+                $sHtml .= '<strong>' . $sColumnLabel . '</strong>' . PHP_EOL;
                 $sHtml .= '<ul class="list-group">' . PHP_EOL;
-                foreach ($oData->{"column_".$iX} as $sKey => $oItem) {
-                    if ($oItem->key != "") {
-                        $sLabel = $oItem->label . " (" . $sKey . ")";
-                        $sValue = $oItem->key;
-                        if ($oItem->value != "") {
-                            $sValue .= " (". $oItem->value. ")";
-                        }
-                        $sHtml .= '<li class="list-group-item"><strong>' . $sLabel . '</strong></li>' . PHP_EOL;
-                        $sHtml .= '<li class="list-group-item">' . $sValue . '</li>' . PHP_EOL;
+                foreach ($oData->{"column_" . $iX} as $sKey => $oItem) {
+                    $sLabel = $oItem->label . " (" . $sKey . ")";
+                    $sValue = $oItem->key;
+                    if ($oItem->value != "") {
+                        $sValue .= " (" . $oItem->value . ")";
                     }
+                    $sHtml .= '<li class="list-group-item"><div class="row"><div class="col-12 col-lg-6" style="padding:0">' . $sLabel . '</div><div class="col-12 col-lg-6" style="padding:0">' . $sValue . '</div></div></li>' . PHP_EOL;
                 }
                 $sHtml .= '</ul>' . PHP_EOL;
-            } 
+            }
         }
         $sHtml .= '</div>' . PHP_EOL;
         $sHtml .= '<script>' . PHP_EOL;

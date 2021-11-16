@@ -30,6 +30,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
                 endif;
             endforeach;
 			
+			$rexVars = (empty($rexVars) && isset($_SESSION['gridRexVars'])) ? $_SESSION['gridRexVars'] : $rexVars;
 			//dump($rexVars);
 						
 			//REX-MODULE-VARS erweitern

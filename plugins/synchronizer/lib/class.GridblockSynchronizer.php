@@ -79,7 +79,7 @@
             } else if (file_exists($sFile) && !file_exists($sFileOrigin)) {
                 copy($sFile, $sFileOrigin);
             } else if (file_exists($sFile) && file_exists($sFileOrigin)) {
-                if (filemtime($sFile) > filemtime($sFileOrigin)) {
+                if (filectime($sFile) > filectime($sFileOrigin)) {
                     copy($sFile, $sFileOrigin);
                 } else {
                     copy($sFileOrigin, $sFile);
@@ -110,7 +110,7 @@
             } else {
                 $sMarkupTemplate = file_get_contents($sFile);
                 if (md5($sMarkupTemplateDatabase) != md5($sMarkupTemplate)) {
-                    if (filemtime($sFile) > $iUpdatedate) {
+                    if (filectime($sFile) > $iUpdatedate) {
                         $bDoUpdate = true;
                         array_push(self::$aLogs, "updating database from file: " . $sFile);
                     } else {
@@ -132,7 +132,7 @@
             } else {
                 $sMarkupDefinition = file_get_contents($sFile);
                 if (md5($sMarkupDefinitionDatabase) != md5($sMarkupDefinition)) {
-                    if (filemtime($sFile) > $iUpdatedate) {
+                    if (filectime($sFile) > $iUpdatedate) {
                         $bDoUpdate = true;
                         array_push(self::$aLogs, "updating database from file: " . $sFile);
                     } else {
@@ -243,8 +243,8 @@
                         $sMd5Theme = md5_file($sThemeFile);
 
                         if ($sMd5Plugin != $sMd5Theme) {
-                            $iPluginFiledate = filemtime($sPluginFile);
-                            $iThemeFiledate = filemtime($sThemeFile);
+                            $iPluginFiledate = filectime($sPluginFile);
+                            $iThemeFiledate = filectime($sThemeFile);
                             if ($iPluginFiledate > $iThemeFiledate) {
                                 $sContent = file_get_contents($sPluginFile);
                                 file_put_contents($sThemeFile, $sContent);
@@ -277,7 +277,7 @@
                 } else if (file_exists($sFile) && !file_exists($sFileOrigin)) {
                     copy($sFile, $sFileOrigin);
                 } else if (file_exists($sFile) && file_exists($sFileOrigin)) {
-                    if (filemtime($sFile) > filemtime($sFileOrigin)) {
+                    if (filectime($sFile) > filectime($sFileOrigin)) {
                         copy($sFile, $sFileOrigin);
                     } else {
                         copy($sFileOrigin, $sFile);
@@ -299,8 +299,8 @@
                         $sThemeMd5 = md5_file($sThemeFile);
 
                         if ($sPluginMd5 != $sThemeMd5) {
-                            $iPluginFiledate = filemtime($sPluginFile);
-                            $iThemeFiledate = filemtime($sThemeFile);
+                            $iPluginFiledate = filectime($sPluginFile);
+                            $iThemeFiledate = filectime($sThemeFile);
                             if ($iPluginFiledate > $iThemeFiledate) {
                                 $sContent = file_get_contents($sPluginFile);
                                 file_put_contents($sThemeFile, $sContent);

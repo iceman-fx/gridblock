@@ -38,6 +38,7 @@ a1620_bas_list_name = Titel / Bezeichnung
 a1620_bas_list_columns = Spalten
 a1620_bas_list_preview = Layoutvorschau
 a1620_bas_list_priority = Prio
+a1620_bas_list_inuse = In Verwendung
 
 a1620_bas_list_btn_createtemplate = Beispieltemplates erstellen
 a1620_bas_list_btn_importtemplate = Eigene Templates & Settings importieren

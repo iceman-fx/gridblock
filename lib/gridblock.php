@@ -14,7 +14,7 @@ class rex_gridblock {
 	public $clangID = 0;					//int
 	public $ctypeID = 0;					//int -> ist aktuell nicht auslesbar !!!
 	
-	private $rexVars = [];					//array -> ctypeID ist aktuell nicht verfügbar !!!
+	public $rexVars = [];					//array -> ctypeID ist aktuell nicht verfügbar !!!
 	
     public $ingoredModules = [];			//array
 	public $allowedModules = [];			//array
@@ -151,7 +151,8 @@ class rex_gridblock {
 			$this->rexVars['clangID'] = (int) $art->getClangId();
 		endif;
 		
-		//dump($this->rexVars);
+		$_SESSION['gridRexVars'] = $this->rexVars;
+		//dump($_SESSION['gridRexVars']);
 		
         $sql = rex_sql::factory();
         $sql->prepareQuery('SELECT value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13, value14, value15, value16, value17, value18, value19, value20 FROM '.rex::getTable('article_slice').' WHERE id = ?');

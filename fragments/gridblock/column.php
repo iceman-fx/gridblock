@@ -71,7 +71,7 @@ $useSettingPlugin = ( rex_plugin::get('gridblock', 'contentsettings')->isAvailab
                     
                     //Values der Spalte wählen
                     $values = rex_var::toArray($this->values[$colID]);
-                    $values = $values[$uID];
+                    $values = (isset($values[$uID])) ? $values[$uID] : $values;
                             
                     echo rex_article_content_gridblock::getModuleSelector($colID, $moduleID, $uID);				//Sliceblock + Modulselektor einbinden (ohne schließendes div)
                     

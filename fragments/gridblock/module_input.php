@@ -110,7 +110,7 @@ endif;
                     endif;
                     ?>
                 </div>
-                <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo rex_i18n::msg('a1620_close'); ?></button></div>
+                <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal"><?php echo rex_i18n::msg('a1620_close'); ?></button></div>
             </div>
         </div>
     </div>

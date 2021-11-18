@@ -130,7 +130,8 @@ if ($db->getRows() > 0):
 		$CONTENT = ob_get_clean();
 	}
 	$op = $CONTENT;
-	if ($useSettingPlugin) :
+	
+	if ($useSettingPlugin):
 		if (@$config['showcontentsettingsbe'] == "checked") {
 			if (rex::isBackend()) {
 				$op .= $oSettings->getBackendSummary($contentsettings->data_with_labels,$selTemplate);

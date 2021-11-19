@@ -68,7 +68,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 		//Modul-Edit ausgeben
 		$op .= '<div id="gridblockModuleContent'.$uID.'" class="column-input">';
 			$op .= $slice_content;
-			$op .= '<div class="clearfix"></div><div class="addmodule"><a class="btn btn-default btn-block btn-addgridmodule" title="'.rex_i18n::msg('a1620_mod_add_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'"><i class="fa fa-plus"></i>'.rex_i18n::msg('a1620_mod_add_modul').'</a></div>';
+			//$op .= '<div class="clearfix"></div><div class="addmodule"><a class="btn btn-default btn-block btn-addgridmodule" title="'.rex_i18n::msg('a1620_mod_add_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'"><i class="fa fa-plus"></i>'.rex_i18n::msg('a1620_mod_add_modul').'</a></div>';
 		$op .= '</div>';
 		
         return $op;
@@ -135,8 +135,9 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 					$cnt .= (!$disabled && $selectedModuleID <= 0) ? self::addModuleSelector($colID, $uID) : '';
 				
 					$cnt .= '<div class="column-slice-sorter">';
+						$cnt .= '<div class="btn-group btn-group-xs btn-group-add"><a class="btn btn-success btn-addgridmodule" title="'.rex_i18n::msg('a1620_mod_add_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'"><i class="rex-icon rex-icon-add"></i></a></div>';
 						$cnt .= '<div class="btn-group btn-group-xs btn-group-delete"><a class="btn btn-delete" title="'.rex_i18n::msg('a1620_mod_delete_modul').'"><i class="rex-icon rex-icon-delete"></i></a></div>';
-						
+
 						$cnt .= '<div class="btn-group btn-group-xs">';
 							$cnt .= '<a class="btn btn-move btn-move-up" title="'.rex_i18n::msg('a1620_mod_move_modul_up').'"><i class="rex-icon rex-icon-up"></i></a>';
 							$cnt .= '<a class="btn btn-move btn-move-down" title="'.rex_i18n::msg('a1620_mod_move_modul_down').'"><i class="rex-icon rex-icon-down"></i></a>';

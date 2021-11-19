@@ -29,18 +29,20 @@
 
 .gridblock .column-slice { background: #FFF; }	
 .gridblock .column-slice-functions { position: relative; display: flex; align-items: center; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(156,165,178, 0.6); box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(156,165,178, 0.6); }
-.gridblock .column-slice-sorter { padding: 0px 5px 0px 0px; white-space: nowrap; text-align: right; min-width: 145px; }
+.gridblock .column-slice-sorter { padding: 0px 5px 0px 10px; white-space: nowrap; text-align: right; min-width: 175px; }
 	.gridblock .column-slice-sorter .btn-group-drag { margin-left: 5px; }
 	.gridblock .column-slice-sorter .btn-group-drag a.btn { background: none; border: none; cursor: grab; }
+	.gridblock .column-slice-sorter .btn-group-add { margin-right: 5px; }
+
 	.gridblock .column-slice-sorter .btn-group-delete { margin-right: 5px; }
 		.gridblock .column-slice-nodelete .column-slice-sorter .btn-group-delete a.btn { background: #e48d8a; border-color: #e48d8a; color: #a59c9c; cursor: default; }
 	
 ul.gridblock-moduleselector a { cursor: pointer; }
 .gridblock .addmodule { text-align: center; margin-top: 50px; }
-	.gridblock a.btn-addgridmodule { padding-left: 50px; padding-right: 50px; background: #dbedf7; border-color: #dbedf7; color: #4b9ad9; border-radius: 0px; font-weight: bold; }
-	.gridblock a.btn-addgridmodule:hover { background: #4b9ad9 !important; border-color: #4b9ad9 !important; color: #FFF !important; }
-	.gridblock a.btn-addgridmodule i { display: none; }
-	.gridblock a.btn-addgridmodule span.caret { display: none; }
+	.gridblock a.btn-block.btn-addgridmodule { padding-left: 50px; padding-right: 50px; background: #dbedf7; border-color: #dbedf7; color: #4b9ad9; border-radius: 0px; font-weight: bold; }
+	.gridblock a.btn-block.btn-addgridmodule:hover { background: #4b9ad9 !important; border-color: #4b9ad9 !important; color: #FFF !important; }
+	.gridblock a.btn-block.btn-addgridmodule i { display: none; }
+	.gridblock a.btn-block.btn-addgridmodule span.caret { display: none; }
 
 .gridblock .gridblock-group > span { font-weight: bold; display: block; margin-top: 25px; margin-bottom: -5px; }
 	.gridblock .gridblock-group:nth-child(1) > span { margin-top: 0px; }

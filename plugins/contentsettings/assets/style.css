@@ -1,0 +1,13 @@
+.gridblockcontentsettings-form .tab-content {
+    padding: 20px;
+    border: 0;
+    background-color:#fff;
+}
+
+.column-settings .gridblockcontentsettings-form .tab-content {
+    padding: 20px 0;
+}
+
+.gridblockcontentsettings-form .nav-tabs {
+    margin-bottom: 0;
+}

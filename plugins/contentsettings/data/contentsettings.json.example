@@ -27,14 +27,26 @@
 				}
 			]
 	},
+	"categories": [
+		{
+			"key": "general",
+			"label": "Allgemeine Einstellungen"
+		},
+		{
+			"key": "design",
+			"label": "Design"
+		}
+	],
 	"options": [
 		{
+			"category": "general",
 			"key": "class",
 			"label": "Block Klasse",
 			"placeholder": "BeispielKlasse",
 			"type": "text"
 		},
 		{
+			"category": "design",
 			"key": "marginTop",
 			"label": "Block Außenabstand Oben",
 			"type": "select",

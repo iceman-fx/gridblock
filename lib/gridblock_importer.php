@@ -56,7 +56,7 @@ class rex_gridblock_importer
 					break;
 				}
 			}
-			
+
 			foreach ($aItems as $sItem) {
 
 				if ($sItem != "." && $sItem != "..") {
@@ -106,7 +106,11 @@ class rex_gridblock_importer
 						// project contentsettings.json
 					} else {
 						if ($oPluginSettings->isAvailable() && $sItem == "contentsettings.json") {
-							copy($oAddon->getDataPath($sFolderImport) . "/" . $sItem, $oPluginSettings->getDataPath($sItem));
+							if (!file_exists($oPluginSettings->getDataPath($sItem))) {
+								copy($oAddon->getDataPath($sFolderImport) . "/" . $sItem, $oPluginSettings->getDataPath($sItem));
+							} else {
+								copy($oAddon->getDataPath($sFolderImport) . "/" . $sItem, $oPluginSettings->getDataPath("contentsettings_imported_".date("Y-m-d_H-i-s").".json"));
+							}
 						}
 					}
 				}

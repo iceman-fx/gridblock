@@ -47,6 +47,16 @@ class rex_gridblock_importer
 
 			$aItems = scandir($oAddon->getDataPath($sFolderImport));
 
+			// check for zipped folder workaround
+			$sCheckFolderName = pathinfo($aFile["name"])["filename"];
+			foreach($aItems AS $sItem) {
+				if ($sItem == $sCheckFolderName) {
+					$sFolderImport = $sFolderImport."/".$sCheckFolderName;
+					$aItems = scandir($oAddon->getDataPath($sFolderImport));
+					break;
+				}
+			}
+			
 			foreach ($aItems as $sItem) {
 
 				if ($sItem != "." && $sItem != "..") {

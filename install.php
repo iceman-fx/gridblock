@@ -21,6 +21,7 @@ if (!$this->hasConfig()):
 		'hidepreviewcoltitles'		=> '',
 		'hideinfotexts'				=> '',
 		'showcontentsettingsbe'		=> '',
+		'plusbuttonfornewblock'		=> '',
 	]);
 endif;
 

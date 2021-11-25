@@ -62,6 +62,9 @@ a1620_config_hideinfotexts = Einleitungstexte
 a1620_config_hideinfotexts_info = Einleitungs- & Informationstexte im Modul verbergen
 a1620_config_showcontentsettingsbe = Contentsettings
 a1620_config_showcontentsettingsbe_info = Zeige Zusammenfassung der Contentsettings im Backend
+a1620_config_plusbuttonfornewblock = Plus-Schaltfläche
+a1620_config_plusbuttonfornewblock_info = Plus-Schaltfläche im MBlock-Stil anstatt "Weiteren Inhaltsblock hinzufügen" nutzen
+
 
 # Modulausgabe
 a1620_mod_template_empty = - keine Vorlage ausgewählt -

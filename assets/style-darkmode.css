@@ -36,8 +36,12 @@
 	body:not(.rex-theme-light) .gridblock .column-slices { background: #1a3332; }
 	body:not(.rex-theme-light) .gridblock .column-slice-functions { -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6); box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6); }
 
-	body:not(.rex-theme-light) .gridblock a.btn-addgridmodule { background: #213c51; border-color: #213c51; color: rgba(255, 255, 255, 0.75) !important; }
-	body:not(.rex-theme-light) .gridblock a.btn-addgridmodule:hover { background: #1c4260 !important; border-color: #1c4260 !important; }
+	body:not(.rex-theme-light) .gridblock a.btn-addgridmodule,
+	body:not(.rex-theme-light) .gridblock .column-slice-sorter a.btn-addgridmodule 
+		{ background: #213c51; border-color: #213c51; color: rgba(255, 255, 255, 0.75) !important; }
+	body:not(.rex-theme-light) .gridblock a.btn-addgridmodule:hover, 
+	body:not(.rex-theme-light) .gridblock .column-slice-sorter a.btn-addgridmodule:hover 
+		{ background: #1c4260 !important; border-color: #1c4260 !important; }
 
 	body:not(.rex-theme-light) .gridblock .column-slice-nodelete .column-slice-sorter .btn-group-delete a.btn { background: rgba(128,25,25, 0.3); border-color: rgba(128,25,25, 0.3); color: rgba(255,255,255, 0.1); }
 

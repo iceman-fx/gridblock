@@ -78,19 +78,9 @@ if ($db->getRows() > 0):
 					
 					//Values der Spalte wählen
 					$values = rex_var::toArray($this->values[$i]);
-					$values = $values[$uID];
+					$values = @$values[$uID];
 					
 					unset($modcol);
-					
-					/*
-					$modcol['COLUMN']['ID'] = $i;
-					$modcol['COLUMN']['VALIGN'] = $valign;
-					$modcol['COLUMN']['PADDING'] = array( "TOP"=>@$options['padding'][$i]['top'], "RIGHT"=>@$options['padding'][$i]['right'], "BOTTOM"=>@$options['padding'][$i]['bottom'], "LEFT"=>@$options['padding'][$i]['left'] );
-					$modcol['COLUMN']['PADDINGCSS'] = $paddingcss;
-
-					$values = array_merge($values, $modcol);
-					*/
-					
 					$values ?? null;
 					
 					

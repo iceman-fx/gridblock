@@ -12,7 +12,8 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 
 
     public function getModuleEdit($addModuleID, $colID, $uID, $rexVars = array())
-    {
+    {	$config = rex_addon::get('gridblock')->getConfig('config');
+		
         $this->setEval(true);
         $this->setMode('edit');
         $this->setFunction('add');
@@ -68,7 +69,11 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 		//Modul-Edit ausgeben
 		$op .= '<div id="gridblockModuleContent'.$uID.'" class="column-input">';
 			$op .= $slice_content;
-			//$op .= '<div class="clearfix"></div><div class="addmodule"><a class="btn btn-default btn-block btn-addgridmodule" title="'.rex_i18n::msg('a1620_mod_add_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'"><i class="fa fa-plus"></i>'.rex_i18n::msg('a1620_mod_add_modul').'</a></div>';
+			
+			if (@$config['plusbuttonfornewblock'] != 'checked'):
+				$op .= '<div class="clearfix"></div>';
+				$op .= '<div class="addmodule"><a class="btn btn-default btn-block btn-addgridmodule" title="'.rex_i18n::msg('a1620_mod_add_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'"><i class="fa fa-plus"></i>'.rex_i18n::msg('a1620_mod_add_modul').'</a></div>';
+			endif;
 		$op .= '</div>';
 		
         return $op;
@@ -83,7 +88,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 		if (isset($_SESSION['gridAllowedModules']) && $colID > 0 && !empty($uID)):
 			//Moduleselector anzeigen
 			$cnt .= '<div class="dropdown btn-block">';
-				$cnt .= '<a class="btn btn-default btn-block btn-addgridmodule dropdown-toggle" data-toggle="dropdown" title="'.rex_i18n::msg('a1620_mod_choose_modul').'"><i class="fa fa-plus"></i>'.rex_i18n::msg('a1620_mod_choose_modul').' <span class="caret"></span></a>';
+				$cnt .= '<a class="btn btn-default btn-block btn-choosegridmodul dropdown-toggle" data-toggle="dropdown" title="'.rex_i18n::msg('a1620_mod_choose_modul').'"><i class="fa fa-plus"></i>'.rex_i18n::msg('a1620_mod_choose_modul').' <span class="caret"></span></a>';
 				
 				$cnt .= '<ul class="dropdown-menu btn-block gridblock-moduleselector" role="menu" data-colid="'.$colID.'" data-uid="'.$uID.'">';
 					foreach ($_SESSION['gridAllowedModules'] as $id => $module):
@@ -109,7 +114,9 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 	
 	
     public static function getModuleSelector($colID, $selectedModuleID = 0, $uID = "")
-    {	$cnt = "";
+    {	$config = rex_addon::get('gridblock')->getConfig('config');
+	
+		$cnt = "";
 		$colID = intval($colID);
 		$selectedModuleID = intval($selectedModuleID);
 		
@@ -135,9 +142,12 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 					$cnt .= (!$disabled && $selectedModuleID <= 0) ? self::addModuleSelector($colID, $uID) : '';
 				
 					$cnt .= '<div class="column-slice-sorter">';
-						$cnt .= '<div class="btn-group btn-group-xs btn-group-add"><a class="btn btn-success btn-addgridmodule" title="'.rex_i18n::msg('a1620_mod_add_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'"><i class="rex-icon rex-icon-add"></i></a></div>';
+						if (@$config['plusbuttonfornewblock'] == 'checked'):
+							$cnt .= '<div class="btn-group btn-group-xs btn-group-add"><a class="btn btn-default btn-addgridmodule" title="'.rex_i18n::msg('a1620_mod_add_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'"><i class="rex-icon rex-icon-add-module"></i></a></div>';
+						endif;
+					
 						$cnt .= '<div class="btn-group btn-group-xs btn-group-delete"><a class="btn btn-delete" title="'.rex_i18n::msg('a1620_mod_delete_modul').'"><i class="rex-icon rex-icon-delete"></i></a></div>';
-
+						
 						$cnt .= '<div class="btn-group btn-group-xs">';
 							$cnt .= '<a class="btn btn-move btn-move-up" title="'.rex_i18n::msg('a1620_mod_move_modul_up').'"><i class="rex-icon rex-icon-up"></i></a>';
 							$cnt .= '<a class="btn btn-move btn-move-down" title="'.rex_i18n::msg('a1620_mod_move_modul_down').'"><i class="rex-icon rex-icon-down"></i></a>';
@@ -157,38 +167,42 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 
     public function setValues($values, $uID)
     {
-        if(empty($values)) {
+        if (empty($values)):
             $this->values = rex_gridblock::getBlankValues();
             return;
-        }
+        endif;
 		
         $this->values = [];
 		
-        if (isset($values['VALUE'])) {
-            foreach ($values['VALUE'] as $i => $value) {
+        if (isset($values['VALUE'])):
+            foreach ($values['VALUE'] as $i => $value):
                 $this->values['value'.$i] = $value;
-            }
-        }
-        if (isset($values['MEDIA'])) {
-            foreach ($values['MEDIA'] as $i => $value) {
+            endforeach;
+        endif;
+		
+        if (isset($values['MEDIA'])):
+            foreach ($values['MEDIA'] as $i => $value):
                 $this->values['media'.$i] = $value;
-            }
-        }
-        if (isset($values['MEDIALIST'])) {
-            foreach ($values['MEDIALIST'] as $i => $value) {
+            endforeach;
+        endif;
+		
+        if (isset($values['MEDIALIST'])):
+            foreach ($values['MEDIALIST'] as $i => $value):
                 $this->values['medialist'.$i] = $value;
-            }
-        }
-        if (isset($values['LINK'])) {
-            foreach ($values['LINK'] as $i => $value) {
+            endforeach;
+        endif;
+		
+        if (isset($values['LINK'])):
+            foreach ($values['LINK'] as $i => $value):
                 $this->values['link'.$i] = $value;
-            }
-        }
-        if (isset($values['LINKLIST'])) {
-            foreach ($values['LINKLIST'] as $i => $value) {
+            endforeach;
+        endif;
+		
+        if (isset($values['LINKLIST'])):
+            foreach ($values['LINKLIST'] as $i => $value):
                 $this->values['linklist'.$i] = $value;
-            }
-        }
+            endforeach;
+        endif;
 		
 		/*
 		echo "<br>----- setValues : Start -----<br>";
@@ -196,21 +210,11 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 		dump($this->values);
 		echo "----- setValues : Ende -----<br><br>";
 		*/
-
-		//additional values from the source-column
-		/*
-        if (isset($values['COLUMN'])) {
-            foreach ($values['COLUMN'] as $i => $value) {
-                $this->values['column_'.strtolower($i)] = $value;
-            }
-        }
-		*/
     }
 
 
     public function getModuleOutput($moduleID, $uID, $rexVars = array())
-	{
-        $this->setEval(true);
+	{	$this->setEval(true);
         $this->setMode('edit');
 		
 		$MOD = rex_sql::factory();
@@ -244,14 +248,6 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 			$op = $MOD->getValue('output');
 				$op = rex_gridblock_var_replacer::replaceModuleVars($op, $rexVars);																//zuerst die RexVars ersetzen
 				
-				/*
-				$op = str_replace("COLUMN_ID", 			str_replace('"', "&quot;", $this->values['column_id']), $op);
-				$op = str_replace("COLUMN_WIDTH", 		str_replace('"', "&quot;", $this->values['column_width']), $op);
-				$op = str_replace("COLUMN_VALIGN", 		str_replace('"', "&quot;", $this->values['column_valign']), $op);
-				$op = str_replace("COLUMN_PADDING", 	str_replace('"', "&quot;", $this->values['column_padding']), $op);
-				$op = str_replace("COLUMN_PADDINGCSS", 	str_replace('"', "&quot;", $this->values['column_paddingcss']), $op);
-				*/
-
 			$op = $this->replaceVars($initDataSql, $op);
 			$slice_content = $this->getStreamOutput('module/'.$moduleID.'/output', $op);
 		endif;

@@ -26,6 +26,7 @@ if ($func == "save" && isset($_POST['submit'])):
 		'hidepreviewcoltitles'		=> rex_post('hidepreviewcoltitles'),
 		'hideinfotexts'				=> rex_post('hideinfotexts'),
 		'showcontentsettingsbe'		=> rex_post('showcontentsettingsbe'),
+		'plusbuttonfornewblock'		=> rex_post('plusbuttonfornewblock'),
 	]);
 
 	//Rückmeldung
@@ -137,18 +138,32 @@ endif;
                     </div>
                 </dd>
             </dl>
-			<?php if (rex_plugin::get('gridblock', 'contentsettings')->isAvailable()) { ?>
-				<dl class="rex-form-group form-group">
-					<dt><label for=""><?php echo $this->i18n('a1620_config_showcontentsettingsbe'); ?></label></dt>
-					<dd>
-						<div class="checkbox toggle">
-							<label for="showcontentsettingsbe">
-								<input type="checkbox" name="showcontentsettingsbe" id="showcontentsettingsbe" value="checked" <?php echo @$config['showcontentsettingsbe']; ?> /> <?php echo $this->i18n('a1620_config_showcontentsettingsbe_info'); ?>
-							</label>
-						</div>
-					</dd>
-				</dl>
-			<?php } ?>           
+              
+            
+            <dl class="rex-form-group form-group">
+                <dt><label for=""><?php echo $this->i18n('a1620_config_plusbuttonfornewblock'); ?></label></dt>
+                <dd>
+                    <div class="checkbox toggle">
+						<label for="plusbuttonfornewblock">
+                        	<input type="checkbox" name="plusbuttonfornewblock" id="plusbuttonfornewblock" value="checked" <?php echo @$config['plusbuttonfornewblock']; ?> /> <?php echo $this->i18n('a1620_config_plusbuttonfornewblock_info'); ?>
+						</label>
+                    </div>
+                </dd>
+            </dl>
+            
+            
+			<?php if (rex_plugin::get('gridblock', 'contentsettings')->isAvailable()): ?>
+            <dl class="rex-form-group form-group">
+                <dt><label for=""><?php echo $this->i18n('a1620_config_showcontentsettingsbe'); ?></label></dt>
+                <dd>
+                    <div class="checkbox toggle">
+                        <label for="showcontentsettingsbe">
+                            <input type="checkbox" name="showcontentsettingsbe" id="showcontentsettingsbe" value="checked" <?php echo @$config['showcontentsettingsbe']; ?> /> <?php echo $this->i18n('a1620_config_showcontentsettingsbe_info'); ?>
+                        </label>
+                    </div>
+                </dd>
+            </dl>
+			<?php endif; ?>           
 
 		</div>
         

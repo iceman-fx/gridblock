@@ -510,7 +510,7 @@
                                             $sSliderShowTooltip = 'data-slider-tooltip="'.$aOption["slider-tooltip"].'"';
                                         }
 
-                                        $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' '.$sSliderShowTooltip.' data-provide="slider" ></dd>' . PHP_EOL;
+                                        $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" data-slider-tooltip-split="true" ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' '.$sSliderShowTooltip.' data-provide="slider" ></dd>' . PHP_EOL;
                                         break;
                                 }
 

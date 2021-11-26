@@ -270,7 +270,7 @@
         } else {
             $sType = "template";
         }
-        $sForm = '<div class="gridblockcontentsettings-form">';
+        $sForm = '<div class="gridblockcontentsettings-form gridblockcontentsettings-type-'.$sType.'">';
         $aUsedTypes = array();
         $iTabRand = rand(0, 100) * rand(0, 100);
         if (isset($this->aSettings["categories"])) {

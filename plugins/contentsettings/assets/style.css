@@ -31,3 +31,6 @@
 .gridblock .bs-tooltip-auto[x-placement^=left] .arrow::before,.bs-tooltip-left .arrow::before{left:0;border-width:.4rem 0 .4rem .4rem;border-left-color:#000}
 .gridblock .tooltip-inner{max-width:200px;padding:.25rem .5rem;color:#fff;text-align:center;background-color:#000;border-radius:.25rem}
 .gridblock .tooltip.bs-tooltip-top {margin-top: -24px;}
+.gridblock .slider.slider-horizontal {
+    margin-top: 10px;
+}

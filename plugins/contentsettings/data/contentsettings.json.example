@@ -30,7 +30,8 @@
 	"categories": [
 		{
 			"key": "general",
-			"label": "Allgemeine Einstellungen"
+			"label": "Allgemeine Einstellungen",
+			"icon": "fa fa-cog"
 		},
 		{
 			"key": "design",
@@ -129,6 +130,7 @@
 		{
 			"key": "range",
 			"category": "design",
+			"icon": "fa fa-desktop"
 			"label": "Spalten Versatz",
 			"type": "slider",
 			"slider-min": "0",

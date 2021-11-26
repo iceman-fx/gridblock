@@ -67,7 +67,7 @@
             if (count($this->projectData["categories"])) {
                 foreach ($this->projectData["categories"] as $aCategory) {
                     $sKey = $aCategory["key"];
-                    $this->aSettings["categories"][$sKey] = array("label" => $aCategory["label"]);
+                    $this->aSettings["categories"][$sKey] = array("label" => $aCategory["label"], "icon" => $aCategory["icon"]);
                 }
             }
         }
@@ -280,7 +280,11 @@
                 $iX = 0;
                 foreach ($this->aSettings["categories"] as $aCategory) {
                     if (isset($aCategory["showOptions"])) {
-                        $sForm .= '<li><a href="#gridblockcontentsettings-content-' . $iTabRand . '-' . $iX . '" data-toggle="tab">' . $aCategory["label"] . '</a></li>';
+                        $sForm .= '<li><a href="#gridblockcontentsettings-content-' . $iTabRand . '-' . $iX . '" data-toggle="tab">';
+                        if (isset($aCategory["icon"])) {
+                            $sForm .= ' <i class="' . $aCategory["icon"] . '" style="padding-right:10px"></i>';
+                        }
+                        $sForm .= $aCategory["label"] . '</a></li>' . PHP_EOL;
                         $iX++;
                     }
                 }
@@ -311,7 +315,11 @@
                                     $sForm .= '<dl class="rex-form-group form-group gridblockcontentsettings">' . PHP_EOL;
                                 }
                                 if ($aOption["label"] != "") {
-                                    $sForm .= '<dt><label for="">' . $aOption["label"] . ':</label></dt>' . PHP_EOL;
+                                    $sForm .= '<dt><label for="">' . $aOption["label"];
+                                    if (isset($aOption["icon"])) {
+                                        $sForm .= ' <i class="' . $aOption["icon"] . '" style="padding-left:10px"></i>';
+                                    }
+                                    $sForm .= '</label></dt>' . PHP_EOL;
                                 }
 
                                 switch ($aOption["type"]) {
@@ -507,10 +515,10 @@
                                             if ($aOption["slider-tooltip"] == "hover") {
                                                 $aOption["slider-tooltip"] = "show";
                                             }
-                                            $sSliderShowTooltip = 'data-slider-tooltip="'.$aOption["slider-tooltip"].'"';
+                                            $sSliderShowTooltip = 'data-slider-tooltip="' . $aOption["slider-tooltip"] . '"';
                                         }
 
-                                        $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" data-slider-tooltip-split="true" ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' '.$sSliderShowTooltip.' data-provide="slider" ></dd>' . PHP_EOL;
+                                        $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" data-slider-tooltip-split="true" ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' ' . $sSliderShowTooltip . ' data-provide="slider" ></dd>' . PHP_EOL;
                                         break;
                                 }
 
@@ -763,9 +771,6 @@
 			});
 		})' . PHP_EOL;
         $sHtml .= '</script>' . PHP_EOL;
-
-
-        #$sHtml .= "<pre>" . print_r($oData, 1) . "</pre>";
 
 
         return $sHtml;

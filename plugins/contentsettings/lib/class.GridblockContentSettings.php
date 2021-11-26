@@ -273,12 +273,13 @@
         } else {
             $sType = "template";
         }
+
         $aUsedTypes = array();
         $iTabRand = rand(0, 100) * rand(0, 100);
         if (isset($this->aSettings["categories"])) {
 
+            $sForm .= '<ul class="nav nav-tabs">';
             if ($this->aSettings["options_in_categories"] == true) {
-                $sForm .= '<ul class="nav nav-tabs">';
                 $iX = 0;
                 foreach ($this->aSettings["categories"] as $aCategory) {
                     if (isset($aCategory["showOptions"])) {
@@ -290,11 +291,11 @@
                         $iX++;
                     }
                 }
-                $sForm .= '</ul>';
+
             }
-            if ($this->aSettings["options_in_categories"] == true) {
+            $sForm .= '<span class="gridblocksettings-tab-icon-right"><i class="fa fa-cog"></i></span>';
+            $sForm .= '</ul>';
                 $sForm .= '<div class="tab-content" id="gridblockcontentsettings-tab-content-' . $iTabRand . '">';
-            }
             $iX = 0;
 
             foreach ($this->aSettings["categories"] as $aCategory) {
@@ -532,9 +533,7 @@
                     }
 
                     $sForm .= '</div>';
-                    if ($this->aSettings["options_in_categories"] == true) {
                         $sForm .= '</div>';
-                    }
                     $iX++;
                 }
             }
@@ -773,6 +772,9 @@
 			});
 		})' . PHP_EOL;
         $sHtml .= '</script>' . PHP_EOL;
+
+
+        #$sHtml .= "<pre>" . print_r($oData, 1) . "</pre>";
 
 
         return $sHtml;

@@ -167,22 +167,28 @@
 
         // Kategorien aufbauen
         $this->aSettings["options_in_categories"] = false;
-        foreach ($this->aSettings["showOptions"] as $sOption) {
-            $aOption = $this->aSettings["options"][$sOption];
-            $sCategory = $aOption["category"];
-            if ($sCategory != "") {
-                if (!isset($this->aSettings["categories"][$sCategory])) {
-                    $this->aSettings["categories"][$sCategory] = array("label" => $sCategory);
+        if (isset($this->aSettings["showOptions"])) {
+            foreach ($this->aSettings["showOptions"] as $sOption) {
+                $aOption = $this->aSettings["options"][$sOption];
+                if (isset($aOption["category"])) {
+                    $sCategory = $aOption["category"];
                 }
-                $this->aSettings["categories"][$sCategory]["showOptions"][] = $sOption;
-                $this->aSettings["options_in_categories"] = true;
+                if ($sCategory != "") {
+                    if (!isset($this->aSettings["categories"][$sCategory])) {
+                        $this->aSettings["categories"][$sCategory] = array("label" => $sCategory);
+                    }
+                    $this->aSettings["categories"][$sCategory]["showOptions"][] = $sOption;
+                    $this->aSettings["options_in_categories"] = true;
+                }
             }
         }
 
         if ($this->aSettings["options_in_categories"] == true) {
             foreach ($this->aSettings["showOptions"] as $sOption) {
                 $aOption = $this->aSettings["options"][$sOption];
-                $sCategory = $aOption["category"];
+                if (isset($aOption["category"])) {
+                    $sCategory = $aOption["category"];
+                }
                 if ($sCategory == "") {
                     $sCategory = "gridblockcontentsettingsgeneral";
                     if (!isset($this->aSettings["categories"][$sCategory])) {
@@ -196,8 +202,10 @@
         if ($this->aSettings["options_in_categories"] == false) {
             $this->aSettings["categories"] = array();
             $this->aSettings["categories"]["gridblockcontentsettingsgeneral"] = array("label" => "Keine Kategorien verwendet");
-            foreach ($this->aSettings["showOptions"] as $sOption) {
-                $this->aSettings["categories"]["gridblockcontentsettingsgeneral"]["showOptions"][] = $sOption;
+            if (isset($this->aSettings["showOptions"])) {
+                foreach ($this->aSettings["showOptions"] as $sOption) {
+                    $this->aSettings["categories"]["gridblockcontentsettingsgeneral"]["showOptions"][] = $sOption;
+                }
             }
         }
     }
@@ -320,7 +328,7 @@
                                         } else if ($aOption["default"] != "") {
                                             $sValue = $aOption["default"];
                                         }
-                                        $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' .$sClass .' value="' . $sValue . '" ' . $sPlaceholder . '></dd>' . PHP_EOL;
+                                        $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sPlaceholder . '></dd>' . PHP_EOL;
                                         break;
 
                                     case "textarea":
@@ -338,7 +346,7 @@
                                         } else if ($aOption["default"] != "") {
                                             $sValue = $aOption["default"];
                                         }
-                                        $sForm .= '<dd><textarea name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' .$sClass .' ' . $sPlaceholder . '>' . $sValue . '</textarea></dd>' . PHP_EOL;
+                                        $sForm .= '<dd><textarea name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sClass . ' ' . $sPlaceholder . '>' . $sValue . '</textarea></dd>' . PHP_EOL;
                                         break;
 
                                     case "colorpicker":
@@ -356,7 +364,7 @@
                                         } else if ($aOption["default"] != "") {
                                             $sValue = $aOption["default"];
                                         }
-                                        $sForm .= '<dd><div class="input-group gridblock-colorinput-group"><input data-parsley-excluded="true" type="text" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="' . $sValue . '" maxlength="7" ' . $sPlaceholder . ' pattern="^#([A-Fa-f0-9]{6})$" ' .$sClass .'><span class="input-group-addon gridblock-colorinput"><input type="color" value="' . @$aSavedOptions[$sType][$sKey] . '" pattern="^#([A-Fa-f0-9]{6})$" class="form-control"></span></div>' . PHP_EOL;
+                                        $sForm .= '<dd><div class="input-group gridblock-colorinput-group"><input data-parsley-excluded="true" type="text" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="' . $sValue . '" maxlength="7" ' . $sPlaceholder . ' pattern="^#([A-Fa-f0-9]{6})$" ' . $sClass . '><span class="input-group-addon gridblock-colorinput"><input type="color" value="' . @$aSavedOptions[$sType][$sKey] . '" pattern="^#([A-Fa-f0-9]{6})$" class="form-control"></span></div>' . PHP_EOL;
                                         break;
 
                                     case "select":
@@ -365,7 +373,7 @@
                                             $sClass = 'class="' . $aOption['class'] . '"';
                                         }
                                         $aSelectData = $this->getSelectData($sKey);
-                                        $sForm .= '<dd><select name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' .$sClass .'>' . PHP_EOL;
+                                        $sForm .= '<dd><select name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sClass . '>' . PHP_EOL;
                                         foreach ($aSelectData as $sSelectKey => $sSelectValue) :
                                             if (isset($aSavedOptions[$sType][$sKey])) {
                                                 $sSelected = ($sSelectKey == @$aSavedOptions[$sType][$sKey]) ? 'selected="selected"' : '';
@@ -383,7 +391,7 @@
                                             $sClass = 'class="' . $aOption['class'] . '"';
                                         }
                                         $sChecked = ("1" == @$aSavedOptions[$sType][$sKey]) ? 'checked="checked"' : '';
-                                        $sForm .= '<dd><div class="checkbox toggle"><label><input type="checkbox" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="1" ' . $sChecked . ' '.$sClass.'></label></div></dd>' . PHP_EOL;
+                                        $sForm .= '<dd><div class="checkbox toggle"><label><input type="checkbox" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="1" ' . $sChecked . ' ' . $sClass . '></label></div></dd>' . PHP_EOL;
                                         break;
 
                                     case "radio":
@@ -401,7 +409,7 @@
                                                 $sSelected = ($sSelectKey == "gridblockcontentsettingsdefault") ? 'checked="checked"' : '';
                                             }
                                             $sForm .= '<label for="' . $iRand . '">' . PHP_EOL;
-                                            $sForm .= '<input id="' . $iRand . '" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="radio" value="' . $sSelectKey . '" ' . $sSelected . ' '.$sClass.' /> ' . $sSelectValue . PHP_EOL;
+                                            $sForm .= '<input id="' . $iRand . '" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="radio" value="' . $sSelectKey . '" ' . $sSelected . ' ' . $sClass . ' /> ' . $sSelectValue . PHP_EOL;
                                             $sForm .= '</label>';
 
                                         endforeach;

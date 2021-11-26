@@ -1,10 +1,10 @@
 {
 	"showOptions" : [
-		"class","marginTop","marginBottom","divider","bgColor","bgImage","imageList","link","openNewTab","linkList","theme","customLink"		
+		"class","marginTop","marginBottom","divider","bgColor","bgImage","imageList","link","openNewTab","linkList","theme","customLink","range"		
 	],
 	"template": {
 		"showOptions": [
-			"marginBottom","divider","customLink","bgColor"
+			"marginBottom","divider","customLink","bgColor","range"
 		],
 		"options": [
 			{
@@ -125,6 +125,17 @@
 			"label": "",
 			"type": "html",
 			"text": "<br><hr><br>"
-		}		
+		},
+		{
+			"key": "range",
+			"category": "design",
+			"label": "Spalten Versatz",
+			"type": "slider",
+			"slider-min": "0",
+			"slider-max": "12",
+			"slider-step" :"1",
+			"slider-range": "1",
+			"default": "0,12" 
+		}			
 	]
 }

@@ -135,6 +135,7 @@
 			"slider-max": "12",
 			"slider-step" :"1",
 			"slider-range": "1",
+			"slider-tooltip": "always",
 			"default": "0,12" 
 		}			
 	]

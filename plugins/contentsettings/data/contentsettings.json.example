@@ -130,7 +130,7 @@
 		{
 			"key": "range",
 			"category": "design",
-			"icon": "fa fa-desktop"
+			"icon": "fa fa-desktop",
 			"label": "Spalten Versatz",
 			"type": "slider",
 			"slider-min": "0",

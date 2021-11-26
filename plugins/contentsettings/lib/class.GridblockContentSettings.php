@@ -293,7 +293,7 @@
                 }
 
             }
-            $sForm .= '<span class="gridblocksettings-tab-icon-right"><i class="fa fa-cog"></i></span>';
+            $sForm .= '<span class="gridblockcontentsettings-tab-icon-right"><i class="fa fa-cog"></i></span>';
             $sForm .= '</ul>';
                 $sForm .= '<div class="tab-content" id="gridblockcontentsettings-tab-content-' . $iTabRand . '">';
             $iX = 0;
@@ -725,11 +725,11 @@
 
         $sHtml = "";
         $iBlockId = rand(0, 100000) . time() . rand(0, 10000000);
-        $sHtml .= '<br /><a href="javascript:void(0)" class="btn btn-abort w-100 text-center nv-contentsettings-toggler-' . $iBlockId . '" data-id="#nv-contentsettings-' . $iBlockId . '" style="width:100%"><strong><span class = "caret"></span> &nbsp; ContentSettings</strong> &nbsp; <span class = "caret"></span></a><br />' . PHP_EOL;
-        $sHtml .= '<div id="nv-contentsettings-' . $iBlockId . '" style="border: 1px solid #c1c9d4;border-top:none; padding: 10px 20px;display:none"><br>' . PHP_EOL;
+        $sHtml .= '<br /><a href="javascript:void(0)" class="btn btn-abort w-100 text-center gridblockcontentsettings-toggler gridblockcontentsettings-toggler-' . $iBlockId . '" data-id="#gridblockcontentsettings-' . $iBlockId . '" style="width:100%"><strong style="float:left">ContentSettings</strong> &nbsp; <i class="fa fa-cog" style="float:right;padding-top:3px"></i></a><br />' . PHP_EOL;
+        $sHtml .= '<div class="gridblockcontentsettings-options" id="gridblockcontentsettings-' . $iBlockId . '">' . PHP_EOL;
 
         if (isset($oData->template)) {
-            $sHtml .= '<strong>Template</strong>' . PHP_EOL;
+            $sHtml .= '<p><strong>Template</strong></p>' . PHP_EOL;
             $sHtml .= '<ul class="list-group">' . PHP_EOL;
             foreach ($oData->template as $sKey => $oItem) {
                 $sLabel = $oItem->label . " (" . $sKey . ")";
@@ -749,7 +749,7 @@
                     $sColumnLabel = "Spalte $iX - " . $aPreview["columns"][$iColumn]["title"];
                 }
 
-                $sHtml .= '<strong>' . $sColumnLabel . '</strong>' . PHP_EOL;
+                $sHtml .= '<p><strong>' . $sColumnLabel . '</strong></p>' . PHP_EOL;
                 $sHtml .= '<ul class="list-group">' . PHP_EOL;
                 foreach ($oData->{"column_" . $iX} as $sKey => $oItem) {
                     $sLabel = $oItem->label . " (" . $sKey . ")";
@@ -765,7 +765,7 @@
         $sHtml .= '</div>' . PHP_EOL;
         $sHtml .= '<script>' . PHP_EOL;
         $sHtml .= '$( document ).ready(function() {
-			$(".nv-contentsettings-toggler-' . $iBlockId . '").click(function(){
+			$(".gridblockcontentsettings-toggler-' . $iBlockId . '").click(function(){
 				var iBlockId = $(this).attr("data-id");
 				$(iBlockId).slideToggle();
                 console.log("click "+iBlockId);

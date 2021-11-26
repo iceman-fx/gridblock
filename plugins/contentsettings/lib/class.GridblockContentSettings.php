@@ -76,7 +76,7 @@
             if (count($this->templateData["categories"])) {
                 foreach ($this->templateData["categories"] as $aCategory) {
                     $sKey = $aCategory["key"];
-                    $this->aSettings["categories"][$sKey] = array("label" => $aCategory["label"]);
+                    $this->aSettings["categories"][$sKey] = array("label" => $aCategory["label"], "icon" => $aCategory["icon"]);
                 }
             }
         }

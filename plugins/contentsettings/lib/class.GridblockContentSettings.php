@@ -170,6 +170,7 @@
         if (isset($this->aSettings["showOptions"])) {
             foreach ($this->aSettings["showOptions"] as $sOption) {
                 $aOption = $this->aSettings["options"][$sOption];
+                $sCategory = "";
                 if (isset($aOption["category"])) {
                     $sCategory = $aOption["category"];
                 }
@@ -186,6 +187,7 @@
         if ($this->aSettings["options_in_categories"] == true) {
             foreach ($this->aSettings["showOptions"] as $sOption) {
                 $aOption = $this->aSettings["options"][$sOption];
+                $sCategory = "";
                 if (isset($aOption["category"])) {
                     $sCategory = $aOption["category"];
                 }

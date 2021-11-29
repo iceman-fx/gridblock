@@ -184,6 +184,8 @@ endif;
             endforeach;
             ?>
         </div>
+        
+        <input type="hidden" name="REX_INPUT_VALUE[18][selectedtab]" id="gridblockSelectedTab" value="<?php echo (isset($_POST['btn_update'])) ? @$options['selectedtab'] : ''; ?>" />
 
     </div>
 </div>
@@ -200,6 +202,8 @@ $(function(){
 	$('#gridblockColNav a').off('click').on('click', function(e) {
 		e.preventDefault();
 		$(this).tab('show');
+		
+		$('#gridblockSelectedTab').val($(this).parent('li').index());					//aktiven Tab zwischenspeichern für "Block übernehmen"
 	});
 	
 	
@@ -405,7 +409,15 @@ function gridblock_showGridColumns(cols) {
 		gridblock_checkDeleteButtons(colID);
 	}
 	
-	if (colsset > 0) { $('a[href="#gridblockCol1"]').tab("show"); }
+	if (colsset > 0) {
+		$('a[href="#gridblockCol1"]').tab("show");						//immer den ersten Tab aktivieren
+		
+		<?php if (isset($_POST['btn_update'])): ?>
+		//zuletzt gewählten Tab wieder aktivieren, wenn "Block übernehmen" genutzt wurde		
+		lastTab = parseInt($('#gridblockSelectedTab').val());
+		if (lastTab > 0) { $('a[href="#gridblockCol'+(lastTab+1)+'"]').trigger("click"); }
+		<?php endif; ?>
+	}
 }
 
 
@@ -521,7 +533,7 @@ function gridblock_checkDeleteButtons(colID) {
 }
 
 
-//Seite zum neuen Element scrollen
+//Backend zum neuen Element scrollen bei "Add"
 function gridblock_scrollToNewBlock(dst) {
 	if (dst && dst.length > 0) {
 		pos = dst.offset();

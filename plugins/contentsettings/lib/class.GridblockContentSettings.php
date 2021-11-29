@@ -523,7 +523,12 @@
                                             $sSliderShowTooltip = 'data-slider-tooltip="' . $aOption["slider-tooltip"] . '"';
                                         }
 
-                                        $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" data-slider-tooltip-split="true" ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' ' . $sSliderShowTooltip . ' data-provide="slider" ></dd>' . PHP_EOL;
+                                        $sSliderTooltipSplit = 'data-slider-tooltip-split="true"';
+                                        if (isset($aOption["slider-tooltip-split"])) {
+                                            $sSliderTooltipSplit = 'data-slider-tooltip-split="' . $aOption["slider-tooltip-split"] . '"';
+                                        }
+
+                                        $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sSliderTooltipSplit . ' ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' ' . $sSliderShowTooltip . '></dd>' . PHP_EOL;
                                         break;
                                 }
 

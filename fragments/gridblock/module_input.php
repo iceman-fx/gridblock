@@ -116,9 +116,9 @@ endif;
     </div>
         
 
-    <fieldset class="gridblock-top">
+	<fieldset class="gridblock-top">
     
-    	<dl class="rex-form-group form-group">
+		<dl class="rex-form-group form-group">
         	<dt><label for=""><?php echo rex_i18n::msg('a1620_mod_template'); ?>:</label></dt>
             <dd>
 
@@ -140,49 +140,52 @@ endif;
 		</dl>
         
     
-        <?php
+		<?php
         if ($useSettingPlugin):
-			//Optionen anzeigen
-			echo '<div class="hiddenOpt gridblockoptions" id="gridblockoptions">';
-	
-				//Plugin contentsettings
-				//wird über Ajax nachgeladen
-			
-			echo '</div>';
+            //Optionen anzeigen
+            echo '<div class="hiddenOpt gridblockoptions" id="gridblockoptions">';
+        
+                //Plugin contentsettings
+                //wird über Ajax nachgeladen
+            
+            echo '</div>';
         endif;
-		?>
+        ?>
         
     </fieldset>
     
     
-    <ul class="nav nav-tabs tab-nav" role="tablist" id="gridblockColNav">
-        <?php
-        $first = true;
-        foreach ($this->cols as $i => $col):
-			?>
-            <li role="presentation" id="gridblockTab<?php echo $i; ?>" >
-                <a href="#gridblockCol<?php echo $i; ?>" aria-controls="gridblockCol<?php echo $i; ?>" role="tab" data-toggle="tab"><?php echo $i; ?>. <?php echo rex_i18n::msg('a1620_mod_column'); ?></a>
-            </li>
+    <div class="gridblock-bottom">
+    
+        <ul class="nav nav-tabs tab-nav" role="tablist" id="gridblockColNav">
             <?php
-            $first = false;
-        endforeach;
-        ?>
-    </ul>
+            $first = true;
+            foreach ($this->cols as $i => $col):
+                ?>
+                <li role="presentation" id="gridblockTab<?php echo $i; ?>" >
+                    <a href="#gridblockCol<?php echo $i; ?>" aria-controls="gridblockCol<?php echo $i; ?>" role="tab" data-toggle="tab"><?php echo $i; ?>. <?php echo rex_i18n::msg('a1620_mod_column'); ?></a>
+                </li>
+                <?php
+                $first = false;
+            endforeach;
+            ?>
+        </ul>
+        
+        <div class="tab-content">
+            <?php
+            $first = true;
+            foreach ($this->cols as $i => $col):
+                ?>
+                <div role="tabpanel" class="tab-pane fade" id="gridblockCol<?php echo $i; ?>">
+                    <?php echo $col['content']; ?>
+                </div>
+                <?php
+                $first = false;
+            endforeach;
+            ?>
+        </div>
 
-	<div class="tab-content">
-        <?php
-        $first = true;
-        foreach ($this->cols as $i => $col):
-			?>
-            <div role="tabpanel" class="tab-pane fade" id="gridblockCol<?php echo $i; ?>">
-                <?php echo $col['content']; ?>
-            </div>
-            <?php
-            $first = false;
-        endforeach;
-        ?>
     </div>
-
 </div>
 
 

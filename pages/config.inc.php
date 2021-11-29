@@ -27,6 +27,7 @@ if ($func == "save" && isset($_POST['submit'])):
 		'hideinfotexts'				=> rex_post('hideinfotexts'),
 		'showcontentsettingsbe'		=> rex_post('showcontentsettingsbe'),
 		'plusbuttonfornewblock'		=> rex_post('plusbuttonfornewblock'),
+		'alwaysallowdelete'			=> rex_post('alwaysallowdelete'),
 	]);
 
 	//Rückmeldung
@@ -163,7 +164,19 @@ endif;
                     </div>
                 </dd>
             </dl>
-			<?php endif; ?>           
+			<?php endif; ?>
+              
+            
+            <dl class="rex-form-group form-group">
+                <dt><label for=""><?php echo $this->i18n('a1620_config_alwaysallowdelete'); ?></label></dt>
+                <dd>
+                    <div class="checkbox toggle">
+						<label for="alwaysallowdelete">
+                        	<input type="checkbox" name="alwaysallowdelete" id="alwaysallowdelete" value="checked" <?php echo @$config['alwaysallowdelete']; ?> /> <?php echo $this->i18n('a1620_config_alwaysallowdelete_info'); ?>
+						</label>
+                    </div>
+                </dd>
+            </dl>
 
 		</div>
         

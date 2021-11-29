@@ -22,6 +22,7 @@ if (!$this->hasConfig()):
 		'hideinfotexts'				=> '',
 		'showcontentsettingsbe'		=> '',
 		'plusbuttonfornewblock'		=> '',
+		'alwaysallowdelete'			=> '',
 	]);
 endif;
 

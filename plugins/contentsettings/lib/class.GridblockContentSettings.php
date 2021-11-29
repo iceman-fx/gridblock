@@ -67,7 +67,8 @@
             if (count($this->projectData["categories"])) {
                 foreach ($this->projectData["categories"] as $aCategory) {
                     $sKey = $aCategory["key"];
-                    $this->aSettings["categories"][$sKey] = array("label" => $aCategory["label"], "icon" => $aCategory["icon"]);
+                    $sIcon = isset($aCategory["icon"]) ? $aCategory["icon"] : "";
+                    $this->aSettings["categories"][$sKey] = array("label" => $aCategory["label"], "icon" => $sIcon);
                 }
             }
         }
@@ -76,7 +77,8 @@
             if (count($this->templateData["categories"])) {
                 foreach ($this->templateData["categories"] as $aCategory) {
                     $sKey = $aCategory["key"];
-                    $this->aSettings["categories"][$sKey] = array("label" => $aCategory["label"], "icon" => $aCategory["icon"]);
+                    $sIcon = isset($aCategory["icon"]) ? $aCategory["icon"] : "";
+                    $this->aSettings["categories"][$sKey] = array("label" => $aCategory["label"], "icon" => $sIcon);
                 }
             }
         }

@@ -5,6 +5,7 @@
 .gridblock {}
 .gridblock .content { display: none; padding: 15px; border-top: 1px solid #c1c9d4; }
 .gridblock-top { margin-bottom: 40px; }
+.gridblock-bottom {}
 
 .gridblock .tab-nav { margin-bottom: 0; }
 .gridblock .tab-nav > li { display: none; }
@@ -19,7 +20,7 @@
 	.gridblock .column-settings .optionstoggler { display: none; position: absolute; background: #9ca5b2; padding: 0px; line-height: 5px; vertical-align: top; height: 13px; letter-spacing: 1px; color: #FFF; border-radius: 2px; font-size: 13px;    font-weight: bold; left: 50%; bottom: -7px; margin: 0px 0px 0px -30px; width: 60px; text-align: center; cursor: pointer; }
 	.gridblock .column-settings .optionstoggler:hover { background: #5bb585; }
 
-.gridblock .column-input { background: rgba(255,255,255, 1); padding: 20px 20px 20px; }
+.gridblock .column-input { background: rgba(255,255,255, 1); padding: 20px 20px 20px; -webkit-box-shadow: 0px 5px 15px rgba(0,0,0, 0.08); box-shadow: 0px 5px 15px rgba(0,0,0, 0.08); }
 .gridblock .column-input:after, .gridblock .clearfix { content: ''; clear: both; display: block; height: 0px; }
 
 .gridblock .column-slices { background: rgba(255,255,255, 0.5); padding: 20px 20px 20px; }

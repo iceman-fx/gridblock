@@ -192,6 +192,9 @@ endif;
 
 
 <script>
+var gridblock_alwaysallowdelete = (<?php echo (@$config['alwaysallowdelete'] == 'checked') ? 'true' : 'false'; ?> ? true : false);
+	
+	
 $(function(){
 	//Spalten + Templateauswahl beim Start setzen, sofern bereits gespeichert wurde
 	gridblock_showGridTemplate();
@@ -309,10 +312,14 @@ $(function(){
 		var par = cur.parent();
 		var colID = parseInt(par.data('colid'));
 		
-		if (gridblock_checkDeleteButtons(colID) > 1) {
+		if (gridblock_checkDeleteButtons(colID) > 1 || gridblock_alwaysallowdelete) {
 			var resp = confirm('<?php echo rex_i18n::msg('a1620_mod_confirm_delete'); ?>');
 			if (resp == true) {
 				cur.remove();
+				
+				dst = '#gridblockColumnSlices'+colID;
+				if (gridblock_alwaysallowdelete && $(dst).children().length == 0) { gridblock_loadModuleSelector(colID, dst); }				//Standard wiederherstellen, wenn letzter Block gelöscht uwrde
+				
 				gridblock_checkDeleteButtons(colID);
 				gridblock_setGridSortedSlices(colID);
 			}
@@ -524,7 +531,7 @@ function gridblock_checkDeleteButtons(colID) {
 	
 	if (colID > 0) {
 		dst = $('#gridblockColumnSlices'+colID).children('.column-slice:not(".gridblock-slice-disabled")');    
-			if (dst.length < 2) { dst.addClass('column-slice-nodelete'); }
+			if (dst.length < 2 && !gridblock_alwaysallowdelete) { dst.addClass('column-slice-nodelete'); }
 			else { dst.removeClass('column-slice-nodelete'); }	
 		count = dst.length;
 	}

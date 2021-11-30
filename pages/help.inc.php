@@ -109,7 +109,7 @@ Mögliche Platzhalter für Spaltenausgabe:<br>
 <br>
 Weitere verfügbare Platzhalter:<br>
 <strong>REX_GRID_TEMPLATE_ID </strong> = ID des gewählten Templates<br>
-<strong>REX_GRID_TEMPLATE_PREVIEW </strong> = Definition Layoutvorschau (JSON) des gewählten Templates<br>
+<strong>REX_GRID_TEMPLATE_PREVIEW </strong> = Definition Layoutvorschau (JSON) des gewählten Templates (Sonderzeichen werden <u>nicht</u> escaped)<br>
 <strong>REX_GRID_TEMPLATE_COLUMNS </strong> = Anzahl der Spalten des gewählten Templates</td>
   </tr>
   <tr>
@@ -216,7 +216,7 @@ $grid = new rex_gridblock();<br>$grid-&gt;getSliceValues(&quot;REX_SLICE_ID&quot
 </p>
 <p>
 <strong>REX_GRID_TEMPLATE_ID </strong> = ID des gewählten Templates<br>
-<strong>REX_GRID_TEMPLATE_PREVIEW </strong> = Definition Layoutvorschau (JSON) des gewählten Templates<br>
+<strong>REX_GRID_TEMPLATE_PREVIEW </strong> = Definition Layoutvorschau (JSON) des gewählten Templates (Sonderzeichen werden <u>nicht</u> escaped)<br>
 <strong>REX_GRID_TEMPLATE_COLUMNS </strong> = Anzahl der Spalten des gewählten Templates
 
 <br>

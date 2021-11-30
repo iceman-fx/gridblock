@@ -27,6 +27,20 @@ $settings = isset($this->values[18]) ? $this->values[18] : "";
 $colID = $this->id;
 
 
+$selTemplate = intval(@$template['selectedTemplate']);																//gespeichertes Template einladen
+$selColumns = 0; $selPreview = "";
+	//restliche Templatedaten aus DB holen
+	$db = rex_sql::factory();
+	$db->setQuery("SELECT columns, preview FROM ".rex::getTable('1620_gridtemplates')." WHERE id = '".$selTemplate."'");
+		
+	if ($db->getRows() > 0):
+		$selColumns = $db->getValue('columns', 'int');
+		$selPreview = $db->getValue('preview');
+			$selPreview = (!empty($selPreview)) ? str_replace(array("\n\r", "\n", "\r"), " ", $selPreview) : $selPreview;
+			$selPreview = preg_replace("/\s+/", " ", $selPreview);
+	endif;
+
+
 $useSettingPlugin = ( rex_plugin::get('gridblock', 'contentsettings')->isAvailable() ) ? true : false;
 ?>
 
@@ -74,9 +88,19 @@ $useSettingPlugin = ( rex_plugin::get('gridblock', 'contentsettings')->isAvailab
                     $values = (isset($values[$uID])) ? $values[$uID] : $values;
                             
                     echo rex_article_content_gridblock::getModuleSelector($colID, $moduleID, $uID);				//Sliceblock + Modulselektor einbinden (ohne schließendes div)
-                    
+
+					//REX-MODULE-VARS erweitern					
+					$rexVars = $this->rexVars;
+					
+					$rexVars['grid_tmplID'] 	= $selTemplate;							//GRID: Template ID
+					$rexVars['grid_tmplPREV'] 	= $selPreview;							//GRID: Template Preview-JSON als array()
+					$rexVars['grid_tmplCOLS']	= $selColumns;							//GRID: Template Spaltenanzahl
+					$rexVars['grid_colNR'] 		= $colID;								//GRID: Spaltennummer
+
+
+					//Eingaben des Moduls holen
                     $editor->setValues($values, $uID);															//$editor->setValues(rex_var::toArray($this->values[$colID]), $uID);
-                    echo $editor->getModuleEdit($moduleID, $colID, $uID, $this->rexVars);
+                    echo $editor->getModuleEdit($moduleID, $colID, $uID, $rexVars);
 					
 					echo '</div>';
                 endif;

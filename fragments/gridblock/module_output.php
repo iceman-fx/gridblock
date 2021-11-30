@@ -24,16 +24,9 @@ $settings = isset($this->values[20]) ? rex_var::toArray($this->values[20]) : arr
 
 
 $selTemplate = intval(@$template['selectedTemplate']);																//gespeichertes Template einladen
-$selColumns = 0;
-	//restliche Templatedaten aus DB holen
-	$db = rex_sql::factory();
-	$db->setQuery("SELECT columns, preview FROM ".rex::getTable('1620_gridtemplates')." WHERE id = '".$selTemplate."'");
-		
-	if ($db->getRows() > 0):
-		$selColumns = $db->getValue('columns', 'int');				
-	endif;
+$selColumns = 0; $selPreview = "";
 
-//$useoptions = (@$config['useoptions'] == 'checked') ? true : false;
+
 $useSettingPlugin = ( rex_plugin::get('gridblock', 'contentsettings')->isAvailable() ) ? true : false;
 
 
@@ -46,9 +39,6 @@ if (false):
 	echo "<br>modules:<br>";
 	dump($modules);
 	
-	echo "<br>selTemplate: $selTemplate";
-	echo "<br>selColumns: $selColumns";
-	
 	echo "<br><hr><br>";
 endif;
 */
@@ -56,13 +46,24 @@ endif;
 
 //Template holen und Ausgaben aufbereiten
 $db = rex_sql::factory();
-$db->setQuery("SELECT template FROM ".rex::getTable('1620_gridtemplates')." WHERE id = '".$selTemplate."'");
+$db->setQuery("SELECT template, columns, preview FROM ".rex::getTable('1620_gridtemplates')." WHERE id = '".$selTemplate."'");
 
 if ($db->getRows() > 0):
+	$selColumns = $db->getValue('columns', 'int');
+	$selPreview = $db->getValue('preview');
+		$selPreview = (!empty($selPreview)) ? str_replace(array("\n\r", "\n", "\r"), " ", $selPreview) : $selPreview;
+		$selPreview = preg_replace("/\s+/", " ", $selPreview);
+		
+
+	//Template mit Spaltenausgaben holen & GRID-Vars ersetzen
 	$op = $db->getValue('template');
 	
+	$op = preg_replace('/REX_GRID_TEMPLATE_ID/', 		$selTemplate, $op);				//GRID: Template ID
+	$op = preg_replace('/REX_GRID_TEMPLATE_PREVIEW/', 	$selPreview, $op);				//GRID: Template Preview-JSON als array()
+	$op = preg_replace('/REX_GRID_TEMPLATE_COLUMNS/', 	$selColumns, $op);				//GRID: Template Spaltenanzahl
 	
-	//alle Salten durchlaufen und Inhalte holen/setzen
+	
+	//alle Spalten durchlaufen und Inhalte holen/setzen
 	for ($i = 1; $i <= $selColumns; ++$i):
 		//alle Inhalte der Spalte holen
 		$modOP = '';
@@ -82,20 +83,27 @@ if ($db->getRows() > 0):
 					
 					unset($modcol);
 					$values ?? null;
+
+					//REX-MODULE-VARS erweitern					
+					$rexVars = $this->rexVars;
+					
+					$rexVars['grid_tmplID'] 	= $selTemplate;							//GRID: Template ID
+					$rexVars['grid_tmplPREV'] 	= $selPreview;							//GRID: Template Preview-JSON als array()
+					$rexVars['grid_tmplCOLS']	= $selColumns;							//GRID: Template Spaltenanzahl
+					$rexVars['grid_colNR'] 		= $i;									//GRID: Spaltennummer
 					
 					
 					//Ausgaben des Moduls holen
 					$editor->setValues($values, $uID);
-					$modOP .= $editor->getModuleOutput($moduleID, $uID, $this->rexVars);
+					$modOP .= $editor->getModuleOutput($moduleID, $uID, $rexVars);
 				endif;
 		
 			endforeach;
 		endif;
 		
 
-		//GRID-Platzhalter (column) ersetzen
-		$op = preg_replace("/REX_GRID\[(\s)*(id=)?".$i."(\s)*\]/", $modOP, $op);								//Spaltencontent
-		
+		//GRID-Spaltenplatzhalter ersetzen
+		$op = preg_replace("/REX_GRID\[(\s)*(id=)?".$i."(\s)*\]/", $modOP, $op);			//GRID: Spaltencontent
 	endfor;
 	
 		

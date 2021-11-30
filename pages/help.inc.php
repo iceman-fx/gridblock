@@ -26,6 +26,7 @@
                     <li><a href="#templates">Layoutvorlagen</a>
                     <li><a href="#config">Einstellungen</a>
                     <li><a href="#modul">Gridblock-Modul</a>
+                    <li><a href="#placeholders">Platzhalter in Modulen</a>
                     <li><a href="#plugin_cs">Plugin: ContentSettings</a>
                     <li><a href="#plugin_sy">Plugin: Synchronizer</a>
                     <li><a href="#faq">FAQ</a>
@@ -104,7 +105,12 @@
 <pre>&lt;div&gt;<br>	&lt;div&gt;REX_GRID[1]&lt;/div&gt;<br>	&lt;div&gt;REX_GRID[2]&lt;/div&gt;<br>	&lt;div&gt;REX_GRID[3]&lt;/div&gt;<br>&lt;/div&gt;</pre>
 
 Mögliche Platzhalter für Spaltenausgabe:<br>
-<strong>REX_GRID[1...12] </strong> = Ausgabe der Inhaltsmodule der jeweiligen Spalte (max. 12 Spalten)</td>
+<strong>REX_GRID[1...12] </strong> = Ausgabe der Inhaltsmodule der jeweiligen Spalte (max. 12 Spalten)<br>
+<br>
+Weitere verfügbare Platzhalter:<br>
+<strong>REX_GRID_TEMPLATE_ID </strong> = ID des gewählten Templates<br>
+<strong>REX_GRID_TEMPLATE_PREVIEW </strong> = Definition Layoutvorschau (JSON) des gewählten Templates<br>
+<strong>REX_GRID_TEMPLATE_COLUMNS </strong> = Anzahl der Spalten des gewählten Templates</td>
   </tr>
   <tr>
     <td valign="top"><strong>Definition Layoutvorschau (JSON)</strong></td>
@@ -197,6 +203,30 @@ $grid = new rex_gridblock();<br>$grid-&gt;getSliceValues(&quot;REX_SLICE_ID&quot
 </pre></td>
   </tr>
 </table>
+
+
+
+<p>&nbsp;</p>
+
+<!-- Platzhalter in Inhaltsmodulen -->
+<a name="placeholders"></a>
+<h2>Verfügbare Platzhalter in Inhaltsmodulen:</h2>
+                    
+<p>Innerhalb der Inhaltsmodule (Blöcke) stehen  Redaxo-Platzhalter sowie zusätzliche Platzhalter des Gridblock-Addons zur Verfügung.
+</p>
+<p>
+<strong>REX_GRID_TEMPLATE_ID </strong> = ID des gewählten Templates<br>
+<strong>REX_GRID_TEMPLATE_PREVIEW </strong> = Definition Layoutvorschau (JSON) des gewählten Templates<br>
+<strong>REX_GRID_TEMPLATE_COLUMNS </strong> = Anzahl der Spalten des gewählten Templates
+
+<br>
+<strong>REX_GRID_COLUMN_NUMBER </strong> = Nummer der Grid-Spalte (1 ... 12)</p>
+<p><strong>REX_SLICE_ID</strong> = Slice-ID des gesamten Gridblockes (Redaxo)<br>
+  <strong>REX_MODULE_ID</strong> = Modul-ID des jeweiligen Inhaltsmoduls innerhalb eines Gridblockes<br>
+  <strong>REX_MODULE_KEY</strong> = Modul-KEY des jeweiligen Inhaltsmoduls innerhalb eines Gridblockes<br>
+  <strong>REX_CLANG_ID</strong> = Clang-ID des Artikels (Redaxo)<br>
+  <strong>REX_ARTICLE_ID</strong> =  ID des Artikels (Redaxo)<br>
+  <strong>REX_TEMPLATE_ID</strong> =  Template-ID des Artikels (Redaxo)</p>
 
 
 

@@ -149,6 +149,8 @@ class rex_gridblock {
 			$this->rexVars['artID'] = (int) $art->getId();
 			$this->rexVars['tmplID'] = (int) $art->getTemplateId();
 			$this->rexVars['clangID'] = (int) $art->getClangId();
+		else:
+			$this->rexVars['artID'] = $this->rexVars['tmplID'] = $this->rexVars['clangID'] = 0;
 		endif;
 		
 		$_SESSION['gridRexVars'] = $this->rexVars;

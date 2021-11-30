@@ -102,13 +102,20 @@ class rex_gridblock_var_replacer
 
     public static function replaceModuleVars($moduleContent, $rexVars)
     {
-		$moduleContent = preg_replace('/REX_CTYPE_ID/', 	@$rexVars['ctypeID'], $moduleContent);				//wird nicht unterstützt
-        $moduleContent = preg_replace('/REX_SLICE_ID/', 	@$rexVars['sliceID'], $moduleContent);
-		$moduleContent = preg_replace('/REX_MODULE_ID/',	@$rexVars['moduleID'], $moduleContent);
-		$moduleContent = preg_replace('/REX_MODULE_KEY/', 	@$rexVars['moduleKEY'], $moduleContent);
-		$moduleContent = preg_replace('/REX_CLANG_ID/', 	@$rexVars['clangID'], $moduleContent);
-		$moduleContent = preg_replace('/REX_ARTICLE_ID/', 	@$rexVars['artID'], $moduleContent);
-		$moduleContent = preg_replace('/REX_TEMPLATE_ID/', 	@$rexVars['tmplID'], $moduleContent);
+		//REX-Vars
+		$moduleContent = preg_replace('/REX_CTYPE_ID/', 				@$rexVars['ctypeID'], $moduleContent);				//wird nicht unterstützt
+        $moduleContent = preg_replace('/REX_SLICE_ID/', 				@$rexVars['sliceID'], $moduleContent);
+		$moduleContent = preg_replace('/REX_MODULE_ID/',				@$rexVars['moduleID'], $moduleContent);
+		$moduleContent = preg_replace('/REX_MODULE_KEY/', 				@$rexVars['moduleKEY'], $moduleContent);
+		$moduleContent = preg_replace('/REX_CLANG_ID/', 				@$rexVars['clangID'], $moduleContent);
+		$moduleContent = preg_replace('/REX_ARTICLE_ID/', 				@$rexVars['artID'], $moduleContent);
+		$moduleContent = preg_replace('/REX_TEMPLATE_ID/', 				@$rexVars['tmplID'], $moduleContent);
+		
+		//GRID-Vars
+		$moduleContent = preg_replace('/REX_GRID_TEMPLATE_ID/', 		@$rexVars['grid_tmplID'], $moduleContent);
+		$moduleContent = preg_replace('/REX_GRID_TEMPLATE_PREVIEW/', 	@$rexVars['grid_tmplPREV'], $moduleContent);
+		$moduleContent = preg_replace('/REX_GRID_TEMPLATE_COLUMNS/', 	@$rexVars['grid_tmplCOLS'], $moduleContent);
+		$moduleContent = preg_replace('/REX_GRID_COLUMN_NUMBER/', 		@$rexVars['grid_colNR'], $moduleContent);
 		
         return $moduleContent;
     }

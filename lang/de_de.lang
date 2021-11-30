@@ -64,6 +64,8 @@ a1620_config_showcontentsettingsbe = Contentsettings
 a1620_config_showcontentsettingsbe_info = Zeige Zusammenfassung der Contentsettings im Backend
 a1620_config_plusbuttonfornewblock = Plus-Schaltfläche
 a1620_config_plusbuttonfornewblock_info = Plus-Schaltfläche im MBlock-Stil anstatt "Weiteren Inhaltsblock hinzufügen" nutzen
+a1620_config_alwaysallowdelete = Inhaltsblöcke entfernen
+a1620_config_alwaysallowdelete_info = Entfernen von Inhaltblöcken immer erlauben
 
 
 # Modulausgabe

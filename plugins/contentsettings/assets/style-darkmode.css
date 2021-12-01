@@ -1,0 +1,18 @@
+body:not(.rex-theme-light) .gridblockcontentsettings-form .tab-content {
+    background-color:#365150;
+}
+
+
+body:not(.rex-theme-light) .gridblock .slider-track {
+    border: none !important;
+    background-color: #1F3D3C !important;
+}
+
+body:not(.rex-theme-light) .gridblock .slider-track .slider-track-high,
+body:not(.rex-theme-light) .gridblock .slider-track .slider-track-low {
+    background-color: #1F3D3C !important;
+
+}
+body:not(.rex-theme-light) .gridblock .slider-track .slider-selection {
+    background-color: #1C282F !important;
+}

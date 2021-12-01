@@ -280,13 +280,13 @@
         $iTabRand = rand(0, 100) * rand(0, 100);
         if (isset($this->aSettings["categories"])) {
 
-            $sForm .= '<ul class="nav nav-tabs">';
+            $sForm .= '<ul class="nav nav-tabs tab-nav">';
             if ($this->aSettings["options_in_categories"] == true) {
                 $iX = 0;
                 foreach ($this->aSettings["categories"] as $aCategory) {
                     if (isset($aCategory["showOptions"])) {
                         $sForm .= '<li><a href="#gridblockcontentsettings-content-' . $iTabRand . '-' . $iX . '" data-toggle="tab">';
-                        if (isset($aCategory["icon"])) {
+                        if (isset($aCategory["icon"]) && $aCategory["icon"] != "") {
                             $sForm .= ' <i class="' . $aCategory["icon"] . '" style="padding-right:10px"></i>';
                         }
                         $sForm .= $aCategory["label"] . '</a></li>' . PHP_EOL;

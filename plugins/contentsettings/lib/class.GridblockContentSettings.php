@@ -321,7 +321,7 @@
                                 }
                                 if ($aOption["label"] != "") {
                                     $sForm .= '<dt><label for="">' . $aOption["label"];
-                                    if (isset($aOption["icon"])) {
+                                    if (isset($aOption["icon"]) && $aOption["icon"] != "") {
                                         $sForm .= ' <i class="' . $aOption["icon"] . '" style="padding-left:10px"></i>';
                                     }
                                     $sForm .= '</label></dt>' . PHP_EOL;

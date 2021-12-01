@@ -104,13 +104,16 @@
       <strong>Beispiel: </strong><br>
 <pre>&lt;div&gt;<br>	&lt;div&gt;REX_GRID[1]&lt;/div&gt;<br>	&lt;div&gt;REX_GRID[2]&lt;/div&gt;<br>	&lt;div&gt;REX_GRID[3]&lt;/div&gt;<br>&lt;/div&gt;</pre>
 
-Mögliche Platzhalter für Spaltenausgabe:<br>
-<strong>REX_GRID[1...12] </strong> = Ausgabe der Inhaltsmodule der jeweiligen Spalte (max. 12 Spalten)<br>
-<br>
-Weitere verfügbare Platzhalter:<br>
-<strong>REX_GRID_TEMPLATE_ID </strong> = ID des gewählten Templates<br>
-<strong>REX_GRID_TEMPLATE_PREVIEW </strong> = Definition Layoutvorschau (JSON) des gewählten Templates (Sonderzeichen werden <u>nicht</u> escaped)<br>
-<strong>REX_GRID_TEMPLATE_COLUMNS </strong> = Anzahl der Spalten des gewählten Templates</td>
+<p>Mögliche Platzhalter für Spaltenausgabe:<br>
+  <strong>REX_GRID[1...12] </strong> = Ausgabe der Inhaltsmodule der jeweiligen Spalte (max. 12 Spalten)<br>
+  <br>
+  Weitere verfügbare Platzhalter:<br>
+  <strong>REX_GRID_TEMPLATE_ID </strong> = ID des gewählten Templates<br>
+  <strong>REX_GRID_TEMPLATE_PREVIEW </strong> = Definition Layoutvorschau (JSON) des gewählten Templates (Sonderzeichen werden <u>nicht</u> escaped)<br>
+  <strong>REX_GRID_TEMPLATE_COLUMNS </strong> = Anzahl der Spalten des gewählten Templates</p>
+<p>&nbsp;</p>
+<p>Alle Contentsettings und Templateeinstellungen stehen zusätzlich als Array über <code>rex_gridblock::getSettings()</code> zur Verfügung.
+</p></td>
   </tr>
   <tr>
     <td valign="top"><strong>Definition Layoutvorschau (JSON)</strong></td>
@@ -227,6 +230,8 @@ $grid = new rex_gridblock();<br>$grid-&gt;getSliceValues(&quot;REX_SLICE_ID&quot
   <strong>REX_CLANG_ID</strong> = Clang-ID des Artikels (Redaxo)<br>
   <strong>REX_ARTICLE_ID</strong> =  ID des Artikels (Redaxo)<br>
   <strong>REX_TEMPLATE_ID</strong> =  Template-ID des Artikels (Redaxo)</p>
+<p>&nbsp;</p>
+<p>Alle Contentsettings und Templateeinstellungen stehen in Inhaltsmodulen  zusätzlich als Array über <code>rex_gridblock::getSettings()</code> zur Verfügung.</p>
 
 
 
@@ -272,13 +277,15 @@ echo htmlspecialchars(rex_file::get(rex_addon::get('gridblock')->getPath('data/c
     <td valign="top"><strong>Einstellungen für alle Templates</strong></td>
     <td valign="top"><pre>&lt;?php<br>dump($contentsettings-&gt;template);<br><br>echo $contentsettings-&gt;template-&gt;<strong>key</strong>;<br>?&gt;</pre>
     
-    Nun kann auf alle Einstellungsvariablen des Templates über $contentsettings-&gt;template-&gt;marginBottom (oder einen anderen Key) zugegriffen werden. </td>
+      <p>Nun kann auf alle Einstellungsvariablen des Templates über $contentsettings-&gt;template-&gt;marginBottom (oder einen anderen Key) zugegriffen werden. </p>
+      <p>Alle Contentsettings und Templateeinstellungen stehen   zusätzlich als Array über <code>rex_gridblock::getSettings()</code> zur Verfügung.</p></td>
   </tr>
   <tr>
     <td valign="top"><strong>Einstellungen für Spalten, im Beispiel Spalte 1</strong></td>
     <td valign="top"><pre>&lt;?php<br>dump($contentsettings-&gt;column_1);<br><br>echo $contentsettings-&gt;column_1-&gt;<strong>key</strong>;<br>?&gt;</pre>
     
-     Nun kann auf alle Einstellungsvariablen der Spalte über $contentsettings-&gt;column_1-&gt;marginBottom (oder einen anderen Key) zugegriffen werden.</td>
+      <p>Nun kann auf alle Einstellungsvariablen der Spalte über $contentsettings-&gt;column_1-&gt;marginBottom (oder einen anderen Key) zugegriffen werden.</p>
+      <p>Alle Contentsettings und Templateeinstellungen stehen   zusätzlich als Array über <code>rex_gridblock::getSettings()</code> zur Verfügung.</p></td>
   </tr>
 </table>
 <p>&nbsp;</p>

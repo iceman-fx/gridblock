@@ -133,6 +133,7 @@ span.ajaxNavSel { background-color: #CCC; }
 
 .faq { margin: 0px !important; cursor: pointer; }
 .faq + div { margin: 0px 0px 15px; }
+.rex-docs p code { background: #343f50; border-radius: 3px; color: #f3f6fb; line-height: 2; padding: 1px 5px; }
 
 .modalupload { padding: 12px; }
 

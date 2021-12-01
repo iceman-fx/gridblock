@@ -29,6 +29,14 @@ $selColumns = 0; $selPreview = "";
 
 $useSettingPlugin = ( rex_plugin::get('gridblock', 'contentsettings')->isAvailable() ) ? true : false;
 
+//Contentsettings abrufen
+if ($useSettingPlugin):
+	$oSettings = new GridblockContentSettings;
+	$contentsettings = $oSettings->parseGridblockContentSettings($settings, $selTemplate);
+else:
+	$contentsettings = $settings;
+endif;
+
 
 /*
 if (false):
@@ -63,6 +71,17 @@ if ($db->getRows() > 0):
 	$op = preg_replace('/REX_GRID_TEMPLATE_COLUMNS/', 	$selColumns, $op);				//GRID: Template Spaltenanzahl
 	
 	
+	//globale Settingsvariable setzen
+	$gridSettings = array(
+		"template" => array(
+			"id"		=> $selTemplate,
+			"preview"	=> json_decode($selPreview, true),
+			"columns"	=> $selColumns
+		)
+	);
+	$gridContentSettings = array("contentsettings" => json_decode( json_encode($contentsettings), true));
+	
+	
 	//alle Spalten durchlaufen und Inhalte holen/setzen
 	for ($i = 1; $i <= $selColumns; ++$i):
 		//alle Inhalte der Spalte holen
@@ -92,10 +111,20 @@ if ($db->getRows() > 0):
 					$rexVars['grid_tmplCOLS']	= $selColumns;							//GRID: Template Spaltenanzahl
 					$rexVars['grid_colNR'] 		= $i;									//GRID: Spaltennummer
 					
+					//Modul-Settingsvariable setzen & bereitstellen
+					$gridSettingsMod = array(
+						"column" => array(
+							"number"	=> $i
+						)
+					);
+					$gridSettingsMod = array_merge($gridSettings, $gridSettingsMod, $gridContentSettings);
+					
 					
 					//Ausgaben des Moduls holen
+					rex_addon::get('gridblock')->setProperty('REX_GRID_SETTINGS', $gridSettingsMod);
 					$editor->setValues($values, $uID);
 					$modOP .= $editor->getModuleOutput($moduleID, $uID, $rexVars);
+					rex_addon::get('gridblock')->removeProperty('REX_GRID_SETTINGS');
 				endif;
 		
 			endforeach;
@@ -106,17 +135,12 @@ if ($db->getRows() > 0):
 		$op = preg_replace("/REX_GRID\[(\s)*(id=)?".$i."(\s)*\]/", $modOP, $op);			//GRID: Spaltencontent
 	endfor;
 	
-		
-	//GRID-Contentsettings ersetzen
-	if ($useSettingPlugin):
-		$oSettings = new GridblockContentSettings;
-		$contentsettings = $oSettings->parseGridblockContentSettings($settings, $selTemplate);
-	else:
-		$contentsettings = $settings;
-	endif;
 	
+	//globale Settingsvariable ändern & bereitstellen
+	$gridSettings = array_merge($gridSettings, $gridContentSettings);
 	
-	//PHP-Code des Template ausführen und Rückgabe verwerten
+	//PHP-Code des Templates ausführen und Rückgabe verwerten
+	rex_addon::get('gridblock')->setProperty('REX_GRID_SETTINGS', $gridSettings);
 	ob_start();
 	try {
 		ob_implicit_flush(0);
@@ -128,7 +152,10 @@ if ($db->getRows() > 0):
 		$CONTENT = ob_get_clean();
 	}
 	$op = $CONTENT;
+	rex_addon::get('gridblock')->removeProperty('REX_GRID_SETTINGS');
 	
+	
+	//Settingübersicht im BE zeigen
 	if ($useSettingPlugin):
 		if (@$config['showcontentsettingsbe'] == "checked") {
 			if (rex::isBackend()) {
@@ -136,6 +163,7 @@ if ($db->getRows() > 0):
 			}
 		}
 	endif ;
+	
 	
 	//alles ausgeben
 	echo $op;

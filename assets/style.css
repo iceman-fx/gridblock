@@ -32,7 +32,7 @@
 .gridblock .column-slice-functions { position: relative; display: flex; align-items: center; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(156,165,178, 0.6); box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(156,165,178, 0.6); }
 .gridblock .column-slice-sorter { padding: 0px 5px 0px 10px; white-space: nowrap; text-align: right; /*min-width: 145px;*/ }
 	.gridblock .column-slice-sorter a.btn { float: none !important; }
-	.gridblock .column-slice-sorter .btn-group-delete, .gridblock .column-slice-sorter .btn-group-add { margin-right: 5px; }
+	.gridblock .column-slice-sorter .btn-group-delete, .gridblock .column-slice-sorter .btn-group-add, .gridblock .column-slice-sorter .btn-group-status { margin-right: 5px; }
 	.gridblock .column-slice-sorter .btn-group-drag { margin-left: 5px; }	
 		.gridblock .column-slice-sorter .btn-group-drag a.btn { background: none; border: none; cursor: grab; }
 	.gridblock .column-slice-nodelete .column-slice-sorter .btn-group-delete a.btn { background: #e48d8a; border-color: #e48d8a; color: #a59c9c; cursor: default; }
@@ -93,6 +93,11 @@ ul.gridblock-moduleselector a { cursor: pointer; }
 .gridblock-module-disabled { padding: 12px 12px; font-size: 0.9em; font-weight: bold; color: #d9534f; }
 
 
+/* Offline (Inhaltsblock BE) */
+.gridblock-slice-offline { background: #b0b8c4; opacity: 0.8; pointer-events: none; margin: 3px -15px; padding: 10px 15px; position: relative; }
+.gridblock-slice-offline-icon { position: absolute; top: 0px; margin: 3px 5px 0px 0px; right: 0px; }
+
+
 /* Templatevorschau */
 .gridblock-preview { display: inline-flex; padding: 4px; background: #FFF; border: 1px solid rgba(230,230,230, 1); width: 200px; min-height: 42px; }
 	.gridblock-previewtext { background: #dfe3e9; }
@@ -138,10 +143,35 @@ body.modal-open { overflow: hidden; height: auto; }
 .gridblock-modal .gridblock-preview span { font-size: 0.8em; }
 
 
+
 @media (min-width: 768px){
+	
 	.gridblock-modal-large .modal-dialog { width: 100%; max-width: 565px;}
 	.modal-dialog .gridblock-previewlist { text-align: left; }
+	
 }
 @media (min-width: 900px){
+	
 	.gridblock-modal-large .modal-dialog { width: 100%; max-width: 830px;}
+	
+}
+
+
+
+/* Buttonleiste in extra Zeile setzen */
+@media (min-width: 992px) and (max-width: 1366px){
+	
+	.gridblock .column-slice { background: none; }
+	.gridblock .column-slice-functions { flex-wrap: wrap; justify-content: flex-end; -webkit-box-shadow: none; box-shadow: none; }
+	.gridblock .column-slice-functions > div { order: 2; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(156,165,178, 0.6); box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(156,165,178, 0.6); }
+	.gridblock .column-slice-functions .column-slice-sorter { order: 1; padding: 5px 5px 7px 10px; background: #FFF; border: 1px solid #cfcfcf; border-bottom: none; -webkit-box-shadow: none; box-shadow: none; }
+	
+}
+@media (max-width: 768px){
+	
+	.gridblock .column-slice { background: none; }
+	.gridblock .column-slice-functions { flex-wrap: wrap; justify-content: flex-end; -webkit-box-shadow: none; box-shadow: none; }
+	.gridblock .column-slice-functions > div { order: 2; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(156,165,178, 0.6); box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(156,165,178, 0.6); }
+	.gridblock .column-slice-functions .column-slice-sorter { order: 1; padding: 5px 5px 7px 10px; background: #FFF; border: 1px solid #cfcfcf; border-bottom: none; -webkit-box-shadow: none; box-shadow: none; }
+	
 }

@@ -325,6 +325,30 @@ $(function(){
 			}
 		}
 	});
+	
+	
+	//Status Button (on/off)
+	$(document).on('click', '.gridblock .column-slice-sorter a.btn-status', function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		e.stopImmediatePropagation();
+		
+		var dst = $(this);
+		var cur = dst.closest('div.column-slice');
+		var uID = cur.data('uid');
+
+		if (uID != undefined) {
+			if (dst.hasClass('rex-offline')) {
+				//online
+				dst.removeClass('rex-offline').find('i').removeClass('fa-eye-slash');
+				$('#gridModuleStatus'+uID).val("1");
+			} else {
+				//offline
+				dst.addClass('rex-offline').find('i').addClass('fa-eye-slash');
+				$('#gridModuleStatus'+uID).val("0");
+			}
+		}
+	});
 
 });
 
@@ -341,14 +365,15 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName) {
 			url: 'index.php?page=structure&rex-api-call=gridblock_loadModule&moduleid=' +moduleID+ '&colid=' +colID+ '&uid=' +uID,
 		}).done(function(data) {
 			//Modul-Input ausgeben
-			dst = $('#gridblockColumnSlice' +uID);
+			dst = $('#gridblockColumnSlice'+uID);
 			dst.children('.column-input').remove();
 			dst.append(data).show();
 			//dst.trigger('rex:change', [dst]);
 			
 			//Modulselector ausblenden
 			dstSF = dst.children('.column-slice-functions');
-			dstSF.children('input[type=hidden]').val(moduleID);
+			//dstSF.children('input[type=hidden]').val(moduleID);
+			dstSF.children('input#gridModuleSelect'+uID).val(moduleID);
 			dstSF.children('div.dropdown').hide();
 				moduleName = (moduleName != undefined && moduleName.length > 0) ? moduleName : '[ID: '+moduleID+']';
 			dstSF.children('div.gridblock-moduleinfo').text(moduleName).show();

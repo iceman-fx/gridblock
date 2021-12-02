@@ -39,16 +39,14 @@ endif;
 
 
 /*
-if (false):
-	echo "<br>options:<br>";
-	dump($options);
-	echo "<br>template:<br>";
-	dump($template);
-	echo "<br>modules:<br>";
-	dump($modules);
-	
-	echo "<br><hr><br>";
-endif;
+echo "<br>options:<br>";
+dump($options);
+echo "<br>template:<br>";
+dump($template);
+echo "<br>modules:<br>";
+dump($modules);
+
+echo "<br><hr><br>";
 */
 
 
@@ -88,11 +86,33 @@ if ($db->getRows() > 0):
 		$modOP = '';
 		$moduleIDs = @$modules[$i] ?? null;
 		
+		//dump($moduleIDs);
+		
 		if (!empty($moduleIDs)):
 			foreach ($moduleIDs as $uID => $moduleID):
 				$uID = str_replace("'", "", $uID);
-				$moduleID = intval($moduleID);
-		
+				$moduleStatus = 1;
+				
+				//prüfen ob alte Speicherart (1.0-beta) oder neue Art
+				if (!is_array($moduleID)):
+					//alt (1.0-beta)
+					$moduleID = intval($moduleID);
+				else:
+					//neu
+					$moduleStatus = intval(@$moduleID['status']);
+					$moduleID = intval(@$moduleID['id']);
+				endif;
+				
+
+				//Status prüfen (on/offline)
+				if (!$moduleStatus):
+					if (!rex::isBackend()) { continue; }
+					
+					$modOP .= '<div class="gridblock-slice-offline"><i class="gridblock-slice-offline-icon rex-icon fa-eye-slash rex-offline"></i>';
+				endif;
+				
+				
+				//Inhaltsmodul laden und ausgeben        
 				if ($moduleID && $uID):
 					$editor = new rex_article_content_gridblock();
 					
@@ -126,6 +146,12 @@ if ($db->getRows() > 0):
 					$modOP .= $editor->getModuleOutput($moduleID, $uID, $rexVars);
 					rex_addon::get('gridblock')->removeProperty('REX_GRID_SETTINGS');
 				endif;
+				
+				
+				//Status prüfen (on/offline)
+				if (!$moduleStatus):
+					$modOP .= '</div>';
+				endif;				
 		
 			endforeach;
 		endif;

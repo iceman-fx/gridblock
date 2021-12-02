@@ -69,17 +69,41 @@ $useSettingPlugin = ( rex_plugin::get('gridblock', 'contentsettings')->isAvailab
         <?php
         //gespeicherte Module wieder einladen
         $moduleIDs = @$modules[$colID] ?? array();
+		
+		//dump($moduleIDs);
         
         $hasModules = false;
         foreach ($moduleIDs as $uID => $moduleID):
-            if (intval($moduleID) > 0) { $hasModules = true; }
+			//prüfen ob alte Speicherart (1.0-beta) oder neue Art
+			if (!is_array($moduleID)):
+				//alt (1.0-beta)
+				$moduleID = intval($moduleID);
+			else:
+				//neu
+				$moduleID = intval(@$moduleID['id']);
+			endif;
+		
+            if ($moduleID > 0) { $hasModules = true; }
         endforeach;
+		
         
         if (!empty($moduleIDs) && $hasModules):
             foreach ($moduleIDs as $uID => $moduleID):
                 $uID = str_replace("'", "", $uID);
-                $moduleID = intval($moduleID);
-        
+				$moduleStatus = 1;
+				
+				//prüfen ob alte Speicherart (1.0-beta) oder neue Art
+				if (!is_array($moduleID)):
+					//alt (1.0-beta)
+					$moduleID = intval($moduleID);
+				else:
+					//neu
+					$moduleStatus = intval(@$moduleID['status']);
+					$moduleID = intval(@$moduleID['id']);
+				endif;
+				
+				
+				//Inhaltsmodul laden und ausgeben        
                 if ($moduleID > 0 && !empty($uID)):
                     $editor = new rex_article_content_gridblock();
                     
@@ -87,7 +111,7 @@ $useSettingPlugin = ( rex_plugin::get('gridblock', 'contentsettings')->isAvailab
                     $values = rex_var::toArray($this->values[$colID]);
                     $values = (isset($values[$uID])) ? $values[$uID] : $values;
                             
-                    echo rex_article_content_gridblock::getModuleSelector($colID, $moduleID, $uID);				//Sliceblock + Modulselektor einbinden (ohne schließendes div)
+                    echo rex_article_content_gridblock::getModuleSelector($colID, $moduleID, $uID, $moduleStatus);				//Sliceblock + Modulselektor einbinden (ohne schließendes div)
 
 					//REX-MODULE-VARS erweitern					
 					$rexVars = $this->rexVars;

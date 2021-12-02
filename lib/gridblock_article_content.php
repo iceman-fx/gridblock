@@ -113,14 +113,17 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 	}	
 	
 	
-    public static function getModuleSelector($colID, $selectedModuleID = 0, $uID = "")
+    public static function getModuleSelector($colID, $selectedModuleID = 0, $uID = "", $selectedModuleSTATUS = 1)
     {	$config = rex_addon::get('gridblock')->getConfig('config');
 	
 		$cnt = "";
 		$colID = intval($colID);
 		$selectedModuleID = intval($selectedModuleID);
+		$selectedModuleSTATUS = intval($selectedModuleSTATUS);
+			$moduleStatusClassOFF = (!$selectedModuleSTATUS) ? 'rex-offline' : '';
+			$moduleStatusIconOFF = (!$selectedModuleSTATUS) ? 'fa-eye-slash' : '';
 		
-		$uID = (empty($uID)) ? 'GBS'.sha1(uniqid().str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')) : $uID;					//eine UID mit Buchstaben wird benötigt, damit die MBlock-JS-Ersetzungen nicht ausgehebelt werden
+		$uID = (empty($uID)) ? self::createUID() : $uID;					//eine UID mit Buchstaben wird benötigt, damit die MBlock-JS-Ersetzungen nicht ausgehebelt werden
 		
 		
 		if (isset($_SESSION['gridAllowedModules']) && $colID > 0 && !empty($uID)):
@@ -129,7 +132,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 			$disabledCSS = ($disabled) ? 'gridblock-slice-disabled' : '';
 		
 			//Inhaltsblock-Wrapper setzen
-			$cnt .= '<div id="gridblockColumnSlice'.$uID.'" class="column-slice '.$disabledCSS.'">';				//Wrapper-Block (Slice)
+			$cnt .= '<div id="gridblockColumnSlice'.$uID.'" class="column-slice '.$disabledCSS.'" data-uid="'.$uID.'">';				//Wrapper-Block (Slice)
 			
 				$cnt .= '<div class="column-slice-functions">';
 				
@@ -137,7 +140,9 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 						$modName = (empty($modName)) ? '[ID: '.$selectedModuleID.']' : $modName;
 						$showModInfo = ($selectedModuleID > 0 || $disabled) ? 'style="display: block;"' : 'style="display: none;"';
 					
-					$cnt .= '<input type="hidden" name="REX_INPUT_VALUE[19]['.$colID.'][\''.$uID.'\']" id="gridModuleSelect'.$uID.'" value="'.$selectedModuleID.'" data-colid="'.$colID.'" data-uid="'.$uID.'" />';
+					$cnt .= '<input type="hidden" name="REX_INPUT_VALUE[19]['.$colID.'][\''.$uID.'\'][id]" id="gridModuleSelect'.$uID.'" value="'.$selectedModuleID.'" data-colid="'.$colID.'" data-uid="'.$uID.'" />';
+					$cnt .= '<input type="hidden" name="REX_INPUT_VALUE[19]['.$colID.'][\''.$uID.'\'][status]" id="gridModuleStatus'.$uID.'" value="'.$selectedModuleSTATUS.'" />';
+					
 					$cnt .= '<div class="form-control gridblock-moduleinfo" '.$showModInfo.'>'.$modName.'</div>';
 					$cnt .= (!$disabled && $selectedModuleID <= 0) ? self::addModuleSelector($colID, $uID) : '';
 				
@@ -147,6 +152,8 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 						endif;
 					
 						$cnt .= '<div class="btn-group btn-group-xs btn-group-delete"><a class="btn btn-delete" title="'.rex_i18n::msg('a1620_mod_delete_modul').'"><i class="rex-icon rex-icon-delete"></i></a></div>';
+						
+						$cnt .= '<div class="btn-group btn-group-xs btn-group-status"><a class="btn btn-default btn-status rex-online '.$moduleStatusClassOFF.'" title="'.rex_i18n::msg('a1620_mod_status_modul').'"><i class="rex-icon fa-eye '.$moduleStatusIconOFF.'"></i></a></div>';
 						
 						$cnt .= '<div class="btn-group btn-group-xs">';
 							$cnt .= '<a class="btn btn-move btn-move-up" title="'.rex_i18n::msg('a1620_mod_move_modul_up').'"><i class="rex-icon rex-icon-up"></i></a>';
@@ -162,6 +169,13 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 		endif;
 		
 		return $cnt;
+	}
+	
+	
+    public static function createUID()
+	{	$uid = 'GBS'.sha1(uniqid().str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'));				//GBS-Kürzel ist wichtig für Suche/Ersetzen im JavaScript
+	
+		return $uid;
 	}	
 	
 

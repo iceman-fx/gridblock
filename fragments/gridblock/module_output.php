@@ -86,8 +86,14 @@ if ($db->getRows() > 0):
 		$modOP = '';
 		$moduleIDs = @$modules[$i] ?? null;
 		
-		//dump($moduleIDs);
 		
+		/*
+		echo "Spalte $i:";
+		dump($moduleIDs);
+		*/
+
+		
+		//Inhaltsmodule durchlaufen und ausgeben
 		if (!empty($moduleIDs)):
 			foreach ($moduleIDs as $uID => $moduleID):
 				$uID = str_replace("'", "", $uID);
@@ -104,12 +110,26 @@ if ($db->getRows() > 0):
 				endif;
 				
 
-				//Status prüfen (on/offline)
-				if (!$moduleStatus):
-					if (!rex::isBackend()) { continue; }
+				//Modulausgabe übergehen, wenn kein Modul gewählt oder Modul offline
+				if ((!$moduleStatus && !rex::isBackend()) || empty($moduleID)) { continue; }				
+				
+				
+				//BE-Ausgabe aufbereiten
+				if (rex::isBackend()):
+					$css = (!$moduleStatus) ? 'gridblock-panel-offline' : '';
+					$moduleNAME = '';
+						$db = rex_sql::factory();
+						$db->setQuery("SELECT name FROM ".rex::getTable('module')." WHERE id = '".$moduleID."'");
+						if ($db->getRows() > 0):
+							$moduleNAME = $db->getValue('name');
+						endif;
 					
-					$modOP .= '<div class="gridblock-slice-offline"><i class="gridblock-slice-offline-icon rex-icon fa-eye-slash rex-offline"></i>';
-				endif;
+					$modOP .= '<div class="gridblock-panel '.$css.'">';
+					$modOP .= '<header class="gridblock-panel-header">'.$moduleNAME;
+						$modOP .= '<i class="gridblock-panel-offline-icon rex-icon fa-eye-slash rex-offline"></i>';
+					$modOP .= '</header>';
+					$modOP .= '<div class="gridblock-panel-body">';
+				endif;				
 				
 				
 				//Inhaltsmodul laden und ausgeben        
@@ -148,18 +168,24 @@ if ($db->getRows() > 0):
 				endif;
 				
 				
-				//Status prüfen (on/offline)
-				if (!$moduleStatus):
-					$modOP .= '</div>';
+				//BE-Ausgabe aufbereiten
+				if (rex::isBackend()):
+					$modOP .= '</div></div>';
 				endif;				
-		
 			endforeach;
+		endif;
+		
+		
+		//Abstand zwischen den Columns im BE ausgeben
+		if (rex::isBackend() && !empty($modOP)):
+			$modOP = '<div class="gridblock-panel-columnspacer gridblock-panel-columnspacer'.$i.'"></div>'.$modOP;
 		endif;
 		
 
 		//GRID-Spaltenplatzhalter ersetzen
 		$op = preg_replace("/REX_GRID\[(\s)*(id=)?".$i."(\s)*\]/", $modOP, $op);			//GRID: Spaltencontent
 	endfor;
+	
 	
 	
 	//globale Settingsvariable ändern & bereitstellen
@@ -185,6 +211,7 @@ if ($db->getRows() > 0):
 	if ($useSettingPlugin):
 		if (@$config['showcontentsettingsbe'] == "checked") {
 			if (rex::isBackend()) {
+				$op .= '<br>';
 				$op .= $oSettings->getBackendSummary($contentsettings->data_with_labels,$selTemplate);
 			}
 		}

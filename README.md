@@ -12,8 +12,12 @@ Layoutvorlagen/Templates (Spaltenraster) können selbst definiert werden und ste
 Features
 --------
 - Definition verschiedener Spaltenvorlagen/Templates zur Definition der Spalten und deren Frontenddarstellung
+- Optionale Beschränkung der Auswahl der Inhaltsmodule
 - Hinzufügen beliebiger Inhaltsmodule (Modulblöcke) je Spalte
 - Definition zusätzlicher Block- oder Spaltenoptionen über Plugin
+- Drag&Drop der Inhaltsmodule innerhalb einer Spalte
+- On-/Offline von Inhaltsblöcken
+- DarkMode
 
 -----
 

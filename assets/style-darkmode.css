@@ -30,19 +30,30 @@ body.rex-theme-dark .gridblock .tab-nav > li.active > a:focus
 	{ background: #365150; border-color: rgba(21,28,34, 0.8) rgba(21,28,34, 0.8); border-bottom-color: #365150; }
 
 body.rex-theme-dark .gridblock .column-input { background: #1f3d3c; }
-body.rex-theme-dark .gridblock .column-slice	{ background: #0d1215; }
+body.rex-theme-dark .gridblock .column-slice	{ /*background: #0d1215;*/ }
 body.rex-theme-dark .gridblock .column-slices { background: #1a3332; }
-body.rex-theme-dark .gridblock .column-slice-functions { -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6); box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6); }
+body.rex-theme-dark .gridblock .column-slice-functions { /*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6); box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6);*/ }
+
+body.rex-theme-dark .gridblock .column-slice-functions > div { -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6); box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6); }
+body.rex-theme-dark .gridblock .column-slice-functions .column-slice-sorter { background: #1f3d3c; border-color: #172026; }
 
 body.rex-theme-dark .gridblock a.btn-addgridmodule,
 body.rex-theme-dark .gridblock a.btn-choosegridmodul, 
 body.rex-theme-dark .gridblock .column-slice-sorter a.btn-addgridmodule 
-	{ background: #213c51; border-color: #213c51; color: rgba(255, 255, 255, 0.75) !important; }
+	{ background: #213c51; border-color: #400d0d; color: rgba(255, 255, 255, 0.75) !important; }
 body.rex-theme-dark .gridblock a.btn-addgridmodule:hover, 
+body.rex-theme-dark .gridblock a.btn-choosegridmodul:hover,
 body.rex-theme-dark .gridblock .column-slice-sorter a.btn-addgridmodule:hover 
 	{ background: #1c4260 !important; border-color: #1c4260 !important; }
 	
 body.rex-theme-dark .gridblock .column-slice-nodelete .column-slice-sorter .btn-group-delete a.btn { background: rgba(128,25,25, 0.3); border-color: rgba(128,25,25, 0.3); color: rgba(255,255,255, 0.1); }
+
+/* Redaxo-BE Slice-Übersicht */
+/* Offline (Inhaltsblock) */
+body.rex-theme-dark .gridblock-panel { border: 1px solid #151c22; background: #1b232c; }
+	body.rex-theme-dark .gridblock-panel-offline:before { background: #213c51; }
+body.rex-theme-dark .gridblock-panel-header { background: #151c22; color: rgba(255, 255, 255, 0.75); }
+body.rex-theme-dark .gridblock-panel-columnspacer { border-top: 1px solid rgba(156, 165, 178, 0.3); }
 
 
 
@@ -75,18 +86,29 @@ body.rex-theme-dark .gridblock .column-slice-nodelete .column-slice-sorter .btn-
 		{ background: #365150; border-color: rgba(21,28,34, 0.8) rgba(21,28,34, 0.8); border-bottom-color: #365150; }
 
 	body:not(.rex-theme-light) .gridblock .column-input { background: #1f3d3c; }
-	body:not(.rex-theme-light) .gridblock .column-slice	{ background: #0d1215; }
+	body:not(.rex-theme-light) .gridblock .column-slice	{ /*background: #0d1215;*/ }
 	body:not(.rex-theme-light) .gridblock .column-slices { background: #1a3332; }
-	body:not(.rex-theme-light) .gridblock .column-slice-functions { -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6); box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6); }
+	body:not(.rex-theme-light) .gridblock .column-slice-functions { /*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6); box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6);*/ }
+
+	body:not(.rex-theme-light) .gridblock .column-slice-functions > div { -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6); box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(0,0,0, 0.6); }
+	body:not(.rex-theme-light) .gridblock .column-slice-functions .column-slice-sorter { background: #1f3d3c; border-color: #172026; }
 
 	body:not(.rex-theme-light) .gridblock a.btn-addgridmodule,
 	body:not(.rex-theme-light) .gridblock a.btn-choosegridmodul,
 	body:not(.rex-theme-light) .gridblock .column-slice-sorter a.btn-addgridmodule 
 		{ background: #213c51; border-color: #213c51; color: rgba(255, 255, 255, 0.75) !important; }
 	body:not(.rex-theme-light) .gridblock a.btn-addgridmodule:hover, 
+	body:not(.rex-theme-light) .gridblock a.btn-choosegridmodul:hover,
 	body:not(.rex-theme-light) .gridblock .column-slice-sorter a.btn-addgridmodule:hover 
 		{ background: #1c4260 !important; border-color: #1c4260 !important; }
 
 	body:not(.rex-theme-light) .gridblock .column-slice-nodelete .column-slice-sorter .btn-group-delete a.btn { background: rgba(128,25,25, 0.3); border-color: rgba(128,25,25, 0.3); color: rgba(255,255,255, 0.1); }
+	
+	/* Redaxo-BE Slice-Übersicht */
+	/* Offline (Inhaltsblock) */
+	body:not(.rex-theme-light) .gridblock-panel { border: 1px solid #151c22; background: #1b232c; }
+		body:not(.rex-theme-light) .gridblock-panel-offline:before { background: #213c51; }
+	body:not(.rex-theme-light) .gridblock-panel-header { background: #151c22; color: rgba(255, 255, 255, 0.75); }
+	body:not(.rex-theme-light) .gridblock-panel-columnspacer { border-top: 1px solid rgba(156, 165, 178, 0.3); }
 
 }

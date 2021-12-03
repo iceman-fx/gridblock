@@ -340,7 +340,7 @@
                                         $sValue = "";
                                         if (isset($aSavedOptions[$sType][$sKey])) {
                                             $sValue = $aSavedOptions[$sType][$sKey];
-                                        } else if ($aOption["default"] != "") {
+                                        } else if (isset($aOption["default"]) && $aOption["default"] != "") {
                                             $sValue = $aOption["default"];
                                         }
                                         $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sPlaceholder . '></dd>' . PHP_EOL;
@@ -358,7 +358,7 @@
                                         $sValue = "";
                                         if (isset($aSavedOptions[$sType][$sKey])) {
                                             $sValue = $aSavedOptions[$sType][$sKey];
-                                        } else if ($aOption["default"] != "") {
+                                        } else if (isset($aOption["default"]) && $aOption["default"] != "") {
                                             $sValue = $aOption["default"];
                                         }
                                         $sForm .= '<dd><textarea name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sClass . ' ' . $sPlaceholder . '>' . $sValue . '</textarea></dd>' . PHP_EOL;
@@ -376,7 +376,7 @@
                                         $sValue = "";
                                         if (isset($aSavedOptions[$sType][$sKey])) {
                                             $sValue = $aSavedOptions[$sType][$sKey];
-                                        } else if ($aOption["default"] != "") {
+                                        } else if (isset($aOption["default"]) && $aOption["default"] != "") {
                                             $sValue = $aOption["default"];
                                         }
                                         $sForm .= '<dd><div class="input-group gridblock-colorinput-group"><input data-parsley-excluded="true" type="text" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="' . $sValue . '" maxlength="7" ' . $sPlaceholder . ' pattern="^#([A-Fa-f0-9]{6})$" ' . $sClass . '><span class="input-group-addon gridblock-colorinput"><input type="color" value="' . @$aSavedOptions[$sType][$sKey] . '" pattern="^#([A-Fa-f0-9]{6})$" class="form-control"></span></div>' . PHP_EOL;
@@ -449,10 +449,10 @@
 
                                     case "medialist":
                                         $aArgs = array();
-                                        if ($aOption["preview"]) {
+                                        if (isset($aOption["preview"])) {
                                             $aArgs["preview"] = "1";
                                         }
-                                        if ($aOption["types"]) {
+                                        if (isset($aOption["types"])) {
                                             $aArgs["types"] = $aOption["types"];
                                         }
                                         $iRand = rand(0, 1000000) * rand(0, 100000);
@@ -490,7 +490,7 @@
                                         }
                                         if (!empty($aSavedOptions[$sType][$sKey])) {
                                             $sValue = @$aSavedOptions[$sType][$sKey];
-                                        } else {
+                                        } else if (isset($aOption["default"])) {
                                             $sValue = $aOption["default"];
                                         }
                                         $sSliderMin = '';

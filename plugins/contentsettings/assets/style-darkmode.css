@@ -1,18 +1,35 @@
-body:not(.rex-theme-light) .gridblockcontentsettings-form .tab-content {
-    background-color:#365150;
+body.rex-theme-dark .gridblockcontentsettings-form .tab-content {
+    background-color: #365150;
 }
 
-
-body:not(.rex-theme-light) .gridblock .slider-track {
+body.rex-theme-dark .gridblock .slider-track {
     border: none !important;
-    background-color: #1F3D3C !important;
+    background-color: #1f3d3c !important;
 }
 
-body:not(.rex-theme-light) .gridblock .slider-track .slider-track-high,
-body:not(.rex-theme-light) .gridblock .slider-track .slider-track-low {
-    background-color: #1F3D3C !important;
-
+body.rex-theme-dark .gridblock .slider-track .slider-track-high,
+body.rex-theme-dark .gridblock .slider-track .slider-track-low {
+    background-color: #1f3d3c !important;
 }
-body:not(.rex-theme-light) .gridblock .slider-track .slider-selection {
-    background-color: #1C282F !important;
+body.rex-theme-dark .gridblock .slider-track .slider-selection {
+    background-color: #1c282f !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    body:not(.rex-theme-light) .gridblockcontentsettings-form .tab-content {
+        background-color: #365150;
+    }
+
+    body:not(.rex-theme-light) .gridblock .slider-track {
+        border: none !important;
+        background-color: #1f3d3c !important;
+    }
+
+    body:not(.rex-theme-light) .gridblock .slider-track .slider-track-high,
+    body:not(.rex-theme-light) .gridblock .slider-track .slider-track-low {
+        background-color: #1f3d3c !important;
+    }
+    body:not(.rex-theme-light) .gridblock .slider-track .slider-selection {
+        background-color: #1c282f !important;
+    }
 }

@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Boot (weitere Konfigurationen & Einbindung)
-	v1.0
+	v1.0.1
 	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
 */
 
@@ -27,12 +27,12 @@ global $a1620_darkmode;
 $a1620_darkmode = (rex_string::versionCompare(rex::getVersion(), '5.13.0-dev', '>=')) ? true : false;
 
 
-require_once(rex_path::addon($mypage)."/functions/functions.inc.php");
+require_once(rex_path::addon($mypage, "functions/functions.inc.php"));
 
 
 //Backend
 if (rex::isBackend()):
-	require_once(rex_path::addon($mypage)."/functions/functions_be.inc.php");
+	require_once(rex_path::addon($mypage, "functions/functions_be.inc.php"));
 	
 	if (rex_be_controller::getCurrentPage() === 'content/edit'):
 		rex_sql::setFactoryClass('rex_sql_gridblock');

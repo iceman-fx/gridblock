@@ -162,7 +162,7 @@ $useSettingPlugin = ( rex_plugin::get('gridblock', 'contentsettings')->isAvailab
     <script>
 	//DRAG Button
 	var el = document.getElementById('gridblockColumnSlices<?php echo $colID; ?>');
-	new Sortable(el, { 
+	new GridblockSortable(el, { 
 		handle: '.btn-move-drag', 
 		animation: 150, 
 		onEnd: function(e){

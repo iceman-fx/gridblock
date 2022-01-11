@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	Ein-/Ausgabesteuerung der Inhaltsmodule
-	v1.0
-	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
+	v1.0.2
+	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
 class rex_article_content_gridblock extends rex_article_content_editor {
@@ -234,8 +234,9 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 		$MOD = rex_sql::factory();
 		$MOD->setQuery('SELECT `key`, `output` FROM '.rex::getTablePrefix().'module WHERE id="'.$moduleID.'"');
 		
-		if ($MOD->getRows() != 1 && rex::isBackend()):
-			$slice_content = rex_view::warning(rex_i18n::msg('module_doesnt_exist').' (ID: '.$moduleID.')');
+		
+		if ($MOD->getRows() != 1):
+			$slice_content = (rex::isBackend()) ? rex_view::warning(rex_i18n::msg('module_doesnt_exist').' (ID: '.$moduleID.')') : '';
 		else:
 			foreach($this->values as $i => $value):
 				if (is_array($value)):
@@ -265,6 +266,8 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 			$op = $this->replaceVars($initDataSql, $op);
 			$slice_content = $this->getStreamOutput('module/'.$moduleID.'/output', $op);
 		endif;
+		
+		unset($MOD);
 		
         return $slice_content;
     }

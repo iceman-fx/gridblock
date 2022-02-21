@@ -705,7 +705,7 @@
         if (file_exists($sFile)) {
             $sContent = file_get_contents($sFile);
             json_decode($sContent);
-            if ($sContent && json_last_error() != "JSON_ERROR_NONE") {
+            if ($sContent && json_last_error() != "0") {
                 if (rex::isBackend()) {
                     throw new rex_exception("gridblockContentSettings: json Error in File $sFile");
                 }

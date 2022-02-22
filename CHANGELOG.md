@@ -4,6 +4,9 @@
 Changelog
 ---------
 
+<b>Version 1.0.3</b>
+- PHP8-fix Contentsettings
+
 <b>Version 1.0.2</b>
 - Abfangen von Fehlermeldungen bei gelöschten Inhaltsmodulen im Frontend
 

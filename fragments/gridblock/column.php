@@ -1,9 +1,9 @@
 <?php
 /*
 	Redaxo-Addon Gridblock
-	Fragment für Moduleingabe (BE - innerer Spalteninhalt)
-	v1.0
-	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
+	Fragment für Modul-INPUT (BE - innerer Spalteninhalt)
+	v1.0.4
+	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 	
 	
 	genutzte VALUES:
@@ -58,7 +58,7 @@ $useSettingPlugin = ( rex_plugin::get('gridblock', 'contentsettings')->isAvailab
 				//wird über Ajax nachgeladen
 			
 			echo '</div>';
-			echo '<div class="optionstoggler" onclick="jQuery(\'#grid-coloptions'.$colID.'\').slideToggle();" title="'.rex_i18n::msg('a1620_mod_column_options').'">.....</div>';
+			echo '<div class="rex-icon fa-cog optionstoggler" onclick="jQuery(\'#grid-coloptions'.$colID.'\').slideToggle();" title="'.rex_i18n::msg('a1620_mod_column_options').'"></div>';
         endif;
 		?>
         

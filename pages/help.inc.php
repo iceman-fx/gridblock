@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	Verwaltung: Hilfe
-	v1.0
-	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
+	v1.0.4
+	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 ?>
 
@@ -245,7 +245,7 @@ $grid = new rex_gridblock();<br>$grid-&gt;getSliceValues(&quot;REX_SLICE_ID&quot
 </p>
 <p>Features:</p>
 <ul>
-  <li>Verwaltung von wiederkehrenden Optionen (z.B. Abstände, Breite, Hintergrundfarbe)</li>
+  <li>Verwaltung von wiederkehrenden Optionen (z.B. Abstände, Breite, Hintergrundfarbe, Gruppierung von Optionen in Kategorien)</li>
   <li>Generiert automatisch ein Formular mit den definierten Optionen</li>
   <li>Es können Optionen für ein ganzes Projekt festgelegt werden (data/addons/gridblock/plugins/contentsettings/contentsettings.json)</li>
   <li>Es können Optionen für einzelne Templates festgelegt werden (data/addons/gridblock/plugins/contentsettings/templates/template_$ID/contentsettings.json)</li>
@@ -303,27 +303,39 @@ echo htmlspecialchars(rex_file::get(rex_addon::get('gridblock')->getPath('data/c
     <td valign="top">Array mit Schlüsseln, die standardmäßig geladen werden (Template &amp; Spalten)</td>
   </tr>
   <tr>
+    <td valign="top"><strong>template</strong></td>
+    <td valign="top">Block zur Definition der im Templatebereich zu nutzenden Settings</td>
+  </tr>
+  <tr>
     <td valign="top"><strong>template &gt; showOptions<br>
-</strong></td>
-    <td valign="top">Array mit Schlüsseln, die standardmäßig geladen werden (Template)</td>
+    </strong></td>
+    <td valign="top">Array mit Schlüsseln, die standardmäßig in den Template-Settings geladen werden</td>
   </tr>
   <tr>
     <td valign="top"><strong>template &gt; options</strong></td>
-    <td valign="top">Möglichkeit die allgemeine Definition der Optionen für alle Templates zu überschreiben</td>
+    <td valign="top">Möglichkeit die allgemeine Definition der Optionen für das Template zu überschreiben</td>
   </tr>
   <tr>
-    <td valign="top"><strong>columns &gt; showOptions</strong></td>
-    <td valign="top">Array mit Schlüsseln, die standardmäßig geladen werden (alle Spalten)</td>
+    <td valign="top"><strong>columns</strong></td>
+    <td valign="top">Block zur Definition der in den Spalten zu nutzenden Settings</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>columns</strong> &gt; <strong>showOptions</strong></td>
+    <td valign="top">Array mit Schlüsseln, die standardmäßig in den Spalten-Settings geladen werden</td>
   </tr>
   <tr>
     <td valign="top"><strong>columns &gt; options</strong></td>
-    <td valign="top">Möglichkeit die allgemeine Definition der Optionen für alle Spalten in allen Templates zu überschreiben</td>
+    <td valign="top">Möglichkeit die allgemeine Definition der Optionen für die Spalten zu überschreiben</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>categories</strong></td>
+    <td valign="top">Block zur Definition von zusätzlichen Kategorien zur Gruppierung der Settings</td>
   </tr>
   <tr>
     <td valign="top"><strong>options</strong></td>
-    <td valign="top">Array mit Schlüsseln und Felddefinitionen</td>
+    <td valign="top">Block zur Definition der eigentlichen  Felddefinitionen (Settings) inkl. Zuweisung zu den categories</td>
   </tr>
-</table>
+  </table>
 
 <p>&nbsp;</p>
 <p><strong>Struktur Einstellungen eines bestimmten Templates:</strong> /redaxo/data/addons/gridblock/plugins/contentsettings/template_$ID/contentsettings.json</p>
@@ -339,8 +351,8 @@ echo htmlspecialchars(rex_file::get(rex_addon::get('gridblock')->getPath('data/c
   </tr>
   <tr>
     <td valign="top"><strong>template &gt; showOptions<br>
-</strong></td>
-    <td valign="top">Array mit Schlüsseln, die standardmäßig geladen werden (Template)</td>
+      </strong></td>
+    <td valign="top">Array mit Schlüsseln, die standardmäßig in den Template-Settings geladen werden</td>
   </tr>
   <tr>
     <td valign="top"><strong>template &gt; options</strong></td>

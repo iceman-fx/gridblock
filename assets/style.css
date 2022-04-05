@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document for gridblock */
-/* v1.0 */
+/* v1.0.4 */
 
 .gridblock {}
 .gridblock .content { display: none; padding: 15px; border-top: 1px solid #c1c9d4; }
@@ -17,7 +17,7 @@
 	.gridblock .tab-content > div.active { display: block; }
 
 .gridblock .column-settings { position: relative; background: #FFF; padding: 20px; }
-	.gridblock .column-settings .optionstoggler { display: none; position: absolute; background: #9ca5b2; padding: 0px; line-height: 5px; vertical-align: top; height: 13px; letter-spacing: 1px; color: #FFF; border-radius: 2px; font-size: 13px;    font-weight: bold; left: 50%; bottom: -7px; margin: 0px 0px 0px -30px; width: 60px; text-align: center; cursor: pointer; }
+	.gridblock .column-settings .optionstoggler { display: none; position: absolute; background: #9ca5b2; padding: 0px; line-height: 19px; vertical-align: top; height: 18px; letter-spacing: 1px; color: #FFF; border-radius: 2px; font-size: 12px; left: 50%; bottom: -9px; margin: 0px 0px 0px -30px; width: 60px; text-align: center; cursor: pointer; }
 	.gridblock .column-settings .optionstoggler:hover { background: #5bb585; }
 
 .gridblock .column-input { background: rgba(255,255,255, 1); padding: 20px 20px 20px; -webkit-box-shadow: 0px 5px 15px rgba(0,0,0, 0.08); box-shadow: 0px 5px 15px rgba(0,0,0, 0.08); }
@@ -170,5 +170,6 @@ body.modal-open { overflow: hidden; height: auto; }
 	.gridblock-panel-offline .gridblock-panel-offline-icon { display: inline-block; }
 .gridblock-panel-body { position: relative; padding: 10px 10px; z-index: 1; }
 
-.gridblock-panel-columnspacer { height: 0px; border-top: 1px solid rgba(156, 165, 178, 0.5); margin: 25px 0px; }
+.gridblock-panel-columnspacer { height: 0px; margin: 50px 0px 0px; }
+	.gridblock-panel-columnspacer:before { content: '';  height: 1px; background: rgba(156, 165, 178, 0.5); position: relative; top: -25px; display: block; }
 .gridblock-panel-columnspacer1 { display: none; }

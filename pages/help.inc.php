@@ -213,7 +213,7 @@ $grid = new rex_gridblock();<br>$grid-&gt;getSliceValues(&quot;REX_SLICE_ID&quot
 
 <!-- Platzhalter in Inhaltsmodulen -->
 <a name="placeholders"></a>
-<h2>Verfügbare Platzhalter in Inhaltsmodulen:</h2>
+<h2>Verfügbare Platzhalter &amp; Abfragen in Inhaltsmodulen:</h2>
                     
 <p>Innerhalb der Inhaltsmodule (Blöcke) stehen  Redaxo-Platzhalter sowie zusätzliche Platzhalter des Gridblock-Addons zur Verfügung.
 </p>
@@ -232,6 +232,7 @@ $grid = new rex_gridblock();<br>$grid-&gt;getSliceValues(&quot;REX_SLICE_ID&quot
   <strong>REX_TEMPLATE_ID</strong> =  Template-ID des Artikels (Redaxo)</p>
 <p>&nbsp;</p>
 <p>Alle Contentsettings und Templateeinstellungen stehen in Inhaltsmodulen  zusätzlich als Array über <code>rex_gridblock::getSettings()</code> zur Verfügung.</p>
+<p>Des Weiteren kann im Inhaltsmodul über <code>rex_gridblock::isBackend()</code> abgefragt werden, ob man sich im Editiermodus des Gridblockes (Backend) befindet.</p>
 
 
 

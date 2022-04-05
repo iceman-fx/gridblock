@@ -3,6 +3,10 @@
 
 Changelog
 ---------
+<b>Version 1.0.4</b>
+- kleine Designanpassungen
+- Optimierung Online-Hilfe
+- neuer Prüfwert innerhalb der Gridblock-Bearbeitung: rex_gridblock::isBackend()
 
 <b>Version 1.0.3</b>
 - PHP8-fix Contentsettings

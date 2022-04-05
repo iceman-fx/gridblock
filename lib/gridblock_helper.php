@@ -2,15 +2,15 @@
 /*
 	Redaxo-Addon Gridblock
 	Helper-Funktionen für contentsettings
-	v1.0
-	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
+	v1.0.4
+	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
 class rex_gridblock_helper
 {	
     public static function getTemplateClasses($cs, $options = array(), $with = false)
 	{	/*
-		Liest die Werte der Template-Felder aus und gibt diese als CSS-Klassen-Aufzählung aus.
+		Liest die Werte der definierten Template-Settings aus und gibt diese als CSS-Klassen-Aufzählung aus.
 		
 		Aufruf:
 		echo rex_gridblock_helper::getTemplateClasses($cs, array('gutter', 'padding', 'width', 'class'));
@@ -27,7 +27,7 @@ class rex_gridblock_helper
 	
     public static function getColumnClasses($cs, $col, $options = array(), $with = false)
 	{	/*
-		Liest die Werte der Spalten-Felder aus und gibt diese als CSS-Klassen-Aufzählung aus.
+		Liest die Werte der definierten Spalten-Settings aus und gibt diese als CSS-Klassen-Aufzählung aus.
 		
 		Aufruf:
 		echo rex_gridblock_helper::getColumnClasses($cs, 1, array('gutter', 'padding', 'width', 'class'));
@@ -55,7 +55,7 @@ class rex_gridblock_helper
 				endif;
 			endforeach;
 			
-			$op = ($with) ? 'class="'.$op.'"' : $op;
+			$op = ($with && !empty($op)) ? 'class="'.$op.'"' : $op;
 		endif;
 		
         return trim($op);
@@ -64,7 +64,7 @@ class rex_gridblock_helper
 	
     public static function getTemplateStyles($cs, $options = array(), $with = false)
 	{	/*
-		Liest die Werte der Template-Felder aus und gibt diese als Style-Aufzählung aus.
+		Liest die Werte der definierten Template-Settings aus und gibt diese als Style-Aufzählung aus.
 
 		Aufruf:
 		echo rex_gridblock_helper::getTemplateStyles($cs, array('background-image'=>'bgimage', 'background-color'=>'bgcolor'));
@@ -81,13 +81,16 @@ class rex_gridblock_helper
 	
     public static function getColumnStyles($cs, $col, $options = array(), $with = false)
 	{	/*
+		Liest die Werte der definierten Spalten-Settings aus und gibt diese als Style-Aufzählung aus.
+		
 		Aufruf:
 		echo rex_gridblock_helper::getColumnStyles($cs, 1, array('background-image'=>'bgimage', 'background-color'=>'bgcolor'));
 		echo rex_gridblock_helper::getColumnStyles($cs, 2, array('background-image'=>'bgimage', 'background-color'=>'bgcolor'), true|false);
+		echo rex_gridblock_helper::getColumnStyles($cs, 1, array('min-height|px'=>'minheight'));
 		
 		$cs 			= $contentsettings
 		1...12			= Spaltennummer 1...12
-		array() 		= Array der gewünschten Optionsfelder aus $cs (Definition: 'CSS-Attribut'=>'Feldname')
+		array() 		= Array der gewünschten Optionsfelder aus $cs (Definition: 'CSS-Attribut'=>'Feldname' oder 'CSS-Attribut|Einheit'=>'Feldname')
 		true|false		= Ausgabe mit oder ohne umschließendes style="" (default: false)
 		*/
 		
@@ -105,12 +108,19 @@ class rex_gridblock_helper
 				$val = @$cs->$type->$val;
 				
 				if (!empty($key) && trim($val) != ""):
+					$unit = '';
+						if (preg_match("/|/", $key)):
+							$tmp = explode("|", $key);
+							$key = $tmp[0];
+							$unit = $tmp[1];
+						endif;
+				
 					$val = (strtolower($key) == 'background-image') ? 'url(/media/'.$val.')' : $val;			
-					$op .= $key.': '.$val.'; ';
+					$op .= $key.': '.$val.$unit.'; ';
 				endif;
 			endforeach;
 			
-			$op = ($with) ? 'style="'.$op.'"' : $op;
+			$op = ($with && !empty($op)) ? 'style="'.$op.'"' : $op;
 		endif;
 		
         return trim($op);

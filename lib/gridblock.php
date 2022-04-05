@@ -2,12 +2,14 @@
 /*
 	Redaxo-Addon Gridblock
 	Grid-Basisklasse
-	v1.0
-	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
+	v1.0.4
+	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
 class rex_gridblock {
 
+	private static $isBackend = false;		//bool
+	
 	public $sliceID = 0;					//int
 	public $artID = 0;						//int
 	public $tmplID = 0;						//int
@@ -106,13 +108,12 @@ class rex_gridblock {
     }
 	
 
+	//gesamten Modulinput (Rex-BE) holen und ausgeben
     public function getModuleInput()
 	{
         $this->modules = self::getModules();
         $cols = [];
 
-        //for ($i = 1; $i <= 12; ++$i):
-		
 		for ($i = 1; $i <= $this->maxCols; ++$i):
             $cols[$i] = ['content' => $this->genCol($i)];
         endfor;
@@ -127,6 +128,7 @@ class rex_gridblock {
     }
 	
 
+	//gesamten Spalteninput (Rex-BE) holen und ausgeben
     private function genCol($id)
 	{
         $fragment = new rex_fragment();
@@ -134,7 +136,8 @@ class rex_gridblock {
         $fragment->setVar('modules', $this->modules, false);
         $fragment->setVar('values', $this->values, false);
 		$fragment->setVar('rexVars', $this->rexVars, false);
-		
+
+		self::$isBackend = true;		
         return $fragment->parse('gridblock/column.php');
     }
 
@@ -170,6 +173,7 @@ class rex_gridblock {
     }
 
 
+	//gesamten Moduloutput (Rex-BE + FE) holen und ausgeben
     public function getModuleOutput()
 	{
         $fragment = new rex_fragment();
@@ -225,6 +229,13 @@ class rex_gridblock {
 		$settings = rex_addon::get('gridblock')->getProperty('REX_GRID_SETTINGS');
 		
 		return $settings;
+	}
+	
+
+	//prüfen ob im Editmode des Gridblock (BE)
+	public static function isBackend()
+	{
+		return (rex::isBackend() && self::$isBackend) ? true : false;
 	}
 	
 }

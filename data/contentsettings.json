@@ -1,163 +1,264 @@
 {
+	
 	"template": {
 		"showOptions": [
-			"gutter", "padding", "divider", "bgcolor", "bgimage", "divider", "width", "width_inner", "divider", "header", "header_align", "header_type", "divider", "class"
-		]		
-	},
+			"width", 
+			"widthAlign", 
+			"divider_dim", 
+			"padding", 
+			
+			"bgColor", 
+			"bgColorHEX", 
+			"divider_des", 
+			"bgImage", 
+			"bgImageFill", 
+			"bgImageAlign",
+			"divider_des", 
+			"bgOverlay"
+		]
+	},	
 	
 	"columns": {
 		"showOptions": [
-			"valign", "padding", "divider", "bgcolor", "bgimage", "divider", "class"
+			"minHeight",
+			"minHeightType",
+			"divider_dim",
+			"padding",
+			"divider_dim", 
+			"contentWidth",
+			"contentAlign",
+			
+			"bgColor", 
+			"bgColorHEX", 
+			"divider_des", 
+			"bgImage", 
+			"bgImageFill", 
+			"bgImageAlign",
+			"divider_des", 
+			"bgOverlay",
+			
+			"baseColor"
 		]
 	},
 	
+	
+	
+	"categories": [
+		{
+			"key": "dimension",
+			"label": "Abstände & Größen"
+		},
+		
+		{
+			"key": "design",
+			"label": "Hintergrund"
+		},
+		
+		{
+			"key": "other",
+			"label": "Sonstiges"
+		}
+	],
+	
+	
+	
 	"options": [
 		{
-			"key": "gutter",
-			"label": "Spaltenabstände",
-			"placeholder": "",
-			"type": "select",
-			"data": {
-				"": "- kein Abstand -",
-				"gutter-1px": "1 Pixel",
-				"gutter-sm": "klein",
-				"gutter-md": "mittel",
-				"gutter-lg": "groß"
-			},
-			"default": ""
-		},
-		
-		{
-			"key": "padding",
-			"label": "Abstand innen",
-			"placeholder": "",
-			"type": "select",
-			"data": {
-				"": "- kein Abstand -",
-				"padding-sm": "klein",
-				"padding-md": "mittel",
-				"padding-lg": "groß"
-			},
-			"default": ""
-		},
-		
-		{
+			"category": "dimension",
 			"key": "width",
-			"label": "Breite",
-			"placeholder": "",
+			"label": "Breite begrenzen",
 			"type": "select",
 			"data": {
-				"": "- volle Breite -",
-				"width-default": "Standardbreite",
-				"width-500": "500 Pixel",
-				"width-600": "600 Pixel",
-				"width-700": "700 Pixel",
-				"width-800": "800 Pixel",
-				"width-900": "900 Pixel",
-				"width-1000": "1000 Pixel",
-				"width-1100": "1100 Pixel",
-				"width-1200": "1200 Pixel"
+				"maxwidth0": "- keine Begrenzung -",
+				"maxwidth500": "500 Pixel",
+				"maxwidth600": "600 Pixel",
+				"maxwidth700": "700 Pixel",
+				"maxwidth800": "800 Pixel",
+				"maxwidth900": "900 Pixel",
+				"maxwidth1000": "1000 Pixel",
+				"maxwidth1100": "1100 Pixel"
 			},
-			"default": ""
-		},
+			"default": "maxwidth0"
+		},		
+		{
+			"category": "dimension",
+			"key": "widthAlign",
+			"label": "Ausrichtung",
+			"type": "select",
+			"data": {
+				"wAlign-left": "links",
+				"wAlign-center": "mittig",
+				"wAlign-right": "rechts"
+			},
+			"default": "wAlign-center"
+		},		
 		
 		{
-			"key": "valign",
-			"label": "Vertikale Ausrichtung",
-			"placeholder": "",
+			"category": "dimension",
+			"key": "minHeight",
+			"label": "Minimalhöhe",
+			"placeholder": "Bsp. 300",
+			"type": "text"
+		},		
+		{
+			"category": "dimension",
+			"key": "minHeightType",
+			"label": "Einheit Minimalhöhe ",
 			"type": "select",
 			"data": {
-				"": "- normal -",
-				"valign-start": "oben",
-				"valign-center": "mitte",
-				"valign-end": "unten"
+				"px": "Pixel (px)",
+				"vh": "Bildschirmhöhe (vh)"
 			},
-			"default": ""
-		},
+			"default": "px"
+		},		
 		
 		{
-			"key": "width_inner",
-			"label": "Innere Breite (alle Spalten)",
-			"placeholder": "",
+			"category": "dimension",
+			"key": "padding",
+			"label": "Innenabstand",
 			"type": "select",
 			"data": {
-				"": "- volle Breite -",
-				"width-default": "Standardbreite",
-				"width-500": "500 Pixel",
-				"width-600": "600 Pixel",
-				"width-700": "700 Pixel",
-				"width-800": "800 Pixel",
-				"width-900": "900 Pixel",
-				"width-1000": "1000 Pixel",
-				"width-1100": "1100 Pixel",
-				"width-1200": "1200 Pixel"
+				"padding-none": "- kein zusätzlicher Abstand -",
+				"padding-sm": "Klein",
+				"padding-md": "Mittel",
+				"padding-lg": "Groß"
 			},
-			"default": ""
-		},
-
+			"default": "padding-none"
+		},		
+		
 		{
-			"key": "bgcolor",
+			"category": "dimension",
+			"key": "contentAlign",
+			"label": "Ausrichtung Inhalte",
+			"type": "select",
+			"data": {
+				"align-cc": "Zentriert",		
+				"align-lt": "Links oben",
+				"align-rt": "Rechts oben",
+				"align-rb": "Rechts unten",
+				"align-lb": "Links unten",
+				"align-ct": "Mitte oben",
+				"align-cr": "Mitte rechts",
+				"align-cb": "Mitte unten",
+				"align-cl": "Mitte links"
+			},
+			"default": "align-lt"
+		},		
+		{
+			"category": "dimension",
+			"key": "contentWidth",
+			"label": "Breite Inhalte",
+			"type": "select",
+			"data": {
+				"width-none": "- automatisch -",
+				"width-full": "volle Breite (Ausrichtung nur noch vertikal möglich)"
+			},
+			"default": "width-none"
+		},		
+		
+		
+		
+		{
+			"category": "design",
+			"key": "bgColor",
 			"label": "Hintergrundfarbe",
-			"type": "colorpicker",
-			"placeholder": "Bsp: #11AA99"
+			"type": "select",
+			"data": {
+				"bgColor-none": "- Standard -",
+				"bgColor-primary": "Primärfarbe",
+				"bgColor-secondary": "Sekundärfarbe"
+			},
+			"default": "bgImgFill-none"
 		},
 		
 		{
-			"key": "bgimage",
+			"category": "design",
+			"key": "bgColorHEX",
+			"label": "... oder per Auswahl",
+			"type": "colorpicker"
+		},
+				
+		{
+			"category": "design",
+			"key": "bgImage",
 			"label": "Hintergrundbild",
 			"type": "media",
-			"preview": "1",
-			"types": "gif,jpg,jpeg,png"
+			"preview": "1"
 		},
-	
 		{
-			"key": "header",
-			"label": "Überschrift",
-			"placeholder": "",
-			"type": "text"
-		},
-		
-		{
-			"key": "header_align",
-			"label": "Überschrift Ausrichtung",
-			"placeholder": "",
+			"category": "design",
+			"key": "bgImageFill",
+			"label": "Bildausfüllung",
 			"type": "select",
 			"data": {
-				"left": "links",
-				"center": "mittig",
-				"right": "rechts"
+				"bgImgFill-none": "- nicht ausfüllen/einpassen -",
+				"bgImgFill-cover": "ausfüllen",
+				"bgImgFill-contain": "einpassen"
 			},
-			"default": "left"
+			"default": "bgImgFill-cover"
 		},
-		
 		{
-			"key": "header_type",
-			"label": "Überschrift Typ",
-			"placeholder": "",
+			"category": "design",
+			"key": "bgImageAlign",
+			"label": "Bildausrichtung",
 			"type": "select",
 			"data": {
-				"h2": "H2",
-				"h3": "H3",
-				"h4": "H4",
-				"h5": "H5",
-				"h6": "H6"
+				"bgImgAlign-cc": "Bildmitte",
+				"bgImgAlign-lt": "Links oben",
+				"bgImgAlign-rt": "Rechts oben",
+				"bgImgAlign-rb": "Rechts unten",
+				"bgImgAlign-lb": "Links unten",
+				"bgImgAlign-ct": "Mitte oben",
+				"bgImgAlign-cr": "Mitte rechts",
+				"bgImgAlign-cb": "Mitte unten",
+				"bgImgAlign-cl": "Mitte links"
 			},
-			"default": "h2"
+			"default": "bgImgAlign-cc"
 		},
-	
 		{
-			"key": "class",
-			"label": "CSS-Klasse",
-			"placeholder": "",
-			"type": "text"
+			"category": "design",
+			"key": "bgOverlay",
+			"label": "Overlay",
+			"type": "select",
+			"data": {
+				"bgOverlay-none": "- kein Overlay -",
+				"bgOverlay-dark": "dunkel",
+				"bgOverlay-light": "hell"
+			},
+			"default": "bgOverlay-none"
+		},
+
+
+
+		{
+			"category": "other",
+			"key": "baseColor",
+			"label": "Basis-Farbset",
+			"type": "select",
+			"data": {
+				"baseColor-none": "- Standard -",
+				"baseColor-dark": "dunkel",
+				"baseColor-light": "hell"
+			},
+			"default": "baseColor-none"
 		},
 		
+		
+		
 		{
-			"key": "divider",
+			"category": "dimension",
+			"key": "divider_dim",
 			"label": "",
 			"type": "html",
-			"text": "<div style='height: 20px;'></div>"
-		}
-		
+			"text": "<br />"
+		},
+		{
+			"category": "design",
+			"key": "divider_des",
+			"label": "",
+			"type": "html",
+			"text": "<br />"
+		}		
 	]
+	
 }

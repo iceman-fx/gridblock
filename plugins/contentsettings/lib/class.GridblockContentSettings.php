@@ -512,8 +512,8 @@
                                         } else {
                                             $sSliderTooltipSplit = '';
                                         }
-                                        $sSliderStep = '';
-                                        if (isset($aOption["slider-step"]) && ($aOption["slider-step"] == 1)) {
+                                        $sSliderStep = 'data-slider-step="1"';
+                                        if (isset($aOption["slider-step"])) {
                                             $sSliderStep = 'data-slider-step="' . $aOption['slider-step'] . '"';
                                         }
                                         if (strpos($sValue, ',') !== false) {

@@ -268,7 +268,7 @@
         $this->getAllSettings($sType);
 
 
-        $sForm = '<div class="gridblockcontentsettings-form gridblockcontentsettings-type-'.$sType.'">';
+        $sForm = '<div class="gridblockcontentsettings-form gridblockcontentsettings-type-' . $sType . '">';
 
         if ($iColumnId) {
             $sType = "column_" . $iColumnId;
@@ -293,11 +293,10 @@
                         $iX++;
                     }
                 }
-
             }
             $sForm .= '<span class="gridblockcontentsettings-tab-icon-right"><i class="fa fa-cog"></i></span>';
             $sForm .= '</ul>';
-                $sForm .= '<div class="tab-content" id="gridblockcontentsettings-tab-content-' . $iTabRand . '">';
+            $sForm .= '<div class="tab-content" id="gridblockcontentsettings-tab-content-' . $iTabRand . '">';
             $iX = 0;
 
             foreach ($this->aSettings["categories"] as $aCategory) {
@@ -329,6 +328,20 @@
 
                                 switch ($aOption["type"]) {
                                     case "text":
+                                    case "tel":
+                                    case "url":
+                                    case "number":
+                                    case "color":
+                                    case "numeric":
+                                    case "email":
+                                    case "date":
+                                    case "datetime":
+                                    case "datetime-local":
+                                    case "month":
+                                    case "week":
+
+                                        $sFieldType = $aOption["type"];
+
                                         $sClass = 'class="form-control"';
                                         if (isset($aOption["class"])) {
                                             $sClass = 'class="' . $aOption['class'] . '"';
@@ -343,7 +356,13 @@
                                         } else if (isset($aOption["default"]) && $aOption["default"] != "") {
                                             $sValue = $aOption["default"];
                                         }
-                                        $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sPlaceholder . '></dd>' . PHP_EOL;
+
+                                        $sAttributes = "";
+                                        if (isset($aOption["attributes"])) {
+                                            $sAttributes = $aOption["attributes"];
+                                        }
+
+                                        $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="' . $sFieldType . '" ' . $sClass . ' ' . $sAttributes . ' value="' . $sValue . '" ' . $sPlaceholder . '></dd>' . PHP_EOL;
                                         break;
 
                                     case "textarea":
@@ -361,7 +380,13 @@
                                         } else if (isset($aOption["default"]) && $aOption["default"] != "") {
                                             $sValue = $aOption["default"];
                                         }
-                                        $sForm .= '<dd><textarea name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sClass . ' ' . $sPlaceholder . '>' . $sValue . '</textarea></dd>' . PHP_EOL;
+
+                                        $sAttributes = "";
+                                        if (isset($aOption["attributes"])) {
+                                            $sAttributes = $aOption["attributes"];
+                                        }
+
+                                        $sForm .= '<dd><textarea name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sClass . ' ' . $sAttributes . ' ' . $sPlaceholder . '>' . $sValue . '</textarea></dd>' . PHP_EOL;
                                         break;
 
                                     case "colorpicker":
@@ -379,7 +404,13 @@
                                         } else if (isset($aOption["default"]) && $aOption["default"] != "") {
                                             $sValue = $aOption["default"];
                                         }
-                                        $sForm .= '<dd><div class="input-group gridblock-colorinput-group"><input data-parsley-excluded="true" type="text" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="' . $sValue . '" maxlength="7" ' . $sPlaceholder . ' pattern="^#([A-Fa-f0-9]{6})$" ' . $sClass . '><span class="input-group-addon gridblock-colorinput"><input type="color" value="' . @$aSavedOptions[$sType][$sKey] . '" pattern="^#([A-Fa-f0-9]{6})$" class="form-control"></span></div>' . PHP_EOL;
+
+                                        $sAttributes = "";
+                                        if (isset($aOption["attributes"])) {
+                                            $sAttributes = $aOption["attributes"];
+                                        }
+
+                                        $sForm .= '<dd><div class="input-group gridblock-colorinput-group"><input data-parsley-excluded="true" type="text" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sAttributes . ' value="' . $sValue . '" maxlength="7" ' . $sPlaceholder . ' pattern="^#([A-Fa-f0-9]{6})$" ' . $sClass . '><span class="input-group-addon gridblock-colorinput"><input type="color" value="' . @$aSavedOptions[$sType][$sKey] . '" pattern="^#([A-Fa-f0-9]{6})$" class="form-control"></span></div>' . PHP_EOL;
                                         break;
 
                                     case "select":
@@ -387,8 +418,14 @@
                                         if (isset($aOption["class"])) {
                                             $sClass = 'class="' . $aOption['class'] . '"';
                                         }
+
+                                        $sAttributes = "";
+                                        if (isset($aOption["attributes"])) {
+                                            $sAttributes = $aOption["attributes"];
+                                        }
+
                                         $aSelectData = $this->getSelectData($sKey);
-                                        $sForm .= '<dd><select name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sClass . '>' . PHP_EOL;
+                                        $sForm .= '<dd><select name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sClass . ' ' . $sAttributes . '>' . PHP_EOL;
                                         foreach ($aSelectData as $sSelectKey => $sSelectValue) :
                                             if (isset($aSavedOptions[$sType][$sKey])) {
                                                 $sSelected = ($sSelectKey == @$aSavedOptions[$sType][$sKey]) ? 'selected="selected"' : '';
@@ -405,8 +442,12 @@
                                         if (isset($aOption["class"])) {
                                             $sClass = 'class="' . $aOption['class'] . '"';
                                         }
+                                        $sAttributes = "";
+                                        if (isset($aOption["attributes"])) {
+                                            $sAttributes = $aOption["attributes"];
+                                        }
                                         $sChecked = ("1" == @$aSavedOptions[$sType][$sKey]) ? 'checked="checked"' : '';
-                                        $sForm .= '<dd><div class="checkbox toggle"><label><input type="checkbox" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="1" ' . $sChecked . ' ' . $sClass . '></label></div></dd>' . PHP_EOL;
+                                        $sForm .= '<dd><div class="checkbox toggle"><label><input type="checkbox" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="1" ' . $sChecked . ' ' . $sClass . ' ' . $sAttributes . '></label></div></dd>' . PHP_EOL;
                                         break;
 
                                     case "radio":
@@ -501,6 +542,7 @@
                                         if (isset($aOption["slider-max"])) {
                                             $sSliderMax = 'data-slider-max="' . $aOption['slider-max'] . '"';
                                         }
+
                                         $sSliderTooltipSplit = 'data-slider-tooltip-split="true"';
                                         if (isset($aOption["slider-tooltip-split"])) {
                                             $sSliderTooltipSplit = 'data-slider-tooltip-split="' . $aOption["slider-tooltip-split"] . '"';
@@ -512,6 +554,7 @@
                                         } else {
                                             $sSliderTooltipSplit = '';
                                         }
+
                                         $sSliderStep = 'data-slider-step="1"';
                                         if (isset($aOption["slider-step"])) {
                                             $sSliderStep = 'data-slider-step="' . $aOption['slider-step'] . '"';
@@ -530,6 +573,8 @@
                                             $sSliderShowTooltip = 'data-slider-tooltip="' . $aOption["slider-tooltip"] . '"';
                                         }
 
+
+
                                         $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sSliderTooltipSplit . ' ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' ' . $sSliderShowTooltip . '></dd>' . PHP_EOL;
                                         break;
                                 }
@@ -542,7 +587,7 @@
                     }
 
                     $sForm .= '</div>';
-                        $sForm .= '</div>';
+                    $sForm .= '</div>';
                     $iX++;
                 }
             }

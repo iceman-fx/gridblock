@@ -287,7 +287,11 @@
                     if (isset($aCategory["showOptions"])) {
                         $sForm .= '<li><a href="#gridblockcontentsettings-content-' . $iTabRand . '-' . $iX . '" data-toggle="tab">';
                         if (isset($aCategory["icon"]) && $aCategory["icon"] != "") {
-                            $sForm .= ' <i class="' . $aCategory["icon"] . '" style="padding-right:10px"></i>';
+                            $sTitle = "";                                        
+                            if (isset($aCategory["icon_description"])) {
+                                $sTitle = ' title="'. $aCategory["icon_description"] .'"';
+                            }
+                            $sForm .= ' <i class="' . $aCategory["icon"] . '" style="padding-right:10px" '.$sTitle.'></i>';
                         }
                         $sForm .= $aCategory["label"] . '</a></li>' . PHP_EOL;
                         $iX++;
@@ -321,7 +325,11 @@
                                 if ($aOption["label"] != "") {
                                     $sForm .= '<dt><label for="">' . $aOption["label"];
                                     if (isset($aOption["icon"]) && $aOption["icon"] != "") {
-                                        $sForm .= ' <i class="' . $aOption["icon"] . '" style="padding-left:10px"></i>';
+                                        $sTitle = "";                                        
+                                        if (isset($aOption["icon_description"])) {
+                                            $sTitle = ' title="'. $aOption["icon_description"] .'"';
+                                        }
+                                        $sForm .= ' <i class="' . $aOption["icon"] . '" style="padding-left:10px" '.$sTitle.'></i>';
                                     }
                                     $sForm .= '</label></dt>' . PHP_EOL;
                                 }

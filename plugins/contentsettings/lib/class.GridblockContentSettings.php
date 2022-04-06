@@ -287,11 +287,11 @@
                     if (isset($aCategory["showOptions"])) {
                         $sForm .= '<li><a href="#gridblockcontentsettings-content-' . $iTabRand . '-' . $iX . '" data-toggle="tab">';
                         if (isset($aCategory["icon"]) && $aCategory["icon"] != "") {
-                            $sTitle = "";                                        
-                            if (isset($aCategory["icon_description"])) {
-                                $sTitle = ' title="'. $aCategory["icon_description"] .'"';
+                            $sTippy = "";                                        
+                            if (isset($aCategory["icon_tooltip"])) {
+                                $sTippy = ' data-tippy-content="'. $aCategory["icon_tooltip"] .'"';
                             }
-                            $sForm .= ' <i class="' . $aCategory["icon"] . '" style="padding-right:10px" '.$sTitle.'></i>';
+                            $sForm .= ' <i class="' . $aCategory["icon"] . '" style="padding-right:10px" '.$sTippy.'></i>';
                         }
                         $sForm .= $aCategory["label"] . '</a></li>' . PHP_EOL;
                         $iX++;
@@ -323,13 +323,17 @@
                                     $sForm .= '<dl class="rex-form-group form-group gridblockcontentsettings">' . PHP_EOL;
                                 }
                                 if ($aOption["label"] != "") {
-                                    $sForm .= '<dt><label for="">' . $aOption["label"];
-                                    if (isset($aOption["icon"]) && $aOption["icon"] != "") {
-                                        $sTitle = "";                                        
-                                        if (isset($aOption["icon_description"])) {
-                                            $sTitle = ' title="'. $aOption["icon_description"] .'"';
+                                    $sTippy = "";                                        
+                                        if (isset($aOption["label_tooltip"])) {
+                                            $sTippy = ' data-tippy-content="'. $aOption["label_tooltip"] .'"';
                                         }
-                                        $sForm .= ' <i class="' . $aOption["icon"] . '" style="padding-left:10px" '.$sTitle.'></i>';
+                                    $sForm .= '<dt><label for=""><span '.$sTippy.'>' . $aOption["label"].'</span>';
+                                    if (isset($aOption["icon"]) && $aOption["icon"] != "") {
+                                        $sTippy = "";                                        
+                                        if (isset($aOption["icon_tooltip"])) {
+                                            $sTippy = ' data-tippy-content="'. $aOption["icon_tooltip"] .'"';
+                                        }
+                                        $sForm .= ' <i class="' . $aOption["icon"] . '" style="padding-left:10px" '.$sTippy.'></i>';
                                     }
                                     $sForm .= '</label></dt>' . PHP_EOL;
                                 }

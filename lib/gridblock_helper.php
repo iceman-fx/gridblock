@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Helper-Funktionen für contentsettings
-	v1.0.4
+	v1.0.5
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
@@ -87,11 +87,14 @@ class rex_gridblock_helper
 		echo rex_gridblock_helper::getColumnStyles($cs, 1, array('background-image'=>'bgimage', 'background-color'=>'bgcolor'));
 		echo rex_gridblock_helper::getColumnStyles($cs, 2, array('background-image'=>'bgimage', 'background-color'=>'bgcolor'), true|false);
 		echo rex_gridblock_helper::getColumnStyles($cs, 1, array('min-height|px'=>'minheight'));
+		echo rex_gridblock_helper::getColumnStyles($cs, 1, array('min-height|px'=>'minheight|empty'));
 		
 		$cs 			= $contentsettings
 		1...12			= Spaltennummer 1...12
-		array() 		= Array der gewünschten Optionsfelder aus $cs (Definition: 'CSS-Attribut'=>'Feldname' oder 'CSS-Attribut|Einheit'=>'Feldname')
+		array() 		= Array der gewünschten Optionsfelder aus $cs (Definition: 'CSS-Attribut'=>'Feldname' oder 'CSS-Attribut|Einheit'=>'Feldname|Prüfroutine')
 		true|false		= Ausgabe mit oder ohne umschließendes style="" (default: false)
+		
+		Mögliche Prüfroutinen = empty
 		*/
 		
         return self::getStyles($cs, $col, $options, 'column', $with);
@@ -107,7 +110,20 @@ class rex_gridblock_helper
 			foreach ($options as $key=>$val):
 				$val = @$cs->$type->$val;
 				
+					//Prüfroutinen abfragen
+					if (preg_match("/|/", $val)):
+						$tmp = explode("|", $val);
+						$val = $tmp[0];
+						$check = $tmp[1];
+						
+						switch($check):
+							case "empty":	if (empty($val)) { continue; }
+											break;
+						endswitch;
+					endif;				
+				
 				if (!empty($key) && trim($val) != ""):
+					//Einheit extrahieren
 					$unit = '';
 						if (preg_match("/|/", $key)):
 							$tmp = explode("|", $key);

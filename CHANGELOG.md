@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.0.5</b>
+- Fix für Contentsettings Rangeslider (range = 0)
+
 <b>Version 1.0.4</b>
 - kleine Designanpassungen
 - Optimierung Online-Hilfe

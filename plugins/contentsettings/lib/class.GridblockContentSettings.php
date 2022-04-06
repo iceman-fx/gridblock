@@ -501,9 +501,16 @@
                                         if (isset($aOption["slider-max"])) {
                                             $sSliderMax = 'data-slider-max="' . $aOption['slider-max'] . '"';
                                         }
+                                        $sSliderTooltipSplit = 'data-slider-tooltip-split="true"';
+                                        if (isset($aOption["slider-tooltip-split"])) {
+                                            $sSliderTooltipSplit = 'data-slider-tooltip-split="' . $aOption["slider-tooltip-split"] . '"';
+                                        }
+
                                         $sSliderRange = '';
-                                        if (isset($aOption["slider-range"]) && ($aOption["slider-range"] == 1)) {
+                                        if (isset($aOption["slider-range"]) && ($aOption["slider-range"] == "1")) {
                                             $sSliderRange = 'data-slider-range="' . $aOption['slider-range'] . '"';
+                                        } else {
+                                            $sSliderTooltipSplit = '';
                                         }
                                         $sSliderStep = '';
                                         if (isset($aOption["slider-step"]) && ($aOption["slider-step"] == 1)) {
@@ -521,11 +528,6 @@
                                                 $aOption["slider-tooltip"] = "show";
                                             }
                                             $sSliderShowTooltip = 'data-slider-tooltip="' . $aOption["slider-tooltip"] . '"';
-                                        }
-
-                                        $sSliderTooltipSplit = 'data-slider-tooltip-split="true"';
-                                        if (isset($aOption["slider-tooltip-split"])) {
-                                            $sSliderTooltipSplit = 'data-slider-tooltip-split="' . $aOption["slider-tooltip-split"] . '"';
                                         }
 
                                         $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sSliderTooltipSplit . ' ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' ' . $sSliderShowTooltip . '></dd>' . PHP_EOL;

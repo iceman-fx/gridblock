@@ -108,24 +108,28 @@ class rex_gridblock_helper
 		
 		if (!empty($options) && !empty($cs)):
 			foreach ($options as $key=>$val):
+			
+				//Prüfroutine extrahieren
+				$check = "";
+				if (!empty($val) && strpos($val, "|") !== false):
+					$tmp = explode("|", $val);
+					$val = $tmp[0];
+					$check = $tmp[1];
+				endif;
+			
+				//gespeicherten Wert aus $cs holen
 				$val = @$cs->$type->$val;
+								
+				//Prüfroutinen ausführen				
+				if ($check == 'empty'):
+					if (empty($val)) { continue; }
+				endif;
 				
-					//Prüfroutinen abfragen
-					if (preg_match("/|/", $val)):
-						$tmp = explode("|", $val);
-						$val = $tmp[0];
-						$check = $tmp[1];
-						
-						switch($check):
-							case "empty":	if (empty($val)) { continue; }
-											break;
-						endswitch;
-					endif;				
-				
+				//Style-Definition erstellen
 				if (!empty($key) && trim($val) != ""):
 					//Einheit extrahieren
 					$unit = '';
-						if (preg_match("/|/", $key)):
+						if (strpos($key, "|") !== false):
 							$tmp = explode("|", $key);
 							$key = $tmp[0];
 							$unit = $tmp[1];
@@ -134,6 +138,7 @@ class rex_gridblock_helper
 					$val = (strtolower($key) == 'background-image') ? 'url(/media/'.$val.')' : $val;			
 					$op .= $key.': '.$val.$unit.'; ';
 				endif;
+				
 			endforeach;
 			
 			$op = ($with && !empty($op)) ? 'style="'.$op.'"' : $op;

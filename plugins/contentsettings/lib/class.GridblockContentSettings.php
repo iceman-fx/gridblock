@@ -287,11 +287,11 @@
                     if (isset($aCategory["showOptions"])) {
                         $sForm .= '<li><a href="#gridblockcontentsettings-content-' . $iTabRand . '-' . $iX . '" data-toggle="tab">';
                         if (isset($aCategory["icon"]) && $aCategory["icon"] != "") {
-                            $sTippy = "";                                        
+                            $sTippy = "";
                             if (isset($aCategory["icon_tooltip"])) {
-                                $sTippy = ' data-tippy-content="'. $aCategory["icon_tooltip"] .'"';
+                                $sTippy = ' data-tippy-content="' . $aCategory["icon_tooltip"] . '"';
                             }
-                            $sForm .= ' <i class="' . $aCategory["icon"] . '" style="padding-right:10px" '.$sTippy.'></i>';
+                            $sForm .= ' <i class="' . $aCategory["icon"] . '" style="padding-right:10px" ' . $sTippy . '></i>';
                         }
                         $sForm .= $aCategory["label"] . '</a></li>' . PHP_EOL;
                         $iX++;
@@ -323,17 +323,17 @@
                                     $sForm .= '<dl class="rex-form-group form-group gridblockcontentsettings">' . PHP_EOL;
                                 }
                                 if ($aOption["label"] != "") {
-                                    $sTippy = "";                                        
-                                        if (isset($aOption["label_tooltip"])) {
-                                            $sTippy = ' data-tippy-content="'. $aOption["label_tooltip"] .'"';
-                                        }
-                                    $sForm .= '<dt><label for=""><span '.$sTippy.'>' . $aOption["label"].'</span>';
+                                    $sTippy = "";
+                                    if (isset($aOption["label_tooltip"])) {
+                                        $sTippy = ' data-tippy-content="' . $aOption["label_tooltip"] . '"';
+                                    }
+                                    $sForm .= '<dt><label for=""><span ' . $sTippy . '>' . $aOption["label"] . '</span>';
                                     if (isset($aOption["icon"]) && $aOption["icon"] != "") {
-                                        $sTippy = "";                                        
+                                        $sTippy = "";
                                         if (isset($aOption["icon_tooltip"])) {
-                                            $sTippy = ' data-tippy-content="'. $aOption["icon_tooltip"] .'"';
+                                            $sTippy = ' data-tippy-content="' . $aOption["icon_tooltip"] . '"';
                                         }
-                                        $sForm .= ' <i class="' . $aOption["icon"] . '" style="padding-left:10px" '.$sTippy.'></i>';
+                                        $sForm .= ' <i class="' . $aOption["icon"] . '" style="padding-left:10px" ' . $sTippy . '></i>';
                                     }
                                     $sForm .= '</label></dt>' . PHP_EOL;
                                 }
@@ -458,8 +458,26 @@
                                         if (isset($aOption["attributes"])) {
                                             $sAttributes = $aOption["attributes"];
                                         }
-                                        $sChecked = ("1" == @$aSavedOptions[$sType][$sKey]) ? 'checked="checked"' : '';
-                                        $sForm .= '<dd><div class="checkbox toggle"><label><input type="checkbox" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="1" ' . $sChecked . ' ' . $sClass . ' ' . $sAttributes . '></label></div></dd>' . PHP_EOL;
+
+                                        $sValue = "1";
+                                        if (isset($aOption["value"])) {
+                                            $sValue = $aOption["value"];
+                                        }
+
+                                        $sText = "";
+                                        if (isset($aOption["text"])) {
+                                            $sText = " " . $aOption["text"];
+                                        }
+
+                                        if (isset($aOption["checked"])) {
+                                            if ($aOption["checked"] == "1" && !isset($aSavedOptions)) {
+                                                $sChecked = 'checked="checked"';
+                                            }
+                                        }
+                                        if (!isset($sChecked)) {
+                                            $sChecked = ($sValue == @$aSavedOptions[$sType][$sKey]) ? 'checked="checked"' : '';
+                                        }
+                                        $sForm .= '<dd><div class="checkbox toggle"><label><input type="checkbox" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="' . $sValue . '" ' . $sChecked . ' ' . $sClass . ' ' . $sAttributes . '>' . $sText . '</label></div></dd>' . PHP_EOL;
                                         break;
 
                                     case "radio":

@@ -23,7 +23,7 @@
     display:none;
 }
 /* Bootstrap Backend Tooltip Slider */
-.gridblock .tooltip{position:absolute;z-index:1070;display:block;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";font-style:normal;font-weight:400;line-height:1.5;text-align:left;text-align:start;text-decoration:none;text-shadow:none;text-transform:none;letter-spacing:normal;word-break:normal;word-spacing:normal;white-space:normal;line-break:auto;font-size:.925rem;word-wrap:break-word;opacity:0}
+.gridblock .tooltip{position:absolute;z-index:100;display:block;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";font-style:normal;font-weight:400;line-height:1.5;text-align:left;text-align:start;text-decoration:none;text-shadow:none;text-transform:none;letter-spacing:normal;word-break:normal;word-spacing:normal;white-space:normal;line-break:auto;font-size:.925rem;word-wrap:break-word;opacity:0}
 .gridblock .tooltip.show{opacity:.9}
 .gridblock .tooltip .arrow{position:absolute;display:block;width:.8rem;height:.4rem}
 .gridblock .tooltip .arrow::before{position:absolute;content:"";border-color:transparent;border-style:solid}
@@ -42,7 +42,9 @@
 .gridblock .tooltip-inner{max-width:200px;padding:.25rem .5rem;color:#000;text-align:center;background-color:#c0c0c0;border-radius:.25rem;font-weight: bold}
 .gridblock .tooltip.bs-tooltip-top {margin-top: -24px !important}
 .gridblock .slider.slider-horizontal {
+    margin: 0;
     margin-top: 10px;
+    margin-left: 10px;
 }
 
 .gridblock .slider-track {
@@ -57,3 +59,7 @@
 .gridblock .slider-track .slider-selection {
     background-color: #ccc !important;
 }
+
+dl.rex-form-group.gridblockcontentsettings:last-child {
+    margin-bottom: 0px;
+    }

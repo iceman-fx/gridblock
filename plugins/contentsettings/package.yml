@@ -1,4 +1,4 @@
 package: gridblock/contentsettings # Pflichtfeld
-version: '1.2' # Pflichtfeld
+version: '1.2.1' # Pflichtfeld
 author: novinet GmbH & Co KG
 supportpage: https://github.com/novinet-git/nv_gridblockplugins

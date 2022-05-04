@@ -172,7 +172,10 @@
         if (isset($this->aSettings["showOptions"])) {
             foreach ($this->aSettings["showOptions"] as $sOption) {
                 $aOption = $this->aSettings["options"][$sOption];
-                $sCategory = "";
+
+                if (!isset($aOption["use_last_category"])) {
+                    $sCategory = "";
+                }
                 if (isset($aOption["category"])) {
                     $sCategory = $aOption["category"];
                 }
@@ -193,7 +196,7 @@
                 if (isset($aOption["category"])) {
                     $sCategory = $aOption["category"];
                 }
-                if ($sCategory == "") {
+                if ($sCategory == "" && !isset($aOption["use_last_category"])) {
                     $sCategory = "gridblockcontentsettingsgeneral";
                     if (!isset($this->aSettings["categories"][$sCategory])) {
                         $this->aSettings["categories"][$sCategory] = array("label" => "Sonstige Einstellungen");
@@ -478,6 +481,7 @@
                                             $sChecked = ($sValue == @$aSavedOptions[$sType][$sKey]) ? 'checked="checked"' : '';
                                         }
                                         $sForm .= '<dd><div class="checkbox toggle"><label><input type="checkbox" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="' . $sValue . '" ' . $sChecked . ' ' . $sClass . ' ' . $sAttributes . '>' . $sText . '</label></div></dd>' . PHP_EOL;
+                                        unset($sChecked);
                                         break;
 
                                     case "radio":

@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	Boot (weitere Konfigurationen & Einbindung)
-	v1.0.1
-	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
+	v1.0.6
+	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
 //Variablen deklarieren
@@ -39,29 +39,32 @@ if (rex::isBackend()):
 		
 		$values = isset($_POST['REX_INPUT_VALUE']) ? $_POST['REX_INPUT_VALUE'] : null;
 		
-		if ($values):
-		
+		if (is_array($values)):
 			foreach ($values as $colID => $slices):
-				//erste Ebene (columnID) durchlaufen	
-				foreach ($slices as $uID => $data):
-					//zweite Ebene (uniqeID = Slices) durchlaufen
-					if (isset($data['VALUE'])):
-					
-						echo "\nSlice: $uID\n";
-						print_r($data);					
-					
-						foreach ($data['VALUE'] as $i => $value):
-							//Eingabedaten durchlaufen und _MBLOCK korrigieren	
-							if (strrpos($i, '_MBLOCK') !== false):
-								$id = str_replace('_MBLOCK', '', $i);
-								
-								$values[$colID][$uID]['VALUE'][$id] = (isset($values[$colID][$uID]['VALUE'][$id]) ? $values[$colID][$uID]['VALUE'][$id] + $value : $value);
-								unset($values[$colID][$uID]['VALUE'][$i]);
-							endif;
-						endforeach;
+			
+				if (is_array($slices)):
+					//erste Ebene (columnID) durchlaufen	
+					foreach ($slices as $uID => $data):
+						//zweite Ebene (uniqeID = Slices) durchlaufen
+						if (isset($data['VALUE'])):
 						
-					endif;
-				endforeach;
+							echo "\nSlice: $uID\n";
+							print_r($data);					
+						
+							foreach ($data['VALUE'] as $i => $value):
+								//Eingabedaten durchlaufen und _MBLOCK korrigieren	
+								if (strrpos($i, '_MBLOCK') !== false):
+									$id = str_replace('_MBLOCK', '', $i);
+									
+									$values[$colID][$uID]['VALUE'][$id] = (isset($values[$colID][$uID]['VALUE'][$id]) ? $values[$colID][$uID]['VALUE'][$id] + $value : $value);
+									unset($values[$colID][$uID]['VALUE'][$i]);
+								endif;
+							endforeach;
+							
+						endif;
+					endforeach;
+				endif;
+				
 			endforeach;
 			
 			//korrigierte Vars zurückgeben
@@ -72,7 +75,6 @@ if (rex::isBackend()):
 			echo "\n\$_POST: $uID\n";
 			print_r($_POST);
 			*/	
-			
 		endif;
 		
 	endif;

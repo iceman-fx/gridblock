@@ -3,6 +3,11 @@
 
 Changelog
 ---------
+<b>Version 1.0.6</b>
+- Erweiterung der Contentsettings Checkbox (Default-checked, Zusatztext, eigener Value-Wert)
+- kleinere Bugfixes
+- kleinere Designkorrekturen
+
 <b>Version 1.0.5</b>
 - Fix für Contentsettings Rangeslider (range = 0 & step)
 

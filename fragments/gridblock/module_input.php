@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	Fragment für Moduleingabe (BE)
-	v1.0
-	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
+	v1.0.6
+	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 	
 	
 	genutzte VALUES:
@@ -364,11 +364,9 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName) {
 		$.ajax({
 			url: 'index.php?page=structure&rex-api-call=gridblock_loadModule&moduleid=' +moduleID+ '&colid=' +colID+ '&uid=' +uID,
 		}).done(function(data) {
-			//Modul-Input ausgeben
+			//Einfügeposition vorbereiten
 			dst = $('#gridblockColumnSlice'+uID);
 			dst.children('.column-input').remove();
-			dst.append(data).show();
-			//dst.trigger('rex:change', [dst]);
 			
 			//Modulselector ausblenden
 			dstSF = dst.children('.column-slice-functions');
@@ -377,6 +375,9 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName) {
 			dstSF.children('div.dropdown').hide();
 				moduleName = (moduleName != undefined && moduleName.length > 0) ? moduleName : '[ID: '+moduleID+']';
 			dstSF.children('div.gridblock-moduleinfo').text(moduleName).show();
+			
+			//Modul-Input in DOM einbetten
+			dst.append(data).show();
 			
 			//Vorgang mit ready abschließen
 			$('body').trigger('rex:ready', [$('body')]);					//macht Probleme -> setzt die Spalten-Navigation zurück

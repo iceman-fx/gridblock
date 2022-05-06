@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document for Gridblock - DarkMode */
-/* v1.0 */
+/* v1.0.6 */
 
 
 body.rex-theme-dark .rex-js-widget-gridblock .gridblock-template { color: rgba(255, 255, 255, 0.75); background-color: rgba(32,43,53, 0.6); border-color: rgba(27,35,44, 0.6); }
@@ -70,7 +70,7 @@ body.rex-theme-dark .gridblock-panel-columnspacer { border-top: 1px solid rgba(1
 	body:not(.rex-theme-light) .gridblock-preview span { color: rgba(255, 255, 255, 0.75); }
 	body:not(.rex-theme-light) .gridblock-previewlist > div > div.gridblock-preview { border-color: #0d1215; }
 
-	body:not(.rex-theme-light) .gridblock .column-settings .optionstoggler { background: #1c282f; border: 1px solid rgba(21,28,34, 0.8); line-height: 3px; color: rgba(255, 255, 255, 0.75); }
+	body:not(.rex-theme-light) .gridblock .column-settings .optionstoggler { background: #1c282f; border: 1px solid rgba(21,28,34, 0.8); color: rgba(255, 255, 255, 0.75); }
 	body:not(.rex-theme-light) .gridblock .column-settings .optionstoggler:hover { background: rgba(35,45,57, 0.8); }
 	
 	body:not(.rex-theme-light) .gridblock .tab-nav > li > a { background: #1f3238; color: rgba(255, 255, 255, 0.75); border-color: rgba(21,28,34, 0.8) rgba(21,28,34, 0.8) rgba(21,28,34, 0.8); }
@@ -110,5 +110,6 @@ body.rex-theme-dark .gridblock-panel-columnspacer { border-top: 1px solid rgba(1
 		body:not(.rex-theme-light) .gridblock-panel-offline:before { background: #213c51; }
 	body:not(.rex-theme-light) .gridblock-panel-header { background: #151c22; color: rgba(255, 255, 255, 0.75); }
 	body:not(.rex-theme-light) .gridblock-panel-columnspacer { border-top: 1px solid rgba(156, 165, 178, 0.3); }
+	body:not(.rex-theme-light) .gridblock-panel-body { background: none; }
 
 }

@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document for gridblock */
-/* v1.0.4 */
+/* v1.0.6 */
 
 .gridblock {}
 .gridblock .content { display: none; padding: 15px; border-top: 1px solid #c1c9d4; }
@@ -17,7 +17,7 @@
 	.gridblock .tab-content > div.active { display: block; }
 
 .gridblock .column-settings { position: relative; background: #FFF; padding: 20px; }
-	.gridblock .column-settings .optionstoggler { display: none; position: absolute; background: #9ca5b2; padding: 0px; line-height: 19px; vertical-align: top; height: 18px; letter-spacing: 1px; color: #FFF; border-radius: 2px; font-size: 12px; left: 50%; bottom: -9px; margin: 0px 0px 0px -30px; width: 60px; text-align: center; cursor: pointer; }
+	.gridblock .column-settings .optionstoggler { display: none; position: absolute; background: #9ca5b2; padding: 0px; line-height: 19px; vertical-align: top; height: 18px; letter-spacing: 1px; color: #FFF; border-radius: 2px; font-size: 12px; left: 50%; bottom: -9px; margin: 0px 0px 0px -50px; width: 100px; text-align: center; cursor: pointer; }
 	.gridblock .column-settings .optionstoggler:hover { background: #5bb585; }
 
 .gridblock .column-input { background: rgba(255,255,255, 1); padding: 20px 20px 20px; -webkit-box-shadow: 0px 5px 15px rgba(0,0,0, 0.08); box-shadow: 0px 5px 15px rgba(0,0,0, 0.08); }
@@ -87,7 +87,7 @@ ul.gridblock-moduleselector a { cursor: pointer; }
 	.gridblock-colorinput input::-webkit-color-swatch-wrapper, .gridblock-colorinput input::-webkit-color-swatch { padding: 0px; border: none; }
 	.gridblock-colorinput input+i { display: inline-block; position: absolute; z-index: 5; top: 50%; right: 5px; margin-top: -7px; pointer-events: none; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 .gridblockoptions select, .gridcolumnoptions select { margin: 0px !important; }
-.gridblockoptions .bootstrap-select>.dropdown-toggle, .gridcolumnoptions .bootstrap-select>.dropdown-toggle { border-radius: 0px; }
+.gridblockoptions .bootstrap-select>.dropdown-toggle { border-radius: 0px; }
 
 
 /* Disabled */
@@ -168,7 +168,7 @@ body.modal-open { overflow: hidden; height: auto; }
 .gridblock-panel-header { position: relative; background: #dfe3e9; color: #000; padding: 5px 40px 5px 10px; }
 	.gridblock-panel-offline-icon { display: none; position: absolute; top: 0px; right: 0px; z-index: 200; margin: 9px 10px 0px 0px; }
 	.gridblock-panel-offline .gridblock-panel-offline-icon { display: inline-block; }
-.gridblock-panel-body { position: relative; padding: 10px 10px; z-index: 1; }
+.gridblock-panel-body { position: relative; padding: 10px 10px; z-index: 1; background: rgba(0,0,0, 0.05); }
 
 .gridblock-panel-columnspacer { height: 0px; margin: 50px 0px 0px; }
 	.gridblock-panel-columnspacer:before { content: '';  height: 1px; background: rgba(156, 165, 178, 0.5); position: relative; top: -25px; display: block; }

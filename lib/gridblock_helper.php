@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Helper-Funktionen für contentsettings
-	v1.0.5
+	v1.0.6
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
@@ -50,12 +50,11 @@ class rex_gridblock_helper
 		
 		if (!empty($options) && !empty($cs)):
 			foreach ($options as $option):
-				if (trim($option) != ""):				
-					$op .= @$cs->$type->$option.' ';
-				endif;
+				$cso = @$cs->$type->$option;
+				$op .= (!empty($cso)) ? $cso.' ' : '';
 			endforeach;
 			
-			$op = ($with && !empty($op)) ? 'class="'.$op.'"' : $op;
+			$op = ($with && !empty($op)) ? 'class="'.trim($op).'"' : $op;
 		endif;
 		
         return trim($op);
@@ -69,10 +68,14 @@ class rex_gridblock_helper
 		Aufruf:
 		echo rex_gridblock_helper::getTemplateStyles($cs, array('background-image'=>'bgimage', 'background-color'=>'bgcolor'));
 		echo rex_gridblock_helper::getTemplateStyles($cs, array('background-image'=>'bgimage', 'background-color'=>'bgcolor'), true|false);
+		echo rex_gridblock_helper::getTemplateStyles($cs, array('min-height|px'=>'minheight'));
+		echo rex_gridblock_helper::getTemplateStyles($cs, array('min-height|px'=>'minheight|empty'));
 		
 		$cs 			= $contentsettings
-		array() 		= Array der gewünschten Optionsfelder aus $cs (Definition: 'CSS-Attribut'=>'Feldname')
+		array() 		= Array der gewünschten Optionsfelder aus $cs (Definition: 'CSS-Attribut'=>'Feldname' oder 'CSS-Attribut|Einheit'=>'Feldname|Prüfroutine')
 		true|false		= Ausgabe mit oder ohne umschließendes style="" (default: false)
+		
+		Mögliche Prüfroutinen = empty
 		*/
 		
         return self::getStyles($cs, $col=0, $options, 'template', $with);
@@ -87,11 +90,13 @@ class rex_gridblock_helper
 		echo rex_gridblock_helper::getColumnStyles($cs, 1, array('background-image'=>'bgimage', 'background-color'=>'bgcolor'));
 		echo rex_gridblock_helper::getColumnStyles($cs, 2, array('background-image'=>'bgimage', 'background-color'=>'bgcolor'), true|false);
 		echo rex_gridblock_helper::getColumnStyles($cs, 1, array('min-height|px'=>'minheight'));
-		echo rex_gridblock_helper::getColumnStyles($cs, 1, array('min-height|px'=>'minheight|empty'));
+		echo rex_gridblock_helper::getColumnStyles($cs, 2, array('min-height|px'=>'minheight|empty'));
+		echo rex_gridblock_helper::getColumnStyles($cs, 2, array('nokey'=>'cssstyle|empty'));
 		
 		$cs 			= $contentsettings
 		1...12			= Spaltennummer 1...12
 		array() 		= Array der gewünschten Optionsfelder aus $cs (Definition: 'CSS-Attribut'=>'Feldname' oder 'CSS-Attribut|Einheit'=>'Feldname|Prüfroutine')
+						  Mit dem 'nokey'-Schlüsselwort wird nur der Feldname (optional mit der Einheit) zurückgegeben.
 		true|false		= Ausgabe mit oder ohne umschließendes style="" (default: false)
 		
 		Mögliche Prüfroutinen = empty
@@ -135,13 +140,88 @@ class rex_gridblock_helper
 							$unit = $tmp[1];
 						endif;
 				
-					$val = (strtolower($key) == 'background-image') ? 'url(/media/'.$val.')' : $val;			
-					$op .= $key.': '.$val.$unit.'; ';
+					$val = (strtolower($key) == 'background-image') ? 'url(/media/'.$val.')' : $val;
+					$val = str_replace('"', "'", $val);			
+					$op .= ($key != 'nokey') ? $key.': '.$val.$unit.'; ' : $val.$unit;
 				endif;
 				
 			endforeach;
 			
-			$op = ($with && !empty($op)) ? 'style="'.$op.'"' : $op;
+			$op = ($with && !empty($op)) ? 'style="'.trim($op).'"' : $op;
+		endif;
+		
+        return trim($op);
+    }
+	
+	
+    public static function getTemplateData($cs, $options = array())
+	{	/*
+		Liest die Werte der definierten Template-Settings aus und gibt diese als Data-Attribute aus.
+
+		Aufruf:
+		echo rex_gridblock_helper::getTemplateData($cs, array('data-aos'=>'aoseffect', 'data-aos-anchor'=>'aosanchor'));
+		echo rex_gridblock_helper::getTemplateData($cs, array('data-aos'=>'aoseffect|empty'));
+		
+		$cs 			= $contentsettings
+		array() 		= Array der gewünschten Optionsfelder aus $cs (Definition: 'Data-Attribut'=>'Feldname' oder 'Data-Attribut'=>'Feldname|Prüfroutine')
+		
+		Mögliche Prüfroutinen = empty
+		*/
+		
+        return self::getDatas($cs, $col=0, $options, 'template');
+    }
+	
+	
+    public static function getColumnData($cs, $col, $options = array())
+	{	/*
+		Liest die Werte der definierten Spalten-Settings aus und gibt diese als Data-Attribute aus.
+		
+		Aufruf:
+		echo rex_gridblock_helper::getColumnData($cs, 1, array('data-aos'=>'aoseffect', 'data-aos-anchor'=>'aosanchor'));
+		echo rex_gridblock_helper::getColumnData($cs, 1, array('data-aos'=>'aoseffect|empty'));
+		
+		$cs 			= $contentsettings
+		1...12			= Spaltennummer 1...12
+		array() 		= Array der gewünschten Optionsfelder aus $cs (Definition: 'Data-Attribut'=>'Feldname' oder 'Data-Attribut|Einheit'=>'Feldname|Prüfroutine')
+		
+		Mögliche Prüfroutinen = empty
+		*/
+		
+        return self::getDatas($cs, $col, $options, 'column');
+    }
+	
+
+    private static function getDatas($cs, $col = 0, $options = array(), $type = "")
+	{					
+		$op = "";
+		$type = ($type == 'column') ? 'column_'.intval($col) : 'template';
+		
+		if (!empty($options) && !empty($cs)):
+			foreach ($options as $key=>$val):
+			
+				//Prüfroutine extrahieren
+				$check = "";
+				if (!empty($val) && strpos($val, "|") !== false):
+					$tmp = explode("|", $val);
+					$val = $tmp[0];
+					$check = $tmp[1];
+				endif;
+			
+				//gespeicherten Wert aus $cs holen
+				$val = @$cs->$type->$val;
+								
+				//Prüfroutinen ausführen				
+				if ($check == 'empty'):
+					if (empty($val)) { continue; }
+				endif;
+				
+				//Data-Definition erstellen
+				if (!empty($key) && trim($val) != ""):
+					$val = str_replace('"', "'", $val);
+					$op .= $key.'="'.$val.'" ';
+				endif;
+				
+			endforeach;
 		endif;
 		
         return trim($op);

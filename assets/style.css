@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document for gridblock */
-/* v1.0.6 */
+/* v1.0.7 */
 
 .gridblock {}
 .gridblock .content { display: none; padding: 15px; border-top: 1px solid #c1c9d4; }
@@ -32,14 +32,18 @@
 .gridblock .column-slice-functions { position: relative; display: flex; align-items: center; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(156,165,178, 0.6); box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(156,165,178, 0.6); }
 .gridblock .column-slice-sorter { padding: 0px 5px 0px 10px; white-space: nowrap; text-align: right; /*min-width: 145px;*/ }
 	.gridblock .column-slice-sorter a.btn { float: none !important; }
-	.gridblock .column-slice-sorter .btn-group-delete, .gridblock .column-slice-sorter .btn-group-add, .gridblock .column-slice-sorter .btn-group-status { margin-right: 5px; }
+	.gridblock .column-slice-sorter .btn-group-delete, .gridblock .column-slice-sorter .btn-group-add, .gridblock .column-slice-sorter .btn-group-status, .gridblock .column-slice-sorter .btn-group-copy { margin-right: 5px; }
 	.gridblock .column-slice-sorter .btn-group-drag { margin-left: 5px; }	
 		.gridblock .column-slice-sorter .btn-group-drag a.btn { background: none; border: none; cursor: grab; }
 	.gridblock .column-slice-nodelete .column-slice-sorter .btn-group-delete a.btn { background: #e48d8a; border-color: #e48d8a; color: #a59c9c; cursor: default; }
+	.gridblock .column-slice-sorter .btn-status.rex-online { background-color: rgba(18,181,94, 0.1); }
+	.gridblock .column-slice-sorter .btn-status.rex-offline { background-color: rgba(217,83,79, 0.1); }
+	.gridblock .column-slice-sorter .btn-copy.gridblock-iscopied { background: #4b9ad9; color: #FFF; }
+	
 	.gridblock .column-slice-sorter a.btn-addgridmodule { background: #dbedf7; }
 		.gridblock .column-slice-sorter a.btn-addgridmodule:hover { background: #4b9ad9; color: #FFF; }
 
-/* Buttonleiste pberhalb platzieren */
+/* Buttonleiste oberhalb platzieren */
 .gridblock .column-slice { background: none; }
 .gridblock .column-slice-functions { flex-wrap: wrap; justify-content: flex-end; -webkit-box-shadow: none; box-shadow: none; }
 .gridblock .column-slice-functions > div { order: 2; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(156,165,178, 0.6); box-shadow: inset 0 1px 1px rgba(0,0,0, 0.08), 0 0 8px rgba(156,165,178, 0.6); }
@@ -47,12 +51,14 @@
 
 	
 ul.gridblock-moduleselector a { cursor: pointer; }
+ul.gridblock-moduleselector .gridblock-cutncopy-insert { border-bottom: 1px solid #ccc; }
+	ul.gridblock-moduleselector .gridblock-cutncopy-insert a:before { display: inline-block; font-weight: normal; font-family: FontAwesome; font-size: inherit; text-rendering: auto; content: "\f0c5"; margin-right: 0.5em; color: #4b9ad9; } 
+	ul.gridblock-moduleselector .gridblock-cutncopy-insert a span { /*font-weight: bold;*/ }
 .gridblock .addmodule { text-align: center; margin-top: 50px; }
 	.gridblock .addmodule a.btn-addgridmodule, .gridblock a.btn-choosegridmodul { padding-left: 50px; padding-right: 50px; background: #dbedf7; border-color: #dbedf7; color: #4b9ad9; border-radius: 0px; font-weight: bold; }
 	.gridblock .addmodule a.btn-addgridmodule:hover, .gridblock a.btn-choosegridmodul:hover { background: #4b9ad9 !important; border-color: #4b9ad9 !important; color: #FFF !important; }
 	.gridblock .addmodule a.btn-addgridmodule i, .gridblock a.btn-choosegridmodul i { display: none; }
 	.gridblock .addmodule a.btn-addgridmodule span.caret, .gridblock a.btn-choosegridmodul span.caret { display: none; }
-
 
 .gridblock .gridblock-group > span { font-weight: bold; display: block; margin-top: 25px; margin-bottom: -5px; }
 	.gridblock .gridblock-group:nth-child(1) > span { margin-top: 0px; }

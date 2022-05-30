@@ -6,7 +6,6 @@ Changelog
 <b>Version 1.0.7</b>
 - Kopieren von Inhaltsblöcken möglich (Hinweis in der Hilfe beachten!)
 - kleinere Designoptimierungen
-- kleinere Anpassungen Contentsettings
 
 <b>Version 1.0.6</b>
 - Erweiterung der Contentsettings Checkbox (Default-checked, Zusatztext, eigener Value-Wert)

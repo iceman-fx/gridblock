@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Fragment für Moduleingabe (BE)
-	v1.0.6
+	v1.0.7
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 	
 	
@@ -193,7 +193,8 @@ endif;
 
 <script>
 var gridblock_alwaysallowdelete = (<?php echo (@$config['alwaysallowdelete'] == 'checked') ? 'true' : 'false'; ?> ? true : false);
-	
+var gridblock_sliceid = <?php echo intval($_SESSION['gridRexVars']['sliceID']); ?>;
+
 	
 $(function(){
 	//Spalten + Templateauswahl beim Start setzen, sofern bereits gespeichert wurde
@@ -246,11 +247,19 @@ $(function(){
 		var par = $(this).parents('ul');
 		var moduleID = parseInt($(this).data('modid'));
 		var moduleName = $(this).data('modname');
-		var colID = parseInt(par.data('colid'));
 		var uID = par.data('uid');
+		var colID = parseInt(par.data('colid'));
+		var copyID = $(this).data('copyid');
 		
-		if (moduleID > 0 && colID > 0) { gridblock_loadModule(moduleID, colID, uID, moduleName); }
-		else { $('#gridblockModuleContent'+uID).remove(); }
+		if (moduleID > 0 && colID > 0) {
+			if (copyID != undefined) {
+				gridblock_loadModule(moduleID, colID, uID, moduleName, 'copy');
+			} else {
+				gridblock_loadModule(moduleID, colID, uID, moduleName);
+			}
+		} else {
+			$('#gridblockModuleContent'+uID).remove();
+		}
 		
 		gridblock_setGridSortedSlices(colID);
 	});	
@@ -327,6 +336,39 @@ $(function(){
 	});
 	
 	
+	//Copy Button
+	$(document).on('click', '.gridblock .column-slice-sorter a.btn-copy', function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		e.stopImmediatePropagation();
+		
+		var cClass = 'gridblock-iscopied';
+		var colID = parseInt($(this).data('colid'));
+		var uID = $(this).data('uid');
+		var modID = parseInt($(this).data('modid'));
+		var modStatus = $(this).data('modstatus');
+		
+		if (colID > 0 && uID != undefined) {
+			if (!$(this).hasClass(cClass)) {
+				//kopierten Block im Cookie zwischenspeichern
+				$.ajax({
+					url: 'index.php?page=structure&rex-api-call=gridblock_setCookie&sliceid=' +gridblock_sliceid+ '&uid=' +uID+ '&colid=' +colID+ '&modid=' +modID+ '&modstatus=' +modStatus+ '&action=copy',
+					success: function(data) {},
+					async: false
+				});
+				
+				//Button-Status setzen
+				$('.gridblock .column-slice-sorter a.btn-copy').removeClass(cClass);
+				$(this).addClass(cClass);
+			} else {
+				//Cookie löschen und Button-Status zurücksetzen
+				gridblock_deleteCookie();
+				$(this).removeClass(cClass);
+			}
+		}
+	});
+	
+	
 	//Status Button (on/off)
 	$(document).on('click', '.gridblock .column-slice-sorter a.btn-status', function(e){
 		e.preventDefault();
@@ -354,7 +396,7 @@ $(function(){
 
 
 //Inhaltsmodul nachladen
-function gridblock_loadModule(moduleID, colID, uID, moduleName) {
+function gridblock_loadModule(moduleID, colID, uID, moduleName, action = "") {
 	moduleID = parseInt(moduleID);
 	colID = parseInt(colID);
 
@@ -362,7 +404,7 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName) {
 		$('#rex-js-ajax-loader').addClass('rex-visible');
 		
 		$.ajax({
-			url: 'index.php?page=structure&rex-api-call=gridblock_loadModule&moduleid=' +moduleID+ '&colid=' +colID+ '&uid=' +uID,
+			url: 'index.php?page=structure&rex-api-call=gridblock_loadModule&moduleid=' +moduleID+ '&colid=' +colID+ '&uid=' +uID+ '&action=' +action+ '&slice_id=' +gridblock_sliceid,
 		}).done(function(data) {
 			//Einfügeposition vorbereiten
 			dst = $('#gridblockColumnSlice'+uID);
@@ -378,6 +420,9 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName) {
 			
 			//Modul-Input in DOM einbetten
 			dst.append(data).show();
+			
+			//kopierten Status setzen
+			if (gridblock_getCookie('modstatus') != 1) { dst.find('.column-slice-sorter a.btn-status').trigger('click'); }
 			
 			//Vorgang mit ready abschließen
 			$('body').trigger('rex:ready', [$('body')]);					//macht Probleme -> setzt die Spalten-Navigation zurück
@@ -574,5 +619,37 @@ function gridblock_scrollToNewBlock(dst) {
 		
 		if (posTop > 0) { $("body, html").animate({scrollTop: posTop-50}, 1000); }
 	}
+}
+
+
+//Copy: Cookiename holen
+function gridblock_getCookieName() {
+	var name = "";
+		$.ajax({
+			url: 'index.php?page=structure&rex-api-call=gridblock_getCookieName',
+			success: function(data) { name = data; },
+			async: false
+		});
+	return name;
+}
+
+//Copy: Cookiedaten holen
+function gridblock_getCookie(key = "") {
+	var value = "";
+		$.ajax({
+			url: 'index.php?page=structure&rex-api-call=gridblock_getCookie&key=' +key,
+			success: function(data) { value = data; },
+			async: false
+		});
+	return value;
+}
+
+//Copy: Cookie löschen/leeren
+function gridblock_deleteCookie() {
+	$.ajax({
+		url: 'index.php?page=structure&rex-api-call=gridblock_deleteCookie',
+		success: function(data) {},
+		async: false
+	});
 }
 </script>

@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	API-Anbindung
-	v1.0
-	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
+	v1.0.7
+	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
 class rex_api_gridblock_loadModule extends rex_api_function
@@ -13,10 +13,11 @@ class rex_api_gridblock_loadModule extends rex_api_function
         $moduleID 	= rex_request::get('moduleid', 'int', null);
         $colID 		= rex_request::get('colid', 'int', null);
 		$uID 		= rex_request::get('uid');
+		$action		= rex_request::get('action');
 		
         if ($moduleID && $colID && $uID):
             $ed = new rex_article_content_gridblock();
-            echo $ed->getModuleEdit($moduleID, $colID, $uID);
+			echo $ed->getModuleEdit($moduleID, $colID, $uID, array(), $action);
             exit;
         endif;
 		
@@ -30,12 +31,9 @@ class rex_api_gridblock_getModuleSelector extends rex_api_function
     public function execute()
     {
         $colID 		= rex_request::get('colid', 'int', null);
-		//$uID 		= rex_request::get('uid');
 		
-		//if ($colID && $uID):
 		if ($colID ):
             $ed = new rex_article_content_gridblock();
-			//echo $ed->getModuleSelector($colID, $uID);
 			echo $ed->getModuleSelector($colID);
 			exit;
         endif;
@@ -59,11 +57,63 @@ class rex_api_gridblock_loadContentSettings extends rex_api_function
 			
 			$oSettings = new GridblockContentSettings;
 			echo $oSettings->getGridblockContentSettingsForm($settings, $templateID, $colID);
-			
 			exit;
         endif;
 		
         throw new rex_functional_exception('Template-ID parameter is required!');
     }
 }
+	
+	
+class rex_api_gridblock_setCookie extends rex_api_function
+{
+    public function execute()
+    {
+        $sliceID	= rex_request::get('sliceid');
+		$uID 		= rex_request::get('uid');
+		$colID 		= rex_request::get('colid', 'int', null);
+		$modID 		= rex_request::get('modid', 'int', null);
+		$modStatus	= rex_request::get('modstatus', 'int', null);
+		$action		= rex_request::get('action');
+		
+		if (!empty($uID) && !empty($action)):
+			$value = ['sliceid' => $sliceID, 'uid' => $uID, 'colid' => $colID, 'modid' => $modID, 'modstatus' => $modStatus, 'action' => $action];
+            rex_article_content_gridblock::setCookie($value);
+			exit();
+        endif;
+    }
+}
+	
+	
+class rex_api_gridblock_getCookieName extends rex_api_function
+{
+    public function execute()
+    {
+		echo rex_article_content_gridblock::getCookieName();
+		exit();
+    }
+}
+	
+	
+class rex_api_gridblock_getCookie extends rex_api_function
+{
+    public function execute()
+    {
+		$key 		= rex_request::get('key');
+		
+		echo rex_article_content_gridblock::getCookie($key);
+		exit();
+    }
+}
+	
+	
+class rex_api_gridblock_deleteCookie extends rex_api_function
+{
+    public function execute()
+    {
+		rex_article_content_gridblock::deleteCookie();
+		exit();
+    }
+}
+
 ?>

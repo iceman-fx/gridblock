@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Boot (weitere Konfigurationen & Einbindung)
-	v1.0.6
+	v1.0.7
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
@@ -48,8 +48,10 @@ if (rex::isBackend()):
 						//zweite Ebene (uniqeID = Slices) durchlaufen
 						if (isset($data['VALUE'])):
 						
+							/*
 							echo "\nSlice: $uID\n";
-							print_r($data);					
+							print_r($data);	
+							*/				
 						
 							foreach ($data['VALUE'] as $i => $value):
 								//Eingabedaten durchlaufen und _MBLOCK korrigieren	

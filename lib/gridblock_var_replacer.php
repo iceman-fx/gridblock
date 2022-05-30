@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	VAR-Replacer (REX-VARS und Widget-Buttons umschreiben)
-	v1.0
-	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
+	v1.0.7
+	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
 class rex_gridblock_var_replacer
@@ -23,8 +23,8 @@ class rex_gridblock_var_replacer
 
     private static function replaceInput($colID, $moduleContent, $uID)
     {
-        $moduleContent = preg_replace('/REX_INPUT_VALUE\[(\d+)\]/', 'REX_INPUT_VALUE['.$colID.']['.$uID.'][VALUE][$1]', $moduleContent);																	//normalen REX-VARS
-        $moduleContent =  preg_replace('/REX_INPUT_VALUE\['.$colID.'\]\['.$uID.'\]\[VALUE\]\[(\d+)\]\[(\d+)\]\[/', 'REX_INPUT_VALUE['.$colID.']['.$uID.'][VALUE][$1_MBLOCK][$2][', $moduleContent);			//MBLOCK-VARS
+        $moduleContent = preg_replace('/REX_INPUT_VALUE\[(\d+)\]/', 'REX_INPUT_VALUE['.$colID.']['.$uID.'][VALUE][$1]', $moduleContent);																	//UID + COLID an alle Inputs anhängen
+        $moduleContent =  preg_replace('/REX_INPUT_VALUE\['.$colID.'\]\['.$uID.'\]\[VALUE\]\[(\d+)\]\[(\d+)\]\[/', 'REX_INPUT_VALUE['.$colID.']['.$uID.'][VALUE][$1_MBLOCK][$2][', $moduleContent);			//MBLOCK-VARS zusätzlich aufbereiten
 
         return $moduleContent;
     }

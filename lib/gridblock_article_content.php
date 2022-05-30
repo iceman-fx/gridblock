@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Ein-/Ausgabesteuerung der Inhaltsmodule
-	v1.0.2
+	v1.0.7
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
@@ -11,7 +11,13 @@ class rex_article_content_gridblock extends rex_article_content_editor {
     private $values = [];					//array
 
 
-    public function getModuleEdit($addModuleID, $colID, $uID, $rexVars = array())
+	public function __construct()
+	{	if (!rex::getUser()) { self::deleteCookie(); }
+	}
+	
+
+    //public function getModuleEdit($addModuleID = 0, $colID = 0, $uID, $rexVars = array(), $copyID = "", $copyCOL = 0, $copyCOL = 0, $copySLID = 0)
+	public function getModuleEdit($addModuleID = 0, $colID = 0, $uID, $rexVars = array(), $action = "")
     {	$config = rex_addon::get('gridblock')->getConfig('config');
 		
         $this->setEval(true);
@@ -24,20 +30,47 @@ class rex_article_content_gridblock extends rex_article_content_editor {
         if ($MOD->getRows() != 1):
 			$slice_content = rex_view::warning(rex_i18n::msg('module_doesnt_exist').' (ID: '.$addModuleID.')');
         else:
+			//REX-MODULE-VARS holen
+			$rexVars = (empty($rexVars) && isset($_SESSION['gridRexVars'])) ? $_SESSION['gridRexVars'] : $rexVars;
+				//REX-MODULE-VARS erweitern
+				$rexVars['moduleID'] = $addModuleID;
+				$rexVars['moduleKEY'] = $MOD->getValue('key');
+			//dump($rexVars);
+		
+		
+			//VALUES aus kopiertem Gridblock-Slice auslesen
+			$cook = rex_var::toArray(rex_article_content_gridblock::getCookie());
+				$copUID = @$cook['uid'];
+				$copCOLID = @intval($cook['colid']);
+				$copSLID = @intval($cook['sliceid']);
+			//dump($cook);
+			
+
+			$useCopy = false;
+			if ($action == 'copy' && !empty($copUID) && $copCOLID > 0 && $copSLID > 0):
+				$useCopy = true;
+				
+				rex_sql::setFactoryClass('rex_sql_gridblock');
+				
+				$db = rex_sql::factory();
+				$db->setQuery("SELECT value".$copCOLID." FROM ".rex::getTable("article_slice")." WHERE id = '".$copSLID."' LIMIT 0,1");
+				
+				if ($db->getRows() > 0):
+					$values = rex_var::toArray($db->getValue('value'.$copCOLID));
+                    $values = $values[$copUID];
+					$this->setValues($values, $uID);
+				endif;
+			endif;
+			
+		
+			//VALUES aufbereiten (entweder alle aus Redaxo-Slice oder nur aus dem kopierten GB-Slice)
             $values = $this->values;
             foreach ($values as $key => $val):
                 if (is_array($val)):
                     $values[$key] = json_encode($val);
                 endif;
             endforeach;
-			
-			$rexVars = (empty($rexVars) && isset($_SESSION['gridRexVars'])) ? $_SESSION['gridRexVars'] : $rexVars;
-			//dump($rexVars);
-						
-			//REX-MODULE-VARS erweitern
-			$rexVars['moduleID'] = $addModuleID;
-			$rexVars['moduleKEY'] = $MOD->getValue('key');
-			
+
 			
 			//VALUE-Ersetzungen vorbereiten
             $initDataSql = rex_sql::factory();
@@ -47,17 +80,17 @@ class rex_article_content_gridblock extends rex_article_content_editor {
                 ->setValue('ctype_id', $this->ctype);
 
 
-            //Wird benötigt, um die Mblock-SQL-Anfrage abzufangen und die Antwort zu fälschen
+            //MBlock-SQL-Anfrage abzufangen und Antwort fälschen (MBlock lädt sich normalerweise alle Inhalte aus article_slice selbst)
             rex::setProperty('sql_fake_result', $values);
 				$moduleInput = rex_gridblock_var_replacer::replaceModuleVars($MOD->getValue('input'), $rexVars);								//zuerst die RexVars ersetzen
-
-				//$moduleInput = $this->replaceVars($initDataSql, $MOD->getValue('input'));
-				$moduleInput = $this->replaceVars($initDataSql, $moduleInput);																	//jetzt die restlichen Vars/Values ersetzen
+				$moduleInput = $this->replaceVars($initDataSql, $moduleInput);																	//jetzt die restlichen Vars/Values ersetzen (über article_content_base)
 				
 				$slice_content = $this->getStreamOutput('module/' . $addModuleID . '/input', $moduleInput);
             rex::removeProperty('sql_fake_result');
 
-            $slice_content = rex_gridblock_var_replacer::replaceVars($colID, $slice_content, $uID);
+			
+			//Inhalte ersetzen
+			$slice_content = rex_gridblock_var_replacer::replaceVars($colID, $slice_content, $uID, $rexVars);									//alle Inputs mit UID + COLID erweitern
 		endif;
 		
 		
@@ -91,14 +124,26 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 				$cnt .= '<a class="btn btn-default btn-block btn-choosegridmodul dropdown-toggle" data-toggle="dropdown" title="'.rex_i18n::msg('a1620_mod_choose_modul').'"><i class="fa fa-plus"></i>'.rex_i18n::msg('a1620_mod_choose_modul').' <span class="caret"></span></a>';
 				
 				$cnt .= '<ul class="dropdown-menu btn-block gridblock-moduleselector" role="menu" data-colid="'.$colID.'" data-uid="'.$uID.'">';
+				
+					$cook = rex_var::toArray(rex_article_content_gridblock::getCookie());
+						$copUID = @$cook['uid'];
+						$copMODID = @intval($cook['modid']);
+					
+					if (!empty($copUID) && $copMODID > 0 && rex::getUser()->getComplexPerm('modules')->hasPerm($copMODID)):
+						$module = @$_SESSION['gridAllowedModules'][$copMODID];
+						
+						$modName = aFM_maskChar($module['name']);
+						$cnt .= '<li class="gridblock-cutncopy-insert"><a data-copyid="'.$copUID.'" data-modid="'.$copMODID.'" data-modname="'.$modName.'">'.str_replace(array("###modname###", "###modid###"), array($modName, $copMODID), rex_i18n::rawmsg('a1620_mod_copy_insertmodul')).'</a></li>';	
+					endif;
+				
 					foreach ($_SESSION['gridAllowedModules'] as $id => $module):
 						if (!rex::getUser()->getComplexPerm('modules')->hasPerm($id)) { continue; }					//Modulrechte prüfen
 						
 						$modName = aFM_maskChar($module['name']);
 						$cnt .= '<li><a data-modid="'.$id.'" data-modname="'.$modName.'">'.$modName.'</a></li>';
 					endforeach;
+					
 				$cnt .= '</ul>';
-				
 			$cnt .= '</div>';
 		endif;
 		
@@ -132,7 +177,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 			$disabledCSS = ($disabled) ? 'gridblock-slice-disabled' : '';
 		
 			//Inhaltsblock-Wrapper setzen
-			$cnt .= '<div id="gridblockColumnSlice'.$uID.'" class="column-slice '.$disabledCSS.'" data-uid="'.$uID.'">';				//Wrapper-Block (Slice)
+			$cnt .= '<div id="gridblockColumnSlice'.$uID.'" class="column-slice '.$disabledCSS.'" data-uid="'.$uID.'">';				//Wrapper-Block (GB-Slice)
 			
 				$cnt .= '<div class="column-slice-functions">';
 				
@@ -147,14 +192,25 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 					$cnt .= (!$disabled && $selectedModuleID <= 0) ? self::addModuleSelector($colID, $uID) : '';
 				
 					$cnt .= '<div class="column-slice-sorter">';
+						//ADD-Button
 						if (@$config['plusbuttonfornewblock'] == 'checked'):
 							$cnt .= '<div class="btn-group btn-group-xs btn-group-add"><a class="btn btn-default btn-addgridmodule" title="'.rex_i18n::msg('a1620_mod_add_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'"><i class="rex-icon rex-icon-add-module"></i></a></div>';
 						endif;
 					
+						//DELETE-Button
 						$cnt .= '<div class="btn-group btn-group-xs btn-group-delete"><a class="btn btn-delete" title="'.rex_i18n::msg('a1620_mod_delete_modul').'"><i class="rex-icon rex-icon-delete"></i></a></div>';
 						
+						//STATUS-Button
 						$cnt .= '<div class="btn-group btn-group-xs btn-group-status"><a class="btn btn-default btn-status rex-online '.$moduleStatusClassOFF.'" title="'.rex_i18n::msg('a1620_mod_status_modul').'"><i class="rex-icon fa-eye '.$moduleStatusIconOFF.'"></i></a></div>';
 						
+						//COPY-Button (nur anzeigen, wenn Inhaltsblock bereits einmal gepsiechert wurde)
+						$db = rex_sql::factory();
+						$db->setQuery('SELECT id FROM '.rex::getTablePrefix().'article_slice WHERE value'.$colID.' like "%'.$uID.'%"');
+						
+						$iscopied = (rex_article_content_gridblock::getCookie('uid') == $uID) ? 'gridblock-iscopied' : '';
+						$cnt .= ($db->getRows() > 0) ? '<div class="btn-group btn-group-xs btn-group-copy"><a class="btn btn-default btn-copy btn-status '.$iscopied.'" title="'.rex_i18n::msg('a1620_mod_copy_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'" data-modid="'.$selectedModuleID.'" data-modstatus="'.$selectedModuleSTATUS.'"><i class="rex-icon fa-copy"></i></a></div>' : '';
+						
+						//MOVE-Buttons
 						$cnt .= '<div class="btn-group btn-group-xs">';
 							$cnt .= '<a class="btn btn-move btn-move-up" title="'.rex_i18n::msg('a1620_mod_move_modul_up').'"><i class="rex-icon rex-icon-up"></i></a>';
 							$cnt .= '<a class="btn btn-move btn-move-down" title="'.rex_i18n::msg('a1620_mod_move_modul_down').'"><i class="rex-icon rex-icon-down"></i></a>';
@@ -165,7 +221,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 							
 				$cnt .= '</div>';
 				
-			$cnt .= ($selectedModuleID > 0) ? '' : '</div>';														//Wrapper-Block beenden, falls noch kein Modul gewählt wurde
+			$cnt .= ($selectedModuleID > 0) ? '' : '</div>';																	//Wrapper-Block (GB-Slice) beenden, falls kein Modul gewählt wurde
 		endif;
 		
 		return $cnt;
@@ -173,15 +229,14 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 	
 	
     public static function createUID()
-	{	$uid = 'GBS'.sha1(uniqid().str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'));				//GBS-Kürzel ist wichtig für Suche/Ersetzen im JavaScript
+	{	$uid = 'GBS'.sha1(uniqid().str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'));				//GBS-Kürzel ist wichtig für Suche/Ersetzen
 	
 		return $uid;
 	}	
 	
 
-    public function setValues($values, $uID)
-    {
-        if (empty($values)):
+    public function setValues($values, $uID = "")
+    {	if (empty($values)):
             $this->values = rex_gridblock::getBlankValues();
             return;
         endif;
@@ -271,5 +326,38 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 		
         return $slice_content;
     }
+	
+	
+	public function getCookieName()
+	{	global $a1620_mypage;
+		return 'rex_'.$a1620_mypage.'_cutncopy';
+	}
+
+
+	public function deleteCookie()
+	{	setcookie(self::getCookieName(), '', time()-3600);
+	}
+
+
+	public function setCookie($value)
+	{	$value = (!is_array($value)) ? array('value' => $value) : $value;
+        setcookie(self::getCookieName(), json_encode($value), time()+60*60*24);
+    }
+
+
+	public function getCookie($key = "")
+	{	$cookie = @json_decode(rex_request::cookie(self::getCookieName(), 'string', ''), true);
+		
+		if (!empty($key) && is_string($key)):
+			if (isset($cookie[$key])):
+				return $cookie[$key];
+			endif;
+			
+			return "";
+		endif;
+		
+		return json_encode($cookie);
+	}
+	
 }
 ?>

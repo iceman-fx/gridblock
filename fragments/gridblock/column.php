@@ -116,38 +116,11 @@ $useSettingPlugin = ( rex_plugin::get('gridblock', 'contentsettings')->isAvailab
 					//REX-MODULE-VARS erweitern					
 					$rexVars = $this->rexVars;
 					
-					/*
-					//INFO: die GRID-Vars machen im Inout keinen Sinn, da praktisch alle Settings per Javascript eingestellt werden und die Vars damit erst nach dem Speichern vorliegen würden !!!
-					
-					$rexVars['grid_tmplID'] 	= $selTemplate;							//GRID: Template ID
-					$rexVars['grid_tmplPREV'] 	= $selPreview;							//GRID: Template Preview-JSON als array()
-					$rexVars['grid_tmplCOLS']	= $selColumns;							//GRID: Template Spaltenanzahl
-					$rexVars['grid_colNR'] 		= $colID;								//GRID: Spaltennummer
-					
-					//Modul-Settingsvariable setzen & bereitstellen
-					$gridSettings = array(
-						"template" => array(
-							"id"		=> $selTemplate,
-							"preview"	=> json_decode($selPreview, true),
-							"columns"	=> $selColumns
-						)
-					);
-					$gridSettingsMod = array(
-						"column" => array(
-							"number"	=> $colID
-						)
-					);
-					$gridSettingsMod = array_merge($gridSettings, $gridSettingsMod);
-					*/
-
-
 					//Eingaben des Moduls holen
-					//rex_addon::get('gridblock')->setProperty('REX_GRID_SETTINGS', $gridSettingsMod);
-                    $editor->setValues($values, $uID);															//$editor->setValues(rex_var::toArray($this->values[$colID]), $uID);
+                    $editor->setValues($values, $uID);																			//$editor->setValues(rex_var::toArray($this->values[$colID]), $uID);
                     echo $editor->getModuleEdit($moduleID, $colID, $uID, $rexVars);
-					//rex_addon::get('gridblock')->removeProperty('REX_GRID_SETTINGS');
 					
-					echo '</div>';
+					echo '</div>';																								//Wrapper-Block (GB-Slice) beenden ( siehe rex_article_content_gridblock::getModuleSelector() )
                 endif;
                 
             endforeach;

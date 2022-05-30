@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Grid-Basisklasse
-	v1.0.4
+	v1.0.7
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
@@ -62,11 +62,6 @@ class rex_gridblock {
 			
             $db->next();
         endwhile;
-		
-		/*
-		echo $sql;
-		dump($modules);
-		*/		
 		
 		$_SESSION['gridAllowedModules'] = $modules;
         return $modules;
@@ -144,7 +139,7 @@ class rex_gridblock {
 
     public function getSliceValues($sliceID)
     {
-		$sliceId = intval($sliceID);
+		$sliceID = intval($sliceID);
 		$this->rexVars['sliceID'] = (int) $sliceID;
 		
 		$art = rex_article::get(rex_article::getCurrentId());
@@ -152,8 +147,9 @@ class rex_gridblock {
 			$this->rexVars['artID'] = (int) $art->getId();
 			$this->rexVars['tmplID'] = (int) $art->getTemplateId();
 			$this->rexVars['clangID'] = (int) $art->getClangId();
+			$this->rexVars['revision'] = (int) rex::getProperty('login')->getSessionVar('rex_version_article')[rex_article::getCurrentId()];
 		else:
-			$this->rexVars['artID'] = $this->rexVars['tmplID'] = $this->rexVars['clangID'] = 0;
+			$this->rexVars['artID'] = $this->rexVars['tmplID'] = $this->rexVars['clangID'] = $this->rexVars['revision'] = 0;
 		endif;
 		
 		$_SESSION['gridRexVars'] = $this->rexVars;

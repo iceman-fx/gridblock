@@ -87,12 +87,14 @@ a1620_mod_choose_modul = - Inhaltsblock wählen -
 a1620_mod_choose_template = Layoutvorlage auswählen
 a1620_mod_choose = wählen
 a1620_mod_add_modul = Weiteren Inhaltsblock hinzufügen
+a1620_mod_copy_modul = Inhaltsblock kopieren
 a1620_mod_delete_modul = Inhaltsblock entfernen
 a1620_mod_status_modul = Inhaltsblock on/off schalten
 a1620_mod_move_modul_up = Nach oben verschieben
 a1620_mod_move_modul_down = Nach oben verschieben
 a1620_mod_move_modul_drag = per Drag´n´Drop verschieben
 a1620_mod_confirm_delete = Block wirklich löschen?
+a1620_mod_copy_insertmodul = Inhaltsblock &raquo;###modname###&laquo; mit der ID ####modid### einfügen
 
 a1620_mod_error_loadmodule = Beim Laden ist ein Fehler aufgetreten.
 a1620_mod_error_loadcontentoptions = Beim Laden der Optionen ist ein Fehler aufgetreten.

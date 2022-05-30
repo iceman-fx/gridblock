@@ -416,10 +416,14 @@ echo htmlspecialchars(rex_file::get(rex_addon::get('gridblock')->getPath('data/c
 <a name="faq"></a>
 <h2>FAQ:</h2>
 
-<p class="faq text-danger" data-toggle="collapse" data-target="#f001"><span class="caret"></span> Bei MBlock-Modulen funktioniert die Medienauswahl/Linkauswahl nicht korrekt</p>
-<div id="f001" class="collapse">MBlock muss mind. in der Version 3.4.0 vorliegen, da es in älteren Versionen einen Fehler in der Werteübergabe zum Medienpool/zur Linkmap gab</div>
+<p class="faq text-danger" data-toggle="collapse" data-target="#f001"><span class="caret"></span> Bei MBlock-Modulen funktioniert die Medienauswahl/Linkauswahl nicht korrekt.</p>
+<div id="f001" class="collapse">MBlock muss mind. in der Version 3.4.0 vorliegen, da es in älteren Versionen einen Fehler in der Werteübergabe zum Medienpool/zur Linkmap gab.</div>
 
+<p class="faq text-danger" data-toggle="collapse" data-target="#f002"><span class="caret"></span> Beim Einfügen eines zuvor kopierten Inhaltsblockes fehlen aktuelle Änderungen der Eingabefelder.</p>
+<div id="f002" class="collapse">Beim Einfügen eines zuvor kopierten Inhaltsblockes wird immer nur der zuletzt gespeicherte Zustand eingefügt. Speichern Sie vor dem Kopieren einfach den gesamten Block, um beim Einfügen die korrekten Inhalte zu erhalten.</div>
 
+<p class="faq text-danger" data-toggle="collapse" data-target="#f003"><span class="caret"></span> Die Kopieren-Schaltfläche fehlt bei einem neuen Inhaltsblock.</p>
+<div id="f003" class="collapse">Die Kopieren-Schaltfläche des jeweiligen Inhaltsblockes wird erst angezeigt, wenn dieser gespeichert wurde.</div>
 
 
 

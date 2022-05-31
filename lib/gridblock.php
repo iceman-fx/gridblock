@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Grid-Basisklasse
-	v1.0.7
+	v1.0.7.1
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
@@ -147,7 +147,10 @@ class rex_gridblock {
 			$this->rexVars['artID'] = (int) $art->getId();
 			$this->rexVars['tmplID'] = (int) $art->getTemplateId();
 			$this->rexVars['clangID'] = (int) $art->getClangId();
-			$this->rexVars['revision'] = (int) rex::getProperty('login')->getSessionVar('rex_version_article')[rex_article::getCurrentId()];
+			$this->rexVars['revision'] = "";
+			if (rex::isBackend() && rex::getProperty('login')):
+				$this->rexVars['revision'] = (int) rex::getProperty('login')->getSessionVar('rex_version_article')[rex_article::getCurrentId()];
+			endif;
 		else:
 			$this->rexVars['artID'] = $this->rexVars['tmplID'] = $this->rexVars['clangID'] = $this->rexVars['revision'] = 0;
 		endif;

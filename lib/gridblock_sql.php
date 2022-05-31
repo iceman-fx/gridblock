@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	Grid SQL-Erweiterung
-	v1.0
-	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
+	v1.0.8
+	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
 class rex_sql_gridblock extends rex_sql {
@@ -24,7 +24,9 @@ class rex_sql_gridblock extends rex_sql {
     public function getValue($colName)
     {
         if ($this->fakeResult):
+			//normale SQL-Abfrage des Feldes umgehen, sofern sql_fake_result gesetzt ist
             if (isset($this->fakeResult[$colName])):
+				//gib den GB-gespeicherten Wert zurück, anstatt den aus der originalen SQL-Abfrage
                 if (is_array($this->fakeResult[$colName])):
                     return json_encode($this->fakeResult[$colName]);
                 endif;

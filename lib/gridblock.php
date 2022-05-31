@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Grid-Basisklasse
-	v1.0.7.1
+	v1.0.8
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 

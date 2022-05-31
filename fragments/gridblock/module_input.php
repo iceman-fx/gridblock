@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Fragment für Moduleingabe (BE)
-	v1.0.7
+	v1.0.8
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 	
 	
@@ -404,7 +404,7 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName, action = "") {
 		$('#rex-js-ajax-loader').addClass('rex-visible');
 		
 		$.ajax({
-			url: 'index.php?page=structure&rex-api-call=gridblock_loadModule&moduleid=' +moduleID+ '&colid=' +colID+ '&uid=' +uID+ '&action=' +action+ '&slice_id=' +gridblock_sliceid,
+			url: 'index.php?page=structure&rex-api-call=gridblock_loadModule&moduleid=' +moduleID+ '&colid=' +colID+ '&uid=' +uID+ '&action=' +action+ '&function=edit&slice_id=' +gridblock_sliceid,
 		}).done(function(data) {
 			//Einfügeposition vorbereiten
 			dst = $('#gridblockColumnSlice'+uID);

@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Verwaltung: Hilfe
-	v1.0.4
+	v1.0.8
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 ?>
@@ -438,8 +438,8 @@ Lege ein Issue unter <a href="<?php echo $this->getProperty('supportpage'); ?>" 
 <!-- Credits -->
 <h3>Credits</h3>
 Plugin ContentSettings/Synchronizer: <a href="https://github.com/novinet-git" target="_blank">Daniel Steffen</a><br>
-Ursprüngliche Gridblock-Idee: <a href="https://github.com/bloep" target="_blank">Marcel Kuhmann</a>
-
+Ursprüngliche Gridblock-Idee: <a href="https://github.com/bloep" target="_blank">Marcel Kuhmann</a><br>
+Hilfe beim Debuggen: <a href="https://github.com/rkemmere" target="_blank">Ronny Kemmereit</a>
 
 
 	</div>

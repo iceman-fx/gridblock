@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.0.8</b>
+- Bugfixing (Session + kopieren von MForm-Modulen)
+
 <b>Version 1.0.7</b>
 - Kopieren von Inhaltsblöcken möglich (Hinweis in der Hilfe beachten!)
 - kleinere Designoptimierungen

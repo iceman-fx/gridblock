@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.0.9</b>
+- Bugfixing (neue Inhaltsmodule waren automatisch offline)
+
 <b>Version 1.0.8</b>
 - Bugfixing (Session + kopieren von MForm-Modulen)
 

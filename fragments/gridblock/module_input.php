@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Fragment für Moduleingabe (BE)
-	v1.0.8
+	v1.0.9
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 	
 	
@@ -422,7 +422,7 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName, action = "") {
 			dst.append(data).show();
 			
 			//kopierten Status setzen
-			if (gridblock_getCookie('modstatus') != 1) { dst.find('.column-slice-sorter a.btn-status').trigger('click'); }
+			if (action == 'copy' && gridblock_getCookie('modstatus') != 1) { dst.find('.column-slice-sorter a.btn-status').trigger('click'); }
 			
 			//Vorgang mit ready abschließen
 			$('body').trigger('rex:ready', [$('body')]);					//macht Probleme -> setzt die Spalten-Navigation zurück

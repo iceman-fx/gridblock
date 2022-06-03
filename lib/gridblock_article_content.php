@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Ein-/Ausgabesteuerung der Inhaltsmodule
-	v1.0.7
+	v1.0.10
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
@@ -328,24 +328,24 @@ class rex_article_content_gridblock extends rex_article_content_editor {
     }
 	
 	
-	public function getCookieName()
+	public static function getCookieName()
 	{	global $a1620_mypage;
 		return 'rex_'.$a1620_mypage.'_cutncopy';
 	}
 
 
-	public function deleteCookie()
+	public static function deleteCookie()
 	{	setcookie(self::getCookieName(), '', time()-3600);
 	}
 
 
-	public function setCookie($value)
+	public static function setCookie($value)
 	{	$value = (!is_array($value)) ? array('value' => $value) : $value;
         setcookie(self::getCookieName(), json_encode($value), time()+60*60*24);
     }
 
 
-	public function getCookie($key = "")
+	public static function getCookie($key = "")
 	{	$cookie = @json_decode(rex_request::cookie(self::getCookieName(), 'string', ''), true);
 		
 		if (!empty($key) && is_string($key)):

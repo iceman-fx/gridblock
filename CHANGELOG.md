@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.0.12</b>
+- Bugfixing (Fehler in PHP8)
+
 <b>Version 1.0.11</b>
 - Optimierung Fehlerbehandlung der Kopieren-Funktion
 - Modulselektoren werden beim Kopieren nun automatisch aktualisiert

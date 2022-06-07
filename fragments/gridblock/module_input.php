@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Fragment für Moduleingabe (BE)
-	v1.0.9
+	v1.0.11
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 	
 	
@@ -361,10 +361,13 @@ $(function(){
 				$('.gridblock .column-slice-sorter a.btn-copy').removeClass(cClass);
 				$(this).addClass(cClass);
 			} else {
-				//Cookie löschen und Button-Status zurücksetzen
+				//Cookie löschen und Button-Status zurücksetzen (wird nur ausgeführt, wenn der selbe Button erneut geklickt wird)
 				gridblock_deleteCookie();
 				$(this).removeClass(cClass);
 			}
+			
+			//alle aktiven Moduleselektoren refreshen
+			gridblock_refreshModuleSelectors();
 		}
 	});
 	
@@ -412,9 +415,8 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName, action = "") {
 			
 			//Modulselector ausblenden
 			dstSF = dst.children('.column-slice-functions');
-			//dstSF.children('input[type=hidden]').val(moduleID);
 			dstSF.children('input#gridModuleSelect'+uID).val(moduleID);
-			dstSF.children('div.dropdown').hide();
+			dstSF.children('div.dropdown').remove();
 				moduleName = (moduleName != undefined && moduleName.length > 0) ? moduleName : '[ID: '+moduleID+']';
 			dstSF.children('div.gridblock-moduleinfo').text(moduleName).show();
 			
@@ -422,7 +424,7 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName, action = "") {
 			dst.append(data).show();
 			
 			//kopierten Status setzen
-			if (action == 'copy' && gridblock_getCookie('modstatus') != 1) { dst.find('.column-slice-sorter a.btn-status').trigger('click'); }
+			if (action == 'copy' && gridblock_getCookie('action') == 'copy' && gridblock_getCookie('modstatus') != 1) { dst.find('.column-slice-sorter a.btn-status').trigger('click'); }
 			
 			//Vorgang mit ready abschließen
 			$('body').trigger('rex:ready', [$('body')]);					//macht Probleme -> setzt die Spalten-Navigation zurück
@@ -549,6 +551,23 @@ function gridblock_loadModuleSelector(colID = 0, dst = "", mode = "html") {
 			dst.html('<div class="alert alert-danger"><?php echo rex_i18n::msg('a1620_mod_error_loadmoduleselector'); ?></div>');
 		})
 	}
+}
+
+
+//Modulselectoren refreshen (Copy-Status)
+function gridblock_refreshModuleSelectors() {
+	$('.gridblock .column-slice-functions .gridblock-moduleselector').each(function(){
+		var dst = $(this).parent('div.dropdown');
+		colID = parseInt($(this).data('colid'));
+		uID = $(this).data('uid');
+		
+		if (colID > 0 && uID != undefined) {
+			$.ajax({
+				url: 'index.php?page=structure&rex-api-call=gridblock_addModuleSelector&uid=' +uID+ '&colid=' +colID,
+				success: function(data) { dst.replaceWith(data); }
+			});
+		}
+	});
 }
 
 

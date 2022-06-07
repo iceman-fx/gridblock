@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	API-Anbindung
-	v1.0.7
+	v1.0.11
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
@@ -32,9 +32,27 @@ class rex_api_gridblock_getModuleSelector extends rex_api_function
     {
         $colID 		= rex_request::get('colid', 'int', null);
 		
-		if ($colID ):
+		if ($colID):
             $ed = new rex_article_content_gridblock();
 			echo $ed->getModuleSelector($colID);
+			exit;
+        endif;
+		
+        throw new rex_functional_exception('Column-ID parameter is required!');
+    }
+}
+
+
+class rex_api_gridblock_addModuleSelector extends rex_api_function
+{
+    public function execute()
+    {
+        $colID 		= rex_request::get('colid', 'int', null);
+		$uID 		= rex_request::get('uid');
+		
+		if ($colID && $uID):
+            $ed = new rex_article_content_gridblock();
+			echo $ed->addModuleSelector($colID, $uID);
 			exit;
         endif;
 		

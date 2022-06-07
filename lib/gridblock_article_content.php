@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Ein-/Ausgabesteuerung der Inhaltsmodule
-	v1.0.10
+	v1.0.11
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
@@ -47,19 +47,17 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 			
 
 			$useCopy = false;
-			if ($action == 'copy' && !empty($copUID) && $copCOLID > 0 && $copSLID > 0):
+			if ($action == 'copy' && self::checkCopyAvailable($copUID, $copCOLID, $copSLID)):
 				$useCopy = true;
 				
 				rex_sql::setFactoryClass('rex_sql_gridblock');
 				
 				$db = rex_sql::factory();
 				$db->setQuery("SELECT value".$copCOLID." FROM ".rex::getTable("article_slice")." WHERE id = '".$copSLID."' LIMIT 0,1");
-				
-				if ($db->getRows() > 0):
-					$values = rex_var::toArray($db->getValue('value'.$copCOLID));
-                    $values = $values[$copUID];
-					$this->setValues($values, $uID);
-				endif;
+			
+				$copValues = rex_var::toArray($db->getValue('value'.$copCOLID));
+				$copValues = $copValues[$copUID];
+				$this->setValues($copValues, $uID);
 			endif;
 			
 		
@@ -114,7 +112,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 	
 	
     public static function addModuleSelector($colID, $uID = "")
-	{	$cnt = "";
+	{	$cnt = $cook = "";
 		$colID = intval($colID);
 
 
@@ -125,19 +123,24 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 				
 				$cnt .= '<ul class="dropdown-menu btn-block gridblock-moduleselector" role="menu" data-colid="'.$colID.'" data-uid="'.$uID.'">';
 				
+					//kopiertes Element prüfen und der Auswahl hinzufügen
 					$cook = rex_var::toArray(rex_article_content_gridblock::getCookie());
 						$copUID = @$cook['uid'];
+						$copCOLID = @intval($cook['colid']);
+						$copSLID = @intval($cook['sliceid']);
 						$copMODID = @intval($cook['modid']);
 					
-					if (!empty($copUID) && $copMODID > 0 && rex::getUser()->getComplexPerm('modules')->hasPerm($copMODID)):
+					if (self::checkCopyAvailable($copUID, $copCOLID, $copSLID) && $copMODID > 0 && rex::getUser()->getComplexPerm('modules')->hasPerm($copMODID)):
 						$module = @$_SESSION['gridAllowedModules'][$copMODID];
 						
 						$modName = aFM_maskChar($module['name']);
-						$cnt .= '<li class="gridblock-cutncopy-insert"><a data-copyid="'.$copUID.'" data-modid="'.$copMODID.'" data-modname="'.$modName.'">'.str_replace(array("###modname###", "###modid###"), array($modName, $copMODID), rex_i18n::rawmsg('a1620_mod_copy_insertmodul')).'</a></li>';	
+						$cnt .= '<li class="gridblock-cutncopy-insert"><a data-copyid="'.$copUID.'" data-modid="'.$copMODID.'" data-modname="'.$modName.'">'.str_replace(array("###modname###", "###modid###"), array($modName, $copMODID), rex_i18n::rawmsg('a1620_mod_copy_insertmodul')).'</a></li>';
 					endif;
 				
+				
+					//alle zulässigen Module der Auswahl hinzufügen
 					foreach ($_SESSION['gridAllowedModules'] as $id => $module):
-						if (!rex::getUser()->getComplexPerm('modules')->hasPerm($id)) { continue; }					//Modulrechte prüfen
+						if (!rex::getUser()->getComplexPerm('modules')->hasPerm($id)) { continue; }											//Modulrechte prüfen
 						
 						$modName = aFM_maskChar($module['name']);
 						$cnt .= '<li><a data-modid="'.$id.'" data-modname="'.$modName.'">'.$modName.'</a></li>';
@@ -152,6 +155,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 			'colid' => $colID,
 			'uid' => $uID,
 			'allowedmodules' => $_SESSION['gridAllowedModules'],
+			'copiedmodule' => $cook,
 		]));
 		
 		return $cnt;
@@ -189,7 +193,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 					$cnt .= '<input type="hidden" name="REX_INPUT_VALUE[19]['.$colID.'][\''.$uID.'\'][status]" id="gridModuleStatus'.$uID.'" value="'.$selectedModuleSTATUS.'" />';
 					
 					$cnt .= '<div class="form-control gridblock-moduleinfo" '.$showModInfo.'>'.$modName.'</div>';
-					$cnt .= (!$disabled && $selectedModuleID <= 0) ? self::addModuleSelector($colID, $uID) : '';
+					$cnt .= (!$disabled && $selectedModuleID <= 0) ? self::addModuleSelector($colID, $uID) : '';						//nur ausgeben, wenn noch nicht gespeichert
 				
 					$cnt .= '<div class="column-slice-sorter">';
 						//ADD-Button
@@ -326,6 +330,23 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 		
         return $slice_content;
     }
+
+
+	public function checkCopyAvailable($copUID = "", $copCOLID = 0, $copSLID = 0)
+	{	$return = false;
+	
+		if (!empty($copUID) && $copCOLID > 0 && $copSLID > 0):
+			$db = rex_sql::factory();
+			$db->setQuery("SELECT value".$copCOLID." FROM ".rex::getTable("article_slice")." WHERE id = '".$copSLID."' LIMIT 0,1");
+			
+			if ($db->getRows() > 0):
+				$copValues = rex_var::toArray($db->getValue('value'.$copCOLID));
+				$return = (isset($copValues[$copUID])) ? true : false;
+			endif;
+		endif;
+		
+		return $return;
+	}
 	
 	
 	public static function getCookieName()

@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Ein-/Ausgabesteuerung der Inhaltsmodule
-	v1.0.11
+	v1.0.12
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
@@ -332,7 +332,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
     }
 
 
-	public function checkCopyAvailable($copUID = "", $copCOLID = 0, $copSLID = 0)
+	public static function checkCopyAvailable($copUID = "", $copCOLID = 0, $copSLID = 0)
 	{	$return = false;
 	
 		if (!empty($copUID) && $copCOLID > 0 && $copSLID > 0):

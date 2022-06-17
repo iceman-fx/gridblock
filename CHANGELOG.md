@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.0.13</b>
+- Bugfixing (rex_gridblock::isBackend() wurde bei neuen Modulen falsch ausgewertet)
+
 <b>Version 1.0.12</b>
 - Bugfixing (Fehler in PHP8)
 

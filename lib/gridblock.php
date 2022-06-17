@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Grid-Basisklasse
-	v1.0.10
+	v1.0.13
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
@@ -132,7 +132,7 @@ class rex_gridblock {
         $fragment->setVar('values', $this->values, false);
 		$fragment->setVar('rexVars', $this->rexVars, false);
 
-		self::$isBackend = true;		
+		self::$isBackend = true;
         return $fragment->parse('gridblock/column.php');
     }
 
@@ -232,8 +232,9 @@ class rex_gridblock {
 	
 
 	//prüfen ob im Editmode des Gridblock (BE)
-	public static function isBackend()
+	public static function isBackend($override = false)
 	{
+		if ($override) { self::$isBackend = true; }
 		return (rex::isBackend() && self::$isBackend) ? true : false;
 	}
 	

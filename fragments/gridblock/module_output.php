@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	Fragment für Modulausgabe (FE/BE)
-	v1.0
-	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
+	v1.0.14
+	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 
 	
 	genutzte VALUES:
@@ -183,7 +183,8 @@ if ($db->getRows() > 0):
 		
 
 		//GRID-Spaltenplatzhalter ersetzen
-		$op = preg_replace("/REX_GRID\[(\s)*(id=)?".$i."(\s)*\]/", $modOP, $op);			//GRID: Spaltencontent
+		$modOP = str_replace('$', '\$', $modOP);											//$-Zeichen in Modulcontent maskieren, da diese sonst durch preg_replace als Backreference ausgeführt werden könnten
+		$op = preg_replace("/REX_GRID\[(\s)*(id=)?".$i."(\s)*\]/", $modOP, $op);			//GRID: Platzhalter mit Spaltencontent ersetzen
 	endfor;
 	
 	
@@ -197,7 +198,7 @@ if ($db->getRows() > 0):
 	try {
 		ob_implicit_flush(0);
 		$sandbox = function() use ($op, $selTemplate, $contentsettings) {
-			require rex_stream::factory('rex_gridblock/template/'.$selTemplate, $op);								//führt PHP-Code aus und gibt Rückgabe zurück (1. Parameter ist nur für Fehlerhinweis = virtueller Pfad)
+			require rex_stream::factory('rex_gridblock/template/'.$selTemplate, $op);								//führt PHP-Code des Templates aus und gibt Ausgabe zurück (1. Parameter ist nur für Fehlerhinweis = virtueller Pfad)
 		};
 		$sandbox();
 	} finally {

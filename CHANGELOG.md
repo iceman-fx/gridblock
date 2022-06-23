@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.0.14</b>
+- Bugfixing: $-Zeichen in HTML/JS wurden u.U. nicht ausgegeben (PHP-Rückreferenz)
+
 <b>Version 1.0.13</b>
 - Bugfixing (rex_gridblock::isBackend() wurde bei neuen Modulen falsch ausgewertet)
 

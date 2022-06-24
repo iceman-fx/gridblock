@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Verwaltung: Hilfe
-	v1.0.8
+	v1.1
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 ?>
@@ -246,10 +246,10 @@ $grid = new rex_gridblock();<br>$grid-&gt;getSliceValues(&quot;REX_SLICE_ID&quot
 </p>
 <p>Features:</p>
 <ul>
-  <li>Verwaltung von wiederkehrenden Optionen (z.B. Abstände, Breite, Hintergrundfarbe, Gruppierung von Optionen in Kategorien)</li>
-  <li>Generiert automatisch ein Formular mit den definierten Optionen</li>
-  <li>Es können Optionen für ein ganzes Projekt festgelegt werden (data/addons/gridblock/plugins/contentsettings/contentsettings.json)</li>
-  <li>Es können Optionen für einzelne Templates festgelegt werden (data/addons/gridblock/plugins/contentsettings/templates/template_$ID/contentsettings.json)</li>
+  <li>Verwaltung von wiederkehrenden Einstellungen (z.B. Abstände, Breite &amp; Hintergrundfarbe) und  Gruppierung dieser Einstellungen in Kategorien und Gruppen</li>
+  <li>Generiert automatisch ein Formular mit den definierten Einstellungen</li>
+  <li>Es können Einstellungen für ein ganzes Projekt festgelegt werden (data/addons/gridblock/plugins/contentsettings/contentsettings.json)</li>
+  <li>Es können Einstellungen für einzelne Templates festgelegt werden (data/addons/gridblock/plugins/contentsettings/templates/template_$ID/contentsettings.json)</li>
   <li>Es können Optionen überschrieben werden (z.B. im Projekt Abstand nach unten mb-5 aber bei einem speziellen Template mb-3)</li>
 </ul>
 <p>&nbsp;</p>
@@ -330,11 +330,11 @@ echo htmlspecialchars(rex_file::get(rex_addon::get('gridblock')->getPath('data/c
   </tr>
   <tr>
     <td valign="top"><strong>categories</strong></td>
-    <td valign="top">Block zur Definition von zusätzlichen Kategorien zur Gruppierung der Settings</td>
+    <td valign="top">Block zur Definition von zusätzlichen Kategorien zur Gruppierung von Settings in einer Tab-Struktur</td>
   </tr>
   <tr>
     <td valign="top"><strong>options</strong></td>
-    <td valign="top">Block zur Definition der eigentlichen  Felddefinitionen (Settings) inkl. Zuweisung zu den categories</td>
+    <td valign="top">Block zur Definition der eigentlichen  Felddefinitionen (Settings) inkl. Zuweisung zu den categories und möglichen Gruppen (Akkordeon-Stil)</td>
   </tr>
   </table>
 

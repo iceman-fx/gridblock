@@ -7,8 +7,8 @@
 			"divider_dim", 
 			"padding", 
 			
-			"bgColor", 
-			"bgColorHEX", 
+			"group_bgcolor",
+			
 			"divider_des", 
 			"bgImage", 
 			"bgImageFill", 
@@ -28,8 +28,8 @@
 			"contentWidth",
 			"contentAlign",
 			
-			"bgColor", 
-			"bgColorHEX", 
+			"group_bgcolor",
+			 
 			"divider_des", 
 			"bgImage", 
 			"bgImageFill", 
@@ -46,17 +46,20 @@
 	"categories": [
 		{
 			"key": "dimension",
-			"label": "Abstände & Größen"
+			"label": "Abstände & Größen",
+			"icon": "fa fa-arrows"
 		},
 		
 		{
 			"key": "design",
-			"label": "Hintergrund"
+			"label": "Hintergrund",
+			"icon": "fa fa-paint-brush"
 		},
 		
 		{
 			"key": "other",
-			"label": "Sonstiges"
+			"label": "Sonstiges",
+			"icon": "fa fa-cog"
 		}
 	],
 	
@@ -64,10 +67,23 @@
 	
 	"options": [
 		{
+			"category": "design",
+			"key": "group_bgcolor",
+			"type": "group",
+			"label": "Farbe",
+			"icon": "",
+			"open": true,
+			"options": ["bgColor", "bgColorHEX"]
+		},	
+
+
+		{
 			"category": "dimension",
 			"key": "width",
 			"label": "Breite begrenzen",
 			"type": "select",
+			"icon": "fa fa-desktop",
+			"icon_tooltip": "nur in der Desktopansicht verfügbar",
 			"data": {
 				"maxwidth0": "- keine Begrenzung -",
 				"maxwidth500": "500 Pixel",
@@ -242,6 +258,17 @@
 			},
 			"default": "baseColor-none"
 		},
+		{
+			"category": "other",
+			"key": "colsReverse",
+			"label": "Spaltenreihenfolge umkehren",
+			"type": "checkbox",
+			"value": "colsMobileReverse",
+			"text": "in der mobilen Ansicht umkehren",
+			"icon": "fa fa-mobile",
+			"icon_tooltip": "nur in der Mobilansicht verfügbar",
+			"checked": "0"
+		},		
 		
 		
 		

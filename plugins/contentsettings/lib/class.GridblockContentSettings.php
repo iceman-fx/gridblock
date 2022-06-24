@@ -166,73 +166,91 @@
                 }
             }
         }
- 
+
+
+        // parents
+
+        foreach ($this->aSettings["options"] as $sKey => $aOptions) {
+            if (isset($aOptions["parent"])) {
+                if (isset($this->aSettings["options"][$sKey])) {
+                    $sParent = $aOptions["parent"];
+                    foreach ($this->aSettings["options"][$sParent] as $sKeyParent => $sValueParent) {
+                        if (!isset($aOptions[$sKeyParent])) {
+                            $this->aSettings["options"][$sKey][$sKeyParent] = $sValueParent;
+                        }
+                    }
+                }
+            }
+        }
+
+
         // start_group & end_group
-        $iPos = "1";
+        if (isset($this->aSettings["showOptions"])) {
+            $iPos = "1";
 
-        foreach ($this->aSettings["showOptions"] as $sOption) {
-            $aOption = $this->aSettings["options"][$sOption];
-            if ($aOption["type"] == "group") {
-                $aNewShowOptions = array();
-                $sLabel = $this->aSettings["options"][$sOption]["label"];
-                $this->aSettings["options"][$sOption]["type"] = "html";
+            foreach ($this->aSettings["showOptions"] as $sOption) {
+                $aOption = $this->aSettings["options"][$sOption];
+                if ($aOption["type"] == "group") {
+                    $aNewShowOptions = array();
+                    $sLabel = $this->aSettings["options"][$sOption]["label"];
+                    $this->aSettings["options"][$sOption]["type"] = "html";
 
-                $sAccordionOpen = $sAriaExpanded = "";
-                if (isset($this->aSettings["options"][$sOption]["open"])) {
-                    if ($this->aSettings["options"][$sOption]["open"] == true) {
-                        $sAccordionOpen = "in";
-                        $sAriaExpanded = 'aria-expanded="true"';
+                    $sAccordionOpen = $sAriaExpanded = "";
+                    if (isset($this->aSettings["options"][$sOption]["open"])) {
+                        if ($this->aSettings["options"][$sOption]["open"] == true) {
+                            $sAccordionOpen = "in";
+                            $sAriaExpanded = 'aria-expanded="true"';
+                        }
                     }
-                }
 
-                $sHtml = '<div class="gridblockcontentsettings-group" id="gridblockcontentsettings-accordion_' . $sType.'_'.$this->iColumnId.'_'.$aOption["key"] . '"><div class="gridblockcontentsettings-heading"><a data-toggle="collapse" data-parent="#gridblockcontentsettings-accordion_' . $sType.'_'.$this->iColumnId.'_'.$aOption["key"] . '" href="#gridblockcontentsettings-accordion_collapes_' . $sType.'_'.$this->iColumnId.'_'.$aOption["key"] . '" '.$sAriaExpanded.'>';
-                if (isset($this->aSettings["options"][$sOption]["icon"]) && $this->aSettings["options"][$sOption]["icon"] != "") {
-                    $sTippy = "";
-                    if (isset($this->aSettings["options"][$sOption]["icon_tooltip"])) {
-                        $sTippy = ' data-tippy-content="' . $this->aSettings["options"][$sOption]["icon_tooltip"] . '"';
+                    $sHtml = '<div class="gridblockcontentsettings-group" id="gridblockcontentsettings-accordion_' . $sType . '_' . $this->iColumnId . '_' . $aOption["key"] . '"><div class="gridblockcontentsettings-heading"><a data-toggle="collapse" data-parent="#gridblockcontentsettings-accordion_' . $sType . '_' . $this->iColumnId . '_' . $aOption["key"] . '" href="#gridblockcontentsettings-accordion_collapes_' . $sType . '_' . $this->iColumnId . '_' . $aOption["key"] . '" ' . $sAriaExpanded . '>';
+                    if (isset($this->aSettings["options"][$sOption]["icon"]) && $this->aSettings["options"][$sOption]["icon"] != "") {
+                        $sTippy = "";
+                        if (isset($this->aSettings["options"][$sOption]["icon_tooltip"])) {
+                            $sTippy = ' data-tippy-content="' . $this->aSettings["options"][$sOption]["icon_tooltip"] . '"';
+                        }
+                        $sHtml .= ' <i class="' . $this->aSettings["options"][$sOption]["icon"] . '" style="padding-right:10px" ' . $sTippy . '></i>';
                     }
-                    $sHtml .= ' <i class="' . $this->aSettings["options"][$sOption]["icon"] . '" style="padding-right:10px" ' . $sTippy . '></i>';
-                }
-                $sHtml .= $sLabel . '</a></div><div id="gridblockcontentsettings-accordion_collapes_' . $sType.'_'.$this->iColumnId.'_'.$aOption["key"] . '" class="gridblockcontentsettings-body collapse ' . $sAccordionOpen . '"><div class="gbpanel-body">';
+                    $sHtml .= $sLabel . '</a></div><div id="gridblockcontentsettings-accordion_collapes_' . $sType . '_' . $this->iColumnId . '_' . $aOption["key"] . '" class="gridblockcontentsettings-body collapse ' . $sAccordionOpen . '"><div class="gbpanel-body">';
 
-                $this->aSettings["options"][$sOption]["text"] = $sHtml;
-                $this->aSettings["options"][$sOption]["label"] = "";
+                    $this->aSettings["options"][$sOption]["text"] = $sHtml;
+                    $this->aSettings["options"][$sOption]["label"] = "";
 
-                $sCategory = "";
-                if (isset($aOption["category"])) {
-                    $sCategory = $aOption["category"];
-                }
-
-                $aGroupOptions = $aOption["options"];
-                foreach ($aGroupOptions as $sGroupOption) {
-
-                    $iArrKey = array_search($sGroupOption, $this->aSettings["showOptions"]);
-                    if ($iArrKey != "") {
-                        $this->aSettings["showOptions"][$iArrKey] = "gridblockcontentsettings_deleted_option";
+                    $sCategory = "";
+                    if (isset($aOption["category"])) {
+                        $sCategory = $aOption["category"];
                     }
-                    
-                    $aNewShowOptions[] = $sGroupOption;
-                    $this->aSettings["options"][$sGroupOption]["category"] = $sCategory;
+
+                    $aGroupOptions = $aOption["options"];
+                    foreach ($aGroupOptions as $sGroupOption) {
+
+                        $iArrKey = array_search($sGroupOption, $this->aSettings["showOptions"]);
+                        if ($iArrKey != "") {
+                            $this->aSettings["showOptions"][$iArrKey] = "gridblockcontentsettings_deleted_option";
+                        }
+
+                        $aNewShowOptions[] = $sGroupOption;
+                        $this->aSettings["options"][$sGroupOption]["category"] = $sCategory;
+                    }
+
+                    $aNewShowOptions[] = "gridblockcontentsettings_group_end_" . $sType . '_' . $this->iColumnId . '_' . $aOption["key"];
+
+                    $this->aSettings["options"]["gridblockcontentsettings_group_end_" . $sType . '_' . $this->iColumnId . '_' . $aOption["key"]] = array("type" => "html", "text" => "</div></div></div>", "category" => $sCategory);
+
+                    array_splice($this->aSettings["showOptions"], $iPos, 0, $aNewShowOptions);
+                    $iPos = $iPos + count($aGroupOptions) + 1;
                 }
-
-                $aNewShowOptions[] = "gridblockcontentsettings_group_end_" . $sType.'_'.$this->iColumnId.'_'.$aOption["key"];
-
-                $this->aSettings["options"]["gridblockcontentsettings_group_end_" . $sType.'_'.$this->iColumnId.'_'.$aOption["key"]] = array("type" => "html", "text" => "</div></div></div>", "category" => $sCategory);
-
-                array_splice($this->aSettings["showOptions"], $iPos, 0, $aNewShowOptions);
-                $iPos = $iPos + count($aGroupOptions) + 1;
+                $iPos++;
             }
-            $iPos++;
-        }
 
-        $aTmp = array();
-        foreach($this->aSettings["showOptions"] AS $sOption) {
-            if ($sOption != "gridblockcontentsettings_deleted_option") {
-                $aTmp[] = $sOption;
+            $aTmp = array();
+            foreach ($this->aSettings["showOptions"] as $sOption) {
+                if ($sOption != "gridblockcontentsettings_deleted_option") {
+                    $aTmp[] = $sOption;
+                }
             }
+            $this->aSettings["showOptions"] = $aTmp;
         }
-        $this->aSettings["showOptions"] = $aTmp;
-
 
 
 
@@ -680,10 +698,6 @@
 
 
                                         $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sSliderTooltipSplit . ' ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' ' . $sSliderShowTooltip . '></dd>' . PHP_EOL;
-                                        break;
-
-                                    case "group":
-                                        $sForm .= "<hr>Gruppe Anfang</hr>" . $aOption["label"];
                                         break;
                                 }
 

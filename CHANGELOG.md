@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.1</b>
+- Zusätzliche Gruppierung von Contentsettings möglich (Akkordeon-Stil)
+
 <b>Version 1.0.14</b>
 - Bugfixing: $-Zeichen in HTML/JS wurden u.U. nicht ausgegeben (PHP-Rückreferenz)
 

@@ -949,8 +949,6 @@
         $sHtml .= '</script>' . PHP_EOL;
 
 
-        #$sHtml .= "<pre>" . print_r($oData, 1) . "</pre>";
-
 
         return $sHtml;
     }

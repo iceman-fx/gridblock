@@ -37,7 +37,10 @@
 			"divider_des", 
 			"bgOverlay",
 			
-			"baseColor"
+			"baseColor",
+			"colsReverse",
+			"posZIndex",
+			"posOnMobile"
 		]
 	},
 	
@@ -269,6 +272,30 @@
 			"icon_tooltip": "nur in der Mobilansicht verfügbar",
 			"checked": "0"
 		},		
+		{
+			"category": "other",
+			"key": "posZIndex",
+			"label": "Reihenfolge Z-Achse",
+			"type": "slider",
+			"slider-min": "0",
+			"slider-max": "30",
+			"slider-step" :"1",
+			"slider-range": "0",
+			"slider-tooltip": "always",
+			"default": "0" 
+		},	
+		{
+			"category": "other",
+			"key": "posOnMobile",
+			"label": "Spaltenversatz mobile Ansicht",
+			"type": "radio",
+			"data": {
+				"": "wie eingestellt",
+				"posOnMobile": "kein Versatz",
+				"posOnMobileV": "nur vertikaler Versatz"
+			},
+			"default": "posOnMobile"
+		},
 		
 		
 		

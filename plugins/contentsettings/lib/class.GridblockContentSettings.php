@@ -930,7 +930,6 @@
 			$(".gridblockcontentsettings-toggler-' . $iBlockId . '").click(function(){
 				var iBlockId = $(this).attr("data-id");
 				$(iBlockId).slideToggle();
-                console.log("click "+iBlockId);
 			});
 		})' . PHP_EOL;
         $sHtml .= '</script>' . PHP_EOL;

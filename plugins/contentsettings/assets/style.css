@@ -178,19 +178,36 @@ dl.rex-form-group.gridblockcontentsettings:last-child {
 }
 
 .gridblockcontentsettings-group {
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
 }
 
 .gridblockcontentsettings-group .gridblockcontentsettings-heading {
-    padding-bottom: 10px;
-    border-bottom: 1px solid #c0c0c0;
+    padding: 0px;
+    border-bottom: 1px solid #E0E0E0;
+	color: #CCC;
 }
 
 .gridblockcontentsettings-group .gridblockcontentsettings-heading a {
-    color: rgb(34, 45, 69);
     display: block;
     position: relative;
-    font-weight: bold;
+    font-weight: normal;
+	font-size: 1.10em;
+    padding: 12px 5px;
+	text-decoration: none;
+}
+
+.gridblockcontentsettings-group .gridblockcontentsettings-heading a, 
+.gridblockcontentsettings-group .gridblockcontentsettings-heading a:after {
+    color: #666;
+}
+
+.gridblockcontentsettings-group .gridblockcontentsettings-heading a:hover, 
+.gridblockcontentsettings-group .gridblockcontentsettings-heading a:hover:after, 
+.gridblockcontentsettings-group .gridblockcontentsettings-heading a[aria-expanded="true"],
+.gridblockcontentsettings-group .gridblockcontentsettings-heading a[aria-expanded="true"]:after,
+.gridblockcontentsettings-group .gridblockcontentsettings-heading a[aria-expanded="false"]:hover, 
+.gridblockcontentsettings-group .gridblockcontentsettings-heading a[aria-expanded="false"]:hover:after {
+    color: #4b9ad9;
 }
 
 .gridblockcontentsettings-group .gridblockcontentsettings-heading a:after {
@@ -209,16 +226,8 @@ dl.rex-form-group.gridblockcontentsettings:last-child {
     right: 10px;
 }
 
-.gridblockcontentsettings-group .gridblockcontentsettings-heading a:hover,
-.gridblockcontentsettings-group .gridblockcontentsettings-heading a:focus {
-    text-decoration: none;
-    color: rgb(34, 45, 69);
-}
-
 
 
 .gridblockcontentsettings-group .gridblockcontentsettings-body {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #c0c0c0;
+    padding: 20px 5px 35px;
 }

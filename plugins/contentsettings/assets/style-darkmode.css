@@ -15,6 +15,27 @@ body.rex-theme-dark .gridblock .slider-track .slider-selection {
     background-color: #1c282f !important;
 }
 
+
+body.rex-theme-dark .gridblockcontentsettings-group .gridblockcontentsettings-heading {
+	border-color: #151c22;
+}
+
+body.rex-theme-dark .gridblockcontentsettings-group .gridblockcontentsettings-heading a, 
+body.rex-theme-dark .gridblockcontentsettings-group .gridblockcontentsettings-heading a:after {
+	color: rgba(255, 255, 255, 0.45);
+}
+
+body.rex-theme-dark .gridblockcontentsettings-group .gridblockcontentsettings-heading a:hover, 
+body.rex-theme-dark .gridblockcontentsettings-group .gridblockcontentsettings-heading a:hover:after, 
+body.rex-theme-dark .gridblockcontentsettings-group .gridblockcontentsettings-heading a[aria-expanded="true"], 
+body.rex-theme-dark .gridblockcontentsettings-group .gridblockcontentsettings-heading a[aria-expanded="true"]:after, 
+body.rex-theme-dark .gridblockcontentsettings-group .gridblockcontentsettings-heading a[aria-expanded="false"]:hover, 
+body.rex-theme-dark .gridblockcontentsettings-group .gridblockcontentsettings-heading a[aria-expanded="false"]:hover:after {
+	color: #4b9ad9;
+}
+
+
+
 @media (prefers-color-scheme: dark) {
     body:not(.rex-theme-light) .gridblockcontentsettings-form .tab-content {
         background-color: #365150;
@@ -32,4 +53,23 @@ body.rex-theme-dark .gridblock .slider-track .slider-selection {
     body:not(.rex-theme-light) .gridblock .slider-track .slider-selection {
         background-color: #1c282f !important;
     }
+
+	body:not(.rex-theme-light) .gridblockcontentsettings-group .gridblockcontentsettings-heading {
+		border-color: #151c22;
+	}
+	
+	body:not(.rex-theme-light) .gridblockcontentsettings-group .gridblockcontentsettings-heading a, 
+	body:not(.rex-theme-light) .gridblockcontentsettings-group .gridblockcontentsettings-heading a:after {
+		color: rgba(255, 255, 255, 0.45);
+	}
+	
+	body:not(.rex-theme-light) .gridblockcontentsettings-group .gridblockcontentsettings-heading a:hover, 
+	body:not(.rex-theme-light) .gridblockcontentsettings-group .gridblockcontentsettings-heading a:hover:after, 
+	body:not(.rex-theme-light) .gridblockcontentsettings-group .gridblockcontentsettings-heading a[aria-expanded="true"], 
+	body:not(.rex-theme-light) .gridblockcontentsettings-group .gridblockcontentsettings-heading a[aria-expanded="true"]:after, 
+	body:not(.rex-theme-light) .gridblockcontentsettings-group .gridblockcontentsettings-heading a[aria-expanded="false"]:hover, 
+	body:not(.rex-theme-light) .gridblockcontentsettings-group .gridblockcontentsettings-heading a[aria-expanded="false"]:hover:after {
+		color: #4b9ad9;
+	}
+
 }

@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Verwaltung: index
-	v1.0
+	v1.2
 	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
 */
 
@@ -211,9 +211,13 @@ switch($subpage):
 	case "config":				//Einstellungen
 								require_once("config.inc.php");
 								break;
-
-	default:					//Index = Templates
+								
+	case "default":				//Index = Templates
 								require_once("default.inc.php");
+								break;
+
+	default:					//alle anderen Einbindungen direkt per Rex-Subpath
+								rex_be_controller::includeCurrentPageSubPath();
 								break;
 endswitch;
 ?>

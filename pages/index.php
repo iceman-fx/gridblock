@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Verwaltung: index
-	v1.2
+	v1.1.2
 	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
 */
 

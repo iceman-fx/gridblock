@@ -3,6 +3,13 @@
 
 Changelog
 ---------
+<b>Version 1.1.2</b>
+- Optimierung Einbindung BE-Seiten
+- Bugfixing (Fehler in PHP8.1)
+
+<b>Version 1.1.1</b>
+- Bugfixing: Contentsettings nach Update auf v1.1
+
 <b>Version 1.1</b>
 - Zusätzliche Gruppierung von Contentsettings möglich (Akkordeon-Stil)
 

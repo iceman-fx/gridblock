@@ -95,6 +95,7 @@ a1620_mod_move_modul_down = Nach oben verschieben
 a1620_mod_move_modul_drag = per Drag´n´Drop verschieben
 a1620_mod_confirm_delete = Block wirklich löschen?
 a1620_mod_copy_insertmodul = Inhaltsblock &raquo;###modname###&laquo; mit der ID ####modid### einfügen
+a1620_mod_noeditpermission = Keine Editiererlaubnis
 
 a1620_mod_error_loadmodule = Beim Laden ist ein Fehler aufgetreten.
 a1620_mod_error_loadcontentoptions = Beim Laden der Optionen ist ein Fehler aufgetreten.

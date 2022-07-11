@@ -3,6 +3,10 @@
 
 Changelog
 ---------
+<b>Version 1.1.3</b>
+- zus. Variablen im EP:GRIDBLOCK_MODULESELECTOR_ADD verfügbar
+- neue Inhaltsmodule sind nun hinzufügbar, auch wenn der Nutzer keine Editiererlaubnis für das Modul besitzt
+
 <b>Version 1.1.2</b>
 - Optimierung Einbindung BE-Seiten
 - Bugfixing (Fehler in PHP8.1)

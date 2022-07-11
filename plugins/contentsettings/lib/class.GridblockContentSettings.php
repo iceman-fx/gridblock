@@ -696,8 +696,21 @@
                                         }
 
 
+                                        $iRand = rand(0, 1000000) * rand(0, 100000);
 
-                                        $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sSliderTooltipSplit . ' ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' ' . $sSliderShowTooltip . '></dd>' . PHP_EOL;
+
+                                        $sForm .= '<dd><input id="gridblockcontentsettings-slider-'.$iRand.'" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sSliderTooltipSplit . ' ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' ' . $sSliderShowTooltip . '>';
+                                        if (isset($aOption["slider-unit"])) {
+                                            $sForm .= "<script>
+                                        
+                                        $('#gridblockcontentsettings-slider-".$iRand."').slider({			
+                                            formatter: function(value) {
+                                                return value + ' " . $aOption["slider-unit"] . "';
+                                            }
+                                        });
+                                        </script>";
+                                        }
+                                        $sForm .= '</dd>' . PHP_EOL;
                                         break;
                                 }
 

@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document for gridblock */
-/* v1.0.7 */
+/* v1.1.3 */
 
 .gridblock {}
 .gridblock .content { display: none; padding: 15px; border-top: 1px solid #c1c9d4; }
@@ -101,8 +101,9 @@ ul.gridblock-moduleselector .gridblock-cutncopy-insert { border-bottom: 1px soli
 .gridblock-slice-disabled > .column-input { position: relative; display: none !important; }
 	.gridblock-slice-disabled > .column-input:before { content:''; display: block; position: absolute; top: 0px; left: 0px; z-index: 1000; background: rgba(0,0,0, 0.35); width: 100%; height: 100%; pointer-events: auto !important; }
 .gridblock-slice-disabled > .column-input * { pointer-events: none !important; }
-.gridblock-slice-disabled .column-slice-sorter { display: none; }
-.gridblock-module-disabled { padding: 12px 12px; font-size: 0.9em; font-weight: bold; color: #d9534f; }
+/*.gridblock-slice-disabled .column-slice-sorter { display: none; }*/
+.gridblock-module-disabled { font-size: 0.9em; font-weight: bold; color: #d9534f; background: rgba(255,255,255, 1); padding: 20px 20px 20px; -webkit-box-shadow: 0px 5px 15px rgba(0,0,0, 0.08); box-shadow: 0px 5px 15px rgba(0,0,0, 0.08); }
+	.gridblock-module-disabled .addmodule { margin-top: 40px;}
 
 
 /* Templatevorschau */

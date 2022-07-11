@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Ein-/Ausgabesteuerung der Inhaltsmodule
-	v1.0.13
+	v1.1.3
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
@@ -94,19 +94,19 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 		endif;
 		
 		
-		//Disabled auswerten
+		//Plus-Button vorbereiten
+		$plusBtn = (@$config['plusbuttonfornewblock'] != 'checked') ? '<div class="addmodule"><a class="btn btn-default btn-block btn-addgridmodule" title="'.rex_i18n::msg('a1620_mod_add_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'"><i class="fa fa-plus"></i>'.rex_i18n::msg('a1620_mod_add_modul').'</a></div>' : '';
+		
+		
+		//Disabled auswerten																													//Hinweis: Modulcontent muss wegen Speicherung immer vorhanden sein (display:none) !!!
 		$disabled = ($addModuleID > 0 && !rex::getUser()->getComplexPerm('modules')->hasPerm($addModuleID)) ? true : false;
 		
-		$op = ($disabled) ? '<div class="gridblock-module-disabled">Keine Editiererlaubnis</div>' : '';
+		$op = ($disabled) ? '<div class="gridblock-module-disabled">'.rex_i18n::msg('a1620_mod_noeditpermission').$plusBtn.'</div>' : '';
 		
 		//Modul-Edit ausgeben
 		$op .= '<div id="gridblockModuleContent'.$uID.'" class="column-input">';
 			$op .= $slice_content;
-			
-			if (@$config['plusbuttonfornewblock'] != 'checked'):
-				$op .= '<div class="clearfix"></div>';
-				$op .= '<div class="addmodule"><a class="btn btn-default btn-block btn-addgridmodule" title="'.rex_i18n::msg('a1620_mod_add_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'"><i class="fa fa-plus"></i>'.rex_i18n::msg('a1620_mod_add_modul').'</a></div>';
-			endif;
+			$op .= (@$config['plusbuttonfornewblock'] != 'checked') ? '<div class="clearfix"></div>'.$plusBtn : '';
 		$op .= '</div>';
 		
         return $op;
@@ -116,7 +116,8 @@ class rex_article_content_gridblock extends rex_article_content_editor {
     public static function addModuleSelector($colID, $uID = "")
 	{	$cnt = $cook = "";
 		$colID = intval($colID);
-
+		$rexVars = (isset($_SESSION['gridRexVars'])) ? $_SESSION['gridRexVars'] : array();
+		
 
 		if (isset($_SESSION['gridAllowedModules']) && $colID > 0 && !empty($uID)):
 			//Moduleselector anzeigen
@@ -158,6 +159,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 			'uid' => $uID,
 			'allowedmodules' => $_SESSION['gridAllowedModules'],
 			'copiedmodule' => $cook,
+			'rexvars' => $rexVars,
 		]));
 		
 		return $cnt;
@@ -181,7 +183,8 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 			//Modulberechtigung prüfen und Klasse entsprechend setzen
 			$disabled = ($selectedModuleID > 0 && !rex::getUser()->getComplexPerm('modules')->hasPerm($selectedModuleID)) ? true : false;
 			$disabledCSS = ($disabled) ? 'gridblock-slice-disabled' : '';
-		
+			
+
 			//Inhaltsblock-Wrapper setzen
 			$cnt .= '<div id="gridblockColumnSlice'.$uID.'" class="column-slice '.$disabledCSS.'" data-uid="'.$uID.'">';				//Wrapper-Block (GB-Slice)
 			
@@ -202,20 +205,23 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 						if (@$config['plusbuttonfornewblock'] == 'checked'):
 							$cnt .= '<div class="btn-group btn-group-xs btn-group-add"><a class="btn btn-default btn-addgridmodule" title="'.rex_i18n::msg('a1620_mod_add_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'"><i class="rex-icon rex-icon-add-module"></i></a></div>';
 						endif;
-					
-						//DELETE-Button
-						$cnt .= '<div class="btn-group btn-group-xs btn-group-delete"><a class="btn btn-delete" title="'.rex_i18n::msg('a1620_mod_delete_modul').'"><i class="rex-icon rex-icon-delete"></i></a></div>';
-						
-						//STATUS-Button
-						$cnt .= '<div class="btn-group btn-group-xs btn-group-status"><a class="btn btn-default btn-status rex-online '.$moduleStatusClassOFF.'" title="'.rex_i18n::msg('a1620_mod_status_modul').'"><i class="rex-icon fa-eye '.$moduleStatusIconOFF.'"></i></a></div>';
-						
-						//COPY-Button (nur anzeigen, wenn Inhaltsblock bereits einmal gepsiechert wurde)
-						$db = rex_sql::factory();
-						$db->setQuery('SELECT id FROM '.rex::getTablePrefix().'article_slice WHERE value'.$colID.' like "%'.$uID.'%"');
-						
-						$iscopied = (rex_article_content_gridblock::getCookie('uid') == $uID) ? 'gridblock-iscopied' : '';
-						$cnt .= ($db->getRows() > 0) ? '<div class="btn-group btn-group-xs btn-group-copy"><a class="btn btn-default btn-copy btn-status '.$iscopied.'" title="'.rex_i18n::msg('a1620_mod_copy_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'" data-modid="'.$selectedModuleID.'" data-modstatus="'.$selectedModuleSTATUS.'"><i class="rex-icon fa-copy"></i></a></div>' : '';
-						
+											
+						if (!$disabled):
+							//Editierbuttons anzeigen, sofern Modul bearbeitbar
+							//DELETE-Button
+							$cnt .= '<div class="btn-group btn-group-xs btn-group-delete"><a class="btn btn-delete" title="'.rex_i18n::msg('a1620_mod_delete_modul').'"><i class="rex-icon rex-icon-delete"></i></a></div>';
+							
+							//STATUS-Button
+							$cnt .= '<div class="btn-group btn-group-xs btn-group-status"><a class="btn btn-default btn-status rex-online '.$moduleStatusClassOFF.'" title="'.rex_i18n::msg('a1620_mod_status_modul').'"><i class="rex-icon fa-eye '.$moduleStatusIconOFF.'"></i></a></div>';
+							
+							//COPY-Button (nur anzeigen, wenn Inhaltsblock bereits einmal gepsiechert wurde)
+							$db = rex_sql::factory();
+							$db->setQuery('SELECT id FROM '.rex::getTablePrefix().'article_slice WHERE value'.$colID.' like "%'.$uID.'%"');
+							
+							$iscopied = (rex_article_content_gridblock::getCookie('uid') == $uID) ? 'gridblock-iscopied' : '';
+							$cnt .= ($db->getRows() > 0) ? '<div class="btn-group btn-group-xs btn-group-copy"><a class="btn btn-default btn-copy btn-status '.$iscopied.'" title="'.rex_i18n::msg('a1620_mod_copy_modul').'" data-colid="'.$colID.'" data-uid="'.$uID.'" data-modid="'.$selectedModuleID.'" data-modstatus="'.$selectedModuleSTATUS.'"><i class="rex-icon fa-copy"></i></a></div>' : '';
+						endif;
+							
 						//MOVE-Buttons
 						$cnt .= '<div class="btn-group btn-group-xs">';
 							$cnt .= '<a class="btn btn-move btn-move-up" title="'.rex_i18n::msg('a1620_mod_move_modul_up').'"><i class="rex-icon rex-icon-up"></i></a>';
@@ -223,6 +229,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 						$cnt .= '</div>';
 						
 						$cnt .= '<div class="btn-group btn-group-xs btn-group-drag"><a class="btn btn-move btn-move-drag" title="'.rex_i18n::msg('a1620_mod_move_modul_drag').'"><i class="rex-icon fa-arrows"></i></a></div>';
+						
 					$cnt .= '</div>';
 							
 				$cnt .= '</div>';

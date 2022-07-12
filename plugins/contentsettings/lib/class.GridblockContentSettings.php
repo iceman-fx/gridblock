@@ -592,6 +592,9 @@
                                                 if ($sSelectKey == @$aSavedOptions[$sType][$sKey] OR ($sSelectKey == "gridblockcontentsettingsdefault" && $aOption["default"] == @$aSavedOptions[$sType][$sKey])) {
                                                     $sSelected = 'checked="checked"';
                                                 }
+                                                if ($sSelectKey == "gridblockcontentsettingsdefault" && @$aSavedOptions[$sType][$sKey] != "gridblockcontentsettingsdefault") {
+                                                    $sSelectKey = @$aSavedOptions[$sType][$sKey];
+                                                }
                                             } else {
                                                 $sSelected = ($sSelectKey == "gridblockcontentsettingsdefault") ? 'checked="checked"' : '';
                                             }

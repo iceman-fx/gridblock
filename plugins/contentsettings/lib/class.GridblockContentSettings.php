@@ -530,8 +530,14 @@
                                         $aSelectData = $this->getSelectData($sKey);
                                         $sForm .= '<dd><select name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sClass . ' ' . $sAttributes . '>' . PHP_EOL;
                                         foreach ($aSelectData as $sSelectKey => $sSelectValue) :
+                                            $sSelected = '';
                                             if (isset($aSavedOptions[$sType][$sKey])) {
-                                                $sSelected = ($sSelectKey == @$aSavedOptions[$sType][$sKey]) ? 'selected="selected"' : '';
+                                                if ($sSelectKey == @$aSavedOptions[$sType][$sKey] OR ($sSelectKey == "gridblockcontentsettingsdefault" && $aOption["default"] == @$aSavedOptions[$sType][$sKey])) {
+                                                    $sSelected = 'selected="selected"';
+                                                    if ($sSelectKey == "gridblockcontentsettingsdefault" && @$aSavedOptions[$sType][$sKey] != "gridblockcontentsettingsdefault") {
+                                                        $sSelectKey = @$aSavedOptions[$sType][$sKey];
+                                                    }
+                                                }
                                             } else {
                                                 $sSelected = ($sSelectKey == "gridblockcontentsettingsdefault") ? 'selected="selected"' : '';
                                             }
@@ -581,11 +587,16 @@
                                         $aSelectData = $this->getSelectData($sKey);
                                         foreach ($aSelectData as $sSelectKey => $sSelectValue) :
                                             $iRand = rand(0, 1000000) * rand(0, 100000);
+                                            $sSelected = '';
                                             if (isset($aSavedOptions[$sType][$sKey])) {
-                                                $sSelected = ($sSelectKey == @$aSavedOptions[$sType][$sKey]) ? 'checked="checked"' : '';
+                                                if ($sSelectKey == @$aSavedOptions[$sType][$sKey] OR ($sSelectKey == "gridblockcontentsettingsdefault" && $aOption["default"] == @$aSavedOptions[$sType][$sKey])) {
+                                                    $sSelected = 'checked="checked"';
+                                                }
                                             } else {
                                                 $sSelected = ($sSelectKey == "gridblockcontentsettingsdefault") ? 'checked="checked"' : '';
                                             }
+
+
                                             $sForm .= '<label for="' . $iRand . '">' . PHP_EOL;
                                             $sForm .= '<input id="' . $iRand . '" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="radio" value="' . $sSelectKey . '" ' . $sSelected . ' ' . $sClass . ' /> ' . $sSelectValue . PHP_EOL;
                                             $sForm .= '</label>';

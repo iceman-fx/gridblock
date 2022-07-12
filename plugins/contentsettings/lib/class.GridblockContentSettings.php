@@ -6,6 +6,7 @@
     {
         $this->addon = rex_addon::get('gridblock');
         $this->plugin = rex_plugin::get('gridblock', 'contentsettings');
+        $this->fileGlobal = $this->plugin->getDataPath('contentsettings.global.json');
         $this->fileProject = $this->plugin->getDataPath('contentsettings.json');
 
         $this->iSettingsId = "20";
@@ -17,6 +18,12 @@
     function getAllSettings($sType = "template")
     {
         $this->aSettings = [];
+
+        if (file_exists($this->fileGlobal)) {
+            $sGlobal = $this->getJsonContent($this->fileGlobal);
+            $this->globalData = (json_decode($sGlobal, true));
+        }
+
 
         if (file_exists($this->fileProject)) {
             $sProject = $this->getJsonContent($this->fileProject);
@@ -44,6 +51,20 @@
 
         // ShowOptions
 
+
+        if (isset($this->globalData["showOptions"])) {
+            if (count($this->globalData["showOptions"])) {
+                $this->aSettings["showOptions"] = $this->globalData["showOptions"];
+            }
+        }
+
+        if (isset($this->globalData[$sType]["showOptions"])) {
+            if (count($this->globalData[$sType]["showOptions"])) {
+                $this->aSettings["showOptions"] = $this->globalData[$sType]["showOptions"];
+            }
+        }
+
+
         if (isset($this->projectData["showOptions"])) {
             if (count($this->projectData["showOptions"])) {
                 $this->aSettings["showOptions"] = $this->projectData["showOptions"];
@@ -63,6 +84,17 @@
         }
 
         $this->aSettings["categories"] = array();
+
+        if (isset($this->globalData["categories"])) {
+            if (count($this->globalData["categories"])) {
+                foreach ($this->globalData["categories"] as $aCategory) {
+                    $sKey = $aCategory["key"];
+                    $sIcon = isset($aCategory["icon"]) ? $aCategory["icon"] : "";
+                    $this->aSettings["categories"][$sKey] = array("label" => $aCategory["label"], "icon" => $sIcon);
+                }
+            }
+        }
+
         if (isset($this->projectData["categories"])) {
             if (count($this->projectData["categories"])) {
                 foreach ($this->projectData["categories"] as $aCategory) {
@@ -94,6 +126,45 @@
 
         // Options
         $aUsedKeys = [];
+
+
+        if (isset($this->globalData["options"])) {
+            if (count($this->globalData["options"])) {
+                foreach ($this->globalData["options"] as $aOption) {
+                    $sKey = $aOption["key"];
+                    if (!in_array($sKey, $aUsedKeys)) {
+                        $this->aSettings["options"][$sKey] = $aOption;
+                        array_push($aUsedKeys, $sKey);
+                    } else {
+                        foreach ($aOption as $sOptionKey => $mOptionVal) {
+                            if (isset($mOptionVal)) {
+                                $this->aSettings["options"][$sKey][$sOptionKey] = $mOptionVal;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (isset($this->globalData[$sType]["options"])) {
+            if (count($this->globalData[$sType]["options"])) {
+                foreach ($this->globalData[$sType]["options"] as $aOption) {
+                    $sKey = $aOption["key"];
+                    if (!in_array($sKey, $aUsedKeys)) {
+                        $this->aSettings["options"][$sKey] = $aOption;
+                        array_push($aUsedKeys, $sKey);
+                    } else {
+                        foreach ($aOption as $sOptionKey => $mOptionVal) {
+                            if (isset($mOptionVal)) {
+                                $this->aSettings["options"][$sKey][$sOptionKey] = $mOptionVal;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
 
         if (isset($this->projectData["options"])) {
             if (count($this->projectData["options"])) {

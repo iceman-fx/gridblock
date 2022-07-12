@@ -5,7 +5,8 @@
 			"width", 
 			"widthAlign", 
 			"divider_dim", 
-			"padding", 
+			"padding",
+			"paddingH", 
 			
 			"group_bgcolor",
 			
@@ -24,6 +25,7 @@
 			"minHeightType",
 			"divider_dim",
 			"padding",
+			"paddingH",
 			"divider_dim", 
 			"contentWidth",
 			"contentAlign",
@@ -39,7 +41,7 @@
 			
 			"baseColor",
 			"colsReverse",
-			"posZIndex",
+			"delay",
 			"posOnMobile"
 		]
 	},
@@ -143,6 +145,13 @@
 				"padding-lg": "Groß"
 			},
 			"default": "padding-none"
+		},		
+		{
+			"category": "dimension",
+			"key": "paddingH",
+			"parent": "padding",
+			"label": "Innenabstand (H)",
+			"default": "padding-md"
 		},		
 		
 		{
@@ -274,14 +283,15 @@
 		},		
 		{
 			"category": "other",
-			"key": "posZIndex",
-			"label": "Reihenfolge Z-Achse",
+			"key": "delay",
+			"label": "Verzögerung",
 			"type": "slider",
 			"slider-min": "0",
-			"slider-max": "30",
-			"slider-step" :"1",
+			"slider-max": "1000",
+			"slider-step" :"10",
 			"slider-range": "0",
 			"slider-tooltip": "always",
+			"slider-unit": "ms",
 			"default": "0" 
 		},	
 		{

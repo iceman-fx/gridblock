@@ -5,7 +5,8 @@ Changelog
 ---------
 <b>Version 1.1.3</b>
 - zus. Variablen im EP:GRIDBLOCK_MODULESELECTOR_ADD verfügbar
-- neue Inhaltsmodule sind nun hinzufügbar, auch wenn der Nutzer keine Editiererlaubnis für das Modul besitzt
+- hinzufügen neuer Inhaltsmodule nun möglich, auch wenn der Nutzer keine Editiererlaubnis für das entsprechende Modul besitzt
+- Bugfixing (Contentsettings: default-Werte)
 
 <b>Version 1.1.2</b>
 - Optimierung Einbindung BE-Seiten

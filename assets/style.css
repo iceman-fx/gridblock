@@ -93,7 +93,7 @@ ul.gridblock-moduleselector .gridblock-cutncopy-insert { border-bottom: 1px soli
 	.gridblock-colorinput input::-webkit-color-swatch-wrapper, .gridblock-colorinput input::-webkit-color-swatch { padding: 0px; border: none; }
 	.gridblock-colorinput input+i { display: inline-block; position: absolute; z-index: 5; top: 50%; right: 5px; margin-top: -7px; pointer-events: none; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 .gridblockoptions select, .gridcolumnoptions select { margin: 0px !important; }
-.gridblockoptions .bootstrap-select>.dropdown-toggle { border-radius: 0px; }
+.gridblockoptions .bootstrap-select>.dropdown-toggle, .gridcolumnoptions .bootstrap-select>.dropdown-toggle { border-radius: 0px; }
 
 
 /* Disabled */

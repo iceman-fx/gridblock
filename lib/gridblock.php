@@ -9,6 +9,7 @@
 class rex_gridblock {
 
 	private static $isBackend = false;		//bool
+	private static $identifier = '/* GRID_MODULE_IDENTIFIER | DONT REMOVE */';
 	
 	public $sliceID = 0;					//int
 	public $artID = 0;						//int
@@ -247,15 +248,23 @@ class rex_gridblock {
 		$id = intval($moduleID);
 		
 		if ($id > 0):
-			$ident = '/* GRID_MODULE_IDENTIFIER | DONT REMOVE */';
-			
 			$db = rex_sql::factory();
-			$db->setQuery('SELECT id FROM '.rex::getTable('module').' WHERE id = "'.$id.'" AND (input LIKE "%'.$ident.'%" OR output LIKE "%'.$ident.'%")');
+			$db->setQuery('SELECT id FROM '.rex::getTable('module').' WHERE id = "'.$id.'" AND (input LIKE "%'.self::$identifier.'%" OR output LIKE "%'.self::$identifier.'%")');
 
 			$return = ($db->hasNext()) ? true : false;
 		endif;
 		
 		return $return;
+	}
+	
+
+	//alle Gridblock-Module holen
+	public static function getGridblockModules()
+	{
+		$db = rex_sql::factory();
+		$db->setQuery('SELECT id, `key`, name FROM '.rex::getTable('module').' WHERE (input LIKE "%'.self::$identifier.'%" OR output LIKE "%'.self::$identifier.'%")');
+		
+		return $db->getArray();
 	}
 	
 }

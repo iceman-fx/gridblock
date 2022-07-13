@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Grid-Basisklasse
-	v1.1.3
+	v1.1.4
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 */
 
@@ -237,6 +237,25 @@ class rex_gridblock {
 	{
 		if ($override) { self::$isBackend = true; }
 		return (rex::isBackend() && self::$isBackend) ? true : false;
+	}
+	
+
+	//prüfen ob Modul das Gridblock-Modul ist
+	public static function isGridblockModule($moduleID = 0)
+	{
+		$return = false;
+		$id = intval($moduleID);
+		
+		if ($id > 0):
+			$ident = '/* GRID_MODULE_IDENTIFIER | DONT REMOVE */';
+			
+			$db = rex_sql::factory();
+			$db->setQuery('SELECT id FROM '.rex::getTable('module').' WHERE id = "'.$id.'" AND (input LIKE "%'.$ident.'%" OR output LIKE "%'.$ident.'%")');
+
+			$return = ($db->hasNext()) ? true : false;
+		endif;
+		
+		return $return;
 	}
 	
 }

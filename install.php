@@ -66,12 +66,4 @@ else:
 	$db2->setValue('name', '01 - Gridblock');
 	$db2->insert();
 endif;
-
-// save gridblock module ID to config
-$db = rex_sql::factory();
-$db->setQuery('SELECT id FROM ' . rex::getTable('module') . ' WHERE input LIKE "%/* GRID_MODULE_IDENTIFIER | DONT REMOVE */%"');
-if ($db->getRows()) {
-	$aConfig = $this->getConfig('config');
-	$aConfig['gridblockmoduleid'] = $db->getValue("id");
-	$this->setConfig('config', $aConfig);
-}
+?>

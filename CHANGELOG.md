@@ -3,9 +3,14 @@
 
 Changelog
 ---------
+<b>Version 1.1.4</b>
+- Codeoptimierungen/-vorbereitungen
+
 <b>Version 1.1.3</b>
 - zus. Variablen im EP:GRIDBLOCK_MODULESELECTOR_ADD verfügbar
 - hinzufügen neuer Inhaltsmodule nun möglich, auch wenn der Nutzer keine Editiererlaubnis für das entsprechende Modul besitzt
+- Contentsetting: globale und Projektbezogene contentsettings.json nun möglich
+- Contentsetting: Definition von Einheiten beim Slider möglich
 - Bugfixing (Contentsettings: default-Werte)
 
 <b>Version 1.1.2</b>

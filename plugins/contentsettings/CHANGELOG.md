@@ -3,6 +3,10 @@
 
 Changelog
 ---------
+<b>Version 1.6.0</b>
+- Selectfelder haben eine Suche erhalten
+- Möglichkeit Felder zu deaktivieren ("disabled" => true)
+
 <b>Version 1.5</b>
 - Es kann eine neue globale contentsettings.global.json abgelegt werden. Diese wird vorrangig eingelesen (vor der contentsettings.json)
 

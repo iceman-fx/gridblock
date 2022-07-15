@@ -855,7 +855,7 @@
                 if ($this->aSettings["options"][$sKey]["type"] != "html") {
                     $aData["template"][$sKey] = "";
 
-                    if (!isset($aArr["template"][$sKey]) or $aArr["template"][$sKey] == "gridblockcontentsettingsdefault" OR $this->aSettings["options"][$sKey]["disabled"]) {
+                    if (!isset($aArr["template"][$sKey]) or $aArr["template"][$sKey] == "gridblockcontentsettingsdefault" OR @$this->aSettings["options"][$sKey]["disabled"]) {
                         $aData["template"][$sKey] = $this->getDefault($sKey);
                     } else {
                         $aData["template"][$sKey] = $aArr["template"][$sKey];
@@ -876,7 +876,7 @@
                 foreach ($this->aSettings["showOptions"] as $sKey) {
                     if ($this->aSettings["options"][$sKey]["type"] != "html") {
                         $aData["column_" . $iX][$sKey] = "";
-                        if (!isset($aArr["column_" . $iX][$sKey]) or $aArr["column_" . $iX][$sKey] == "gridblockcontentsettingsdefault" OR $this->aSettings["options"][$sKey]["disabled"]) {
+                        if (!isset($aArr["column_" . $iX][$sKey]) or $aArr["column_" . $iX][$sKey] == "gridblockcontentsettingsdefault" OR @$this->aSettings["options"][$sKey]["disabled"]) {
                             $aData["column_" . $iX][$sKey] = $this->getDefault($sKey);
                         } else {
                             $aData["column_" . $iX][$sKey] = $aArr["column_" . $iX][$sKey];

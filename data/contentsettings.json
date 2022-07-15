@@ -111,7 +111,8 @@
 				"wAlign-center": "mittig",
 				"wAlign-right": "rechts"
 			},
-			"default": "wAlign-center"
+			"default": "wAlign-center",
+			"disabled": true
 		},		
 		
 		{

@@ -3,6 +3,10 @@
 
 Changelog
 ---------
+<b>Version 1.1.5</b>
+- Contentsetting: Selectfelder jetzt mit Suche
+- Contentsetting: Felder deaktivierbar
+
 <b>Version 1.1.4</b>
 - Codeoptimierungen/-vorbereitungen
 

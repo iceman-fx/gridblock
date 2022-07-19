@@ -297,7 +297,9 @@
 
                         $iArrKey = array_search($sGroupOption, $this->aSettings["showOptions"]);
                         if ($iArrKey != "") {
-                            $this->aSettings["showOptions"][$iArrKey] = "gridblockcontentsettings_deleted_option";
+                            if ($this->aSettings["showOptions"][$iArrKey]["type"] != "html") {
+                                $this->aSettings["showOptions"][$iArrKey] = "gridblockcontentsettings_deleted_option";
+                            }
                         }
 
                         $aNewShowOptions[] = $sGroupOption;
@@ -435,7 +437,6 @@
         } else {
             $sType = "template";
         }
-
         $aUsedTypes = array();
         $iTabRand = rand(0, 100) * rand(0, 100);
         if (isset($this->aSettings["categories"])) {
@@ -610,7 +611,7 @@
                                         foreach ($aSelectData as $sSelectKey => $sSelectValue) :
                                             $sSelected = '';
                                             if (isset($aSavedOptions[$sType][$sKey])) {
-                                                if ($sSelectKey == @$aSavedOptions[$sType][$sKey] OR ($sSelectKey == "gridblockcontentsettingsdefault" && $aOption["default"] == @$aSavedOptions[$sType][$sKey])) {
+                                                if ($sSelectKey == @$aSavedOptions[$sType][$sKey] or ($sSelectKey == "gridblockcontentsettingsdefault" && $aOption["default"] == @$aSavedOptions[$sType][$sKey])) {
                                                     $sSelected = 'selected="selected"';
                                                     if ($sSelectKey == "gridblockcontentsettingsdefault" && @$aSavedOptions[$sType][$sKey] != "gridblockcontentsettingsdefault") {
                                                         $sSelectKey = @$aSavedOptions[$sType][$sKey];
@@ -667,7 +668,7 @@
                                             $iRand = rand(0, 1000000) * rand(0, 100000);
                                             $sSelected = '';
                                             if (isset($aSavedOptions[$sType][$sKey])) {
-                                                if ($sSelectKey == @$aSavedOptions[$sType][$sKey] OR ($sSelectKey == "gridblockcontentsettingsdefault" && $aOption["default"] == @$aSavedOptions[$sType][$sKey])) {
+                                                if ($sSelectKey == @$aSavedOptions[$sType][$sKey] or ($sSelectKey == "gridblockcontentsettingsdefault" && $aOption["default"] == @$aSavedOptions[$sType][$sKey])) {
                                                     $sSelected = 'checked="checked"';
                                                 }
                                                 if ($sSelectKey == "gridblockcontentsettingsdefault" && @$aSavedOptions[$sType][$sKey] != "gridblockcontentsettingsdefault") {
@@ -790,12 +791,12 @@
 
                                         $iRand = rand(0, 1000000) * rand(0, 100000);
 
-                                        
-                                        $sForm .= '<dd>'.$sValue.'<br><input id="gridblockcontentsettings-slider-'.$iRand.'" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sSliderTooltipSplit . ' ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' ' . $sSliderShowTooltip . ' ' . $sDisabled . '>';
+
+                                        $sForm .= '<dd>' . $sValue . '<br><input id="gridblockcontentsettings-slider-' . $iRand . '" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sSliderTooltipSplit . ' ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' ' . $sSliderShowTooltip . ' ' . $sDisabled . '>';
                                         if (isset($aOption["slider-unit"])) {
                                             $sForm .= "<script>
                                         
-                                        $('#gridblockcontentsettings-slider-".$iRand."').slider({			
+                                        $('#gridblockcontentsettings-slider-" . $iRand . "').slider({			
                                             formatter: function(value) {
                                                 return value + ' " . $aOption["slider-unit"] . "';
                                             }
@@ -855,7 +856,7 @@
                 if ($this->aSettings["options"][$sKey]["type"] != "html") {
                     $aData["template"][$sKey] = "";
 
-                    if (!isset($aArr["template"][$sKey]) or $aArr["template"][$sKey] == "gridblockcontentsettingsdefault" OR @$this->aSettings["options"][$sKey]["disabled"]) {
+                    if (!isset($aArr["template"][$sKey]) or $aArr["template"][$sKey] == "gridblockcontentsettingsdefault" or @$this->aSettings["options"][$sKey]["disabled"]) {
                         $aData["template"][$sKey] = $this->getDefault($sKey);
                     } else {
                         $aData["template"][$sKey] = $aArr["template"][$sKey];
@@ -876,7 +877,7 @@
                 foreach ($this->aSettings["showOptions"] as $sKey) {
                     if ($this->aSettings["options"][$sKey]["type"] != "html") {
                         $aData["column_" . $iX][$sKey] = "";
-                        if (!isset($aArr["column_" . $iX][$sKey]) or $aArr["column_" . $iX][$sKey] == "gridblockcontentsettingsdefault" OR @$this->aSettings["options"][$sKey]["disabled"]) {
+                        if (!isset($aArr["column_" . $iX][$sKey]) or $aArr["column_" . $iX][$sKey] == "gridblockcontentsettingsdefault" or @$this->aSettings["options"][$sKey]["disabled"]) {
                             $aData["column_" . $iX][$sKey] = $this->getDefault($sKey);
                         } else {
                             $aData["column_" . $iX][$sKey] = $aArr["column_" . $iX][$sKey];

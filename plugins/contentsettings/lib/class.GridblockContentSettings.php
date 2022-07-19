@@ -743,7 +743,7 @@
                                         if (isset($aOption["class"])) {
                                             $sClass = 'class="' . $aOption['class'] . '"';
                                         }
-                                        if (!empty($aSavedOptions[$sType][$sKey])) {
+                                        if ($aSavedOptions[$sType][$sKey] != "") {
                                             $sValue = @$aSavedOptions[$sType][$sKey];
                                         } else if (isset($aOption["default"])) {
                                             $sValue = $aOption["default"];
@@ -790,8 +790,8 @@
 
                                         $iRand = rand(0, 1000000) * rand(0, 100000);
 
-
-                                        $sForm .= '<dd><input id="gridblockcontentsettings-slider-'.$iRand.'" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sSliderTooltipSplit . ' ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' ' . $sSliderShowTooltip . ' ' . $sDisabled . '>';
+                                        
+                                        $sForm .= '<dd>'.$sValue.'<br><input id="gridblockcontentsettings-slider-'.$iRand.'" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sSliderTooltipSplit . ' ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' ' . $sSliderShowTooltip . ' ' . $sDisabled . '>';
                                         if (isset($aOption["slider-unit"])) {
                                             $sForm .= "<script>
                                         

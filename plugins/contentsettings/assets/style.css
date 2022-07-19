@@ -153,10 +153,16 @@
     margin-top: -24px !important
 }
 
+.gridblock .slider {
+    display: block;
+}
+
 .gridblock .slider.slider-horizontal {
     margin: 0;
     margin-top: 10px;
     margin-left: 10px;
+    width: auto;
+    min-width: 210px;
 }
 
 .gridblock .slider-track {

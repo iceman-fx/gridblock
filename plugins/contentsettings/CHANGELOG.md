@@ -3,6 +3,10 @@
 
 Changelog
 ---------
+<b>Version 1.6.1</b>
+- Rangefelder haben nun 100% Breite
+- Fix Range Slider Wert 0 hat Defaultwert im BE aufgerufen
+
 <b>Version 1.6.0</b>
 - Selectfelder haben eine Suche erhalten
 - Möglichkeit Felder zu deaktivieren ("disabled" => true)

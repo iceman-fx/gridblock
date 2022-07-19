@@ -296,8 +296,9 @@
                     foreach ($aGroupOptions as $sGroupOption) {
 
                         $iArrKey = array_search($sGroupOption, $this->aSettings["showOptions"]);
+                        dump($iArrKey);
                         if ($iArrKey != "") {
-                            if ($this->aSettings["showOptions"][$iArrKey]["type"] != "html") {
+                            if ($this->aSettings["options"][$sGroupOption]["type"] != "html") {
                                 $this->aSettings["showOptions"][$iArrKey] = "gridblockcontentsettings_deleted_option";
                             }
                         }
@@ -744,7 +745,7 @@
                                         if (isset($aOption["class"])) {
                                             $sClass = 'class="' . $aOption['class'] . '"';
                                         }
-                                        if ($aSavedOptions[$sType][$sKey] != "") {
+                                        if (@$aSavedOptions[$sType][$sKey] != "") {
                                             $sValue = @$aSavedOptions[$sType][$sKey];
                                         } else if (isset($aOption["default"])) {
                                             $sValue = $aOption["default"];

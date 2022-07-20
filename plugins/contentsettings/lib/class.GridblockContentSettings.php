@@ -405,8 +405,6 @@
 
         $aOption = $this->aSettings["options"][$sKey];
 
-        $aData = array();
-
         if (isset($aOption["data"])) {
             foreach ($aOption["data"] as $sOptionsKey => $sOptionsVal) {
                 if (isset($aOption["default"])) {
@@ -670,9 +668,9 @@
                                             if (isset($aSavedOptions[$sType][$sKey])) {
                                                 if ($sSelectKey == @$aSavedOptions[$sType][$sKey] or ($sSelectKey == "gridblockcontentsettingsdefault" && $aOption["default"] == @$aSavedOptions[$sType][$sKey])) {
                                                     $sSelected = 'checked="checked"';
-                                                }
-                                                if ($sSelectKey == "gridblockcontentsettingsdefault" && @$aSavedOptions[$sType][$sKey] != "gridblockcontentsettingsdefault") {
-                                                    $sSelectKey = @$aSavedOptions[$sType][$sKey];
+                                                    if ($sSelectKey == "gridblockcontentsettingsdefault" && @$aSavedOptions[$sType][$sKey] != "gridblockcontentsettingsdefault") {
+                                                        $sSelectKey = @$aSavedOptions[$sType][$sKey];
+                                                    }
                                                 }
                                             } else {
                                                 $sSelected = ($sSelectKey == "gridblockcontentsettingsdefault") ? 'checked="checked"' : '';

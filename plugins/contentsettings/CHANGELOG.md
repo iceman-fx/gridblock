@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.6.2</b>
+- Fix Radio Buttons Defaultwerte
+
 <b>Version 1.6.1</b>
 - Rangefelder haben nun 100% Breite
 - Fix Range Slider Wert 0 hat Defaultwert im BE aufgerufen

@@ -3,6 +3,12 @@
 
 Changelog
 ---------
+<b>Version 1.1.6</b>
+- Contentsetting: Selectfelder jetzt 100% breit
+- Bugfixing: Contentsetting Selectfelder Auswahl "0" wurde falsch ausgewertet
+- Bugfixing: Contentsetting Radiofelder Auswahl war falsch
+- Bugfixing: Contentsetting mehrfach verwendete HTML-Felder wurden nicht korrekt angezeigt
+
 <b>Version 1.1.5</b>
 - Contentsetting: Selectfelder jetzt mit Suche
 - Contentsetting: Felder deaktivierbar

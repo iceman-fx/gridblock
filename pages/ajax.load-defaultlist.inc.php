@@ -2,15 +2,15 @@
 /*
 	Redaxo-Addon Gridblock
 	Verwaltung: AJAX Loader - Template-Liste
-	v1.0
-	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
+	v1.1.7
+	by Falko Müller @ 2021-2023 (based on 0.1.0-dev von bloep)
 */
 
 //Variablen deklarieren
 $page = rex_request('page', 'string');
-$subpage = "";																//ggf. manuell setzen
-$subpage2 = rex_be_controller::getCurrentPagePart(3);						//2. Unterebene = dritter Teil des page-Parameters
-	$subpage2 = preg_replace("/.*-([0-9])$/i", "$1", $subpage2);			//Auslesen der ClangID
+$subpage = "";																						//ggf. manuell setzen
+$subpage2 = rex_be_controller::getCurrentPagePart(3);												//2. Unterebene = dritter Teil des page-Parameters
+	$subpage2 = (!empty($subpage2)) ? preg_replace("/.*-([0-9])$/i", "$1", $subpage2) : '';			//Auslesen der ClangID
 
 $sbeg = trim(urldecode(rex_request('sbeg')));
 $id = rex_request('id', 'int');

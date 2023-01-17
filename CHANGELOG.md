@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.1.7</b>
+- PHP8.1 Anpassungen
+
 <b>Version 1.1.6</b>
 - Contentsetting: Selectfelder jetzt 100% breit
 - Bugfixing: Contentsetting Selectfelder Auswahl "0" wurde falsch ausgewertet

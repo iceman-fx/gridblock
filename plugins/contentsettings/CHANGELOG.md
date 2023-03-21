@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.7.0</b>
+- Selectfelder können jetzt um Data-Attribute ergänzt werden (siehe Readme)
+
 <b>Version 1.6.3</b>
 - Fix Selectfelder mform Bug
 

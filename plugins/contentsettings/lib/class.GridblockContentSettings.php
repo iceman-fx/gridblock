@@ -608,6 +608,20 @@
                                         $sForm .= '<dd><select name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sClass . ' ' . $sAttributes . ' ' . $sDisabled . ' data-live-search="true">' . PHP_EOL;
                                         foreach ($aSelectData as $sSelectKey => $sSelectValue) :
                                             $sSelected = '';
+                                            $sSelectLabel = "";
+                                            $sSelectData = "";
+                                            if (is_array($sSelectValue)) {
+                                                foreach ($sSelectValue as $sSelectValueKey => $sSelectValueValue) {
+                                                    if ($sSelectValueKey == "label") {
+                                                        $sSelectLabel = $sSelectValueValue;
+                                                    } else {
+                                                        $sSelectData .= $sSelectValueKey . '="' . $sSelectValueValue . '" ';
+                                                    }
+                                                }
+                                            } else {
+                                                $sSelectLabel = $sSelectValue;
+                                            }
+
                                             if (isset($aSavedOptions[$sType][$sKey])) {
                                                 if ($sSelectKey == @$aSavedOptions[$sType][$sKey] or ($sSelectKey == "gridblockcontentsettingsdefault" && $aOption["default"] == @$aSavedOptions[$sType][$sKey])) {
                                                     $sSelected = 'selected="selected"';
@@ -618,7 +632,7 @@
                                             } else {
                                                 $sSelected = ($sSelectKey == "gridblockcontentsettingsdefault") ? 'selected="selected"' : '';
                                             }
-                                            $sForm .= '<option value="' . $sSelectKey . '" ' . $sSelected . '>' . $sSelectValue . '</option>' . PHP_EOL;
+                                            $sForm .= '<option value="' . $sSelectKey . '" ' . $sSelected . ' ' . $sSelectData . '>' . $sSelectLabel . '</option>' . PHP_EOL;
                                         endforeach;
                                         $sForm .= '</select></dd>' . PHP_EOL;
                                         break;
@@ -1015,7 +1029,11 @@
                 $sLabel = $oItem->label . " (" . $sKey . ")";
                 $sValue = $oItem->key;
                 if ($oItem->value != "") {
-                    $sValue .= " (" . $oItem->value . ")";
+                    if (!is_object($oItem->value)) {
+                        $sValue .= " (" . $oItem->value . ")";
+                    } else {
+                        $sValue .= " (" .$oItem->value->label. ")";
+                    }
                 }
                 $sHtml .= '<li class="list-group-item"><div class="row"><div class="col-12 col-lg-6" style="padding:0">' . $sLabel . '</div><div class="col-12 col-lg-6" style="padding:0">' . $sValue . '</div></div></li>' . PHP_EOL;
             }

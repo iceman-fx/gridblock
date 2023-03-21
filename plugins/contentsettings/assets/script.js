@@ -9,6 +9,8 @@ $(function () {
 
 	function gridblock_initContentsettings() {
 		$('.gridblockcontentsettings .selectpicker').selectpicker({ width: "100%" });
+		$('.selectpicker_bugfix').addClass('selectpicker'); // fix for mform
+		$('.selectpicker_bugfix').selectpicker('refresh');
 		$('.gridblockcontentsettings input.bootstap-slider').slider({});
 		$('.gridblockcontentsettings .dropdown.bootstrap-select.w-100.bs3').css('width', '100%');
 		//Color-Abgleich

@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	Verwaltung: Hilfe
-	v1.1
-	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
+	v1.1.8
+	by Falko Müller @ 2021-2023 (based on 0.1.0-dev von bloep)
 */
 ?>
 
@@ -384,7 +384,11 @@ echo htmlspecialchars(rex_file::get(rex_addon::get('gridblock')->getPath('data/c
 </tr>
   <tr>
     <td valign="top"><strong>Abstandsdefinition im Projekt</strong></td>
-    <td valign="top"><pre>{<br>	"key": "marginBottom",<br>	"label": "Block Außenabstand Unten",<br>	"type": "select",<br>	"data": {<br>		"mb-0": "Kein",<br>		&quot;mb-1": "Sehr klein",<br>		"mb-2": "Klein",<br>		"mb-3": "Mittel",<br>		"mb-4": "Groß",<br>		"mb-5": "Sehr groß"<br>	},<br>	&quot;default": "mb-3"<br>}</pre></td>
+    <td valign="top"><pre>{<br>	"key": "marginBottom",<br>	"label": "Block Außenabstand Unten",<br>	"type": "select",<br>	"data": {<br>		"mb-0": "Kein",<br>		&quot;mb-1": "Sehr klein",<br>		"mb-2": {
+			&quot;label&quot;: &quot;Klein&quot;,
+			&quot;data-subtext&quot;: &quot;Zusatzinformation&quot;,
+			&quot;data-icon&quot;: &quot;fa fa-phone&quot;,
+			&quot;data-content&quot;: &quot;&lt;img src='/assets/mein-icon.png'&gt;&quot;<br>		},<br>		"mb-3": "Mittel",<br>		"mb-4": "Groß",<br>		"mb-5": "Sehr groß"<br>	},<br>	&quot;default": "mb-3"<br>}</pre></td>
   </tr>
   <tr>
     <td valign="top"><strong>Überschreiben des Standardabstands für ein einzelnes Template</strong></td>
@@ -393,10 +397,18 @@ echo htmlspecialchars(rex_file::get(rex_addon::get('gridblock')->getPath('data/c
      Datei: /redaxo/data/addons/gridblock/plugins/contentsettings/template_$ID/contentsettings.json</td>
   </tr>
 </table>
-
-
-
 <p>&nbsp;</p>
+
+
+<p><strong>Trennung von globalen und Projekt-ContentSettings </strong></p>
+<p>Standardmäßig wird die contentsettings.json als Projektdefinition genutzt.
+<p>	Zusätzlich kann eine <strong>contentsettings.global.json</strong> mit globalen Definitionen im gleichen Ordner wie die contentsettings.json angelegt werden, welche 
+	vorrangig eingelesen (vor der contentsettings.json)
+	wird.<br>
+	Globale Definitionen in der contentsettings.global.json können damit zur Laufzeit überschrieben werden.
+<p>&nbsp;</p>
+
+
 
 <!-- Plugin Contentsettings -->
 <a name="plugin_sy"></a>

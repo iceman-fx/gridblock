@@ -142,7 +142,12 @@
 			"data": {
 				"padding-none": "- kein zusätzlicher Abstand -",
 				"padding-sm": "Klein",
-				"padding-md": "Mittel",
+				"padding-md": {
+					"label": "Mittel",
+					"data-subtext": "Zusatzinformation",
+					"data-icon": "fa fa-phone",
+					"data-content": "<img src='/assets/mein-icon.png'>"
+				},
 				"padding-lg": "Groß"
 			},
 			"default": "padding-none"

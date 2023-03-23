@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	Helper-Funktionen für contentsettings
-	v1.0.6
-	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
+	v1.1.8
+	by Falko Müller @ 2021-2023 (based on 0.1.0-dev von bloep)
 */
 
 class rex_gridblock_helper
@@ -131,7 +131,7 @@ class rex_gridblock_helper
 				endif;
 				
 				//Style-Definition erstellen
-				if (!empty($key) && trim($val) != ""):
+				if (!empty($key) && isset($val) && trim($val) != ""):
 					//Einheit extrahieren
 					$unit = '';
 						if (strpos($key, "|") !== false):

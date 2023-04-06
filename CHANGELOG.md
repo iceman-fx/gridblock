@@ -3,11 +3,14 @@
 
 Changelog
 ---------
+<b>Version 1.1.9</b>
+- Cookieverwendung optimiert
+- Codeoptimierungen
+
 <b>Version 1.1.8</b>
 - Contentsetting: Bugfixing (Select-Felder)
-- Contentsetting: PHP8.2 Anpassungen
 - Contentsetting: zus. Data-Attribute bei Select-Feldern (Options) anlegbar
-- Entfernung alte Fake-Rückgabe getRows
+- Entfernung alte Fake-Rückgabe getRows()
 
 <b>Version 1.1.7</b>
 - PHP8.1 Anpassungen

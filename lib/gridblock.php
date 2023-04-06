@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	Grid-Basisklasse
-	v1.1.4
-	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
+	v1.1.9
+	by Falko Müller @ 2021-2023 (based on 0.1.0-dev von bloep)
 */
 
 class rex_gridblock {
@@ -64,7 +64,7 @@ class rex_gridblock {
             $db->next();
         endwhile;
 		
-		$_SESSION['gridAllowedModules'] = $modules;
+		if (rex::isBackend()) { $_SESSION['gridAllowedModules'] = $modules; }
         return $modules;
     }
 	

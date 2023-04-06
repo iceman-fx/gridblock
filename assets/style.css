@@ -81,6 +81,10 @@ ul.gridblock-moduleselector .gridblock-cutncopy-insert { border-bottom: 1px soli
 @keyframes radioswitcheffect { 0% { opacity: 0.75; } 100% { opacity: 0; transform: scale(2.5); } }
 
 
+/* Select-Options mit Bild */
+.gridblock .gb-option-img { max-height: 20px; } 
+
+
 /* Options */
 .gridblock .hiddenOpt { display: none; }
 	.gridblock .hiddenOpt.gridblockoptions { padding-top: 17px; }

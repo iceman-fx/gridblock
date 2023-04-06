@@ -48,6 +48,11 @@ body.rex-theme-dark .gridblock .column-slice-sorter a.btn-addgridmodule:hover
 	
 body.rex-theme-dark .gridblock .column-slice-nodelete .column-slice-sorter .btn-group-delete a.btn { background: rgba(128,25,25, 0.3); border-color: rgba(128,25,25, 0.3); color: rgba(255,255,255, 0.1); }
 
+
+/* Select-Options mit Bild */
+body.rex-theme-dark .gridblock .gb-option-img { filter: invert(1); }
+
+
 /* Redaxo-BE Slice-Übersicht */
 /* Offline (Inhaltsblock) */
 body.rex-theme-dark .gridblock-panel { border: 1px solid #151c22; background: #1b232c; }
@@ -104,6 +109,11 @@ body.rex-theme-dark .gridblock-panel-columnspacer { border-top: 1px solid rgba(1
 
 	body:not(.rex-theme-light) .gridblock .column-slice-nodelete .column-slice-sorter .btn-group-delete a.btn { background: rgba(128,25,25, 0.3); border-color: rgba(128,25,25, 0.3); color: rgba(255,255,255, 0.1); }
 	
+    
+    /* Select-Options mit Bild */
+    body:not(.rex-theme-light) .gridblock .gb-option-img { filter: invert(1); }
+
+
 	/* Redaxo-BE Slice-Übersicht */
 	/* Offline (Inhaltsblock) */
 	body:not(.rex-theme-light) .gridblock-panel { border: 1px solid #151c22; background: #1b232c; }

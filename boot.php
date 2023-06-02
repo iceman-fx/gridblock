@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	Boot (weitere Konfigurationen & Einbindung)
-	v1.0.7
-	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
+	v1.1.10
+	by Falko Müller @ 2021-2023 (based on 0.1.0-dev von bloep)
 */
 
 //Variablen deklarieren
@@ -39,6 +39,7 @@ if (rex::isBackend()):
 		
 		$values = isset($_POST['REX_INPUT_VALUE']) ? $_POST['REX_INPUT_VALUE'] : null;
 		
+		
 		if (is_array($values)):
 			foreach ($values as $colID => $slices):
 			
@@ -51,18 +52,18 @@ if (rex::isBackend()):
 							/*
 							echo "\nSlice: $uID\n";
 							print_r($data);	
-							*/				
+							*/
 						
 							foreach ($data['VALUE'] as $i => $value):
 								//Eingabedaten durchlaufen und _MBLOCK korrigieren	
 								if (strrpos($i, '_MBLOCK') !== false):
-									$id = str_replace('_MBLOCK', '', $i);
+									$id = str_replace('_MBLOCK', '', $i);									
 									
-									$values[$colID][$uID]['VALUE'][$id] = (isset($values[$colID][$uID]['VALUE'][$id]) ? $values[$colID][$uID]['VALUE'][$id] + $value : $value);
+									$values[$colID][$uID]['VALUE'][$id] = (isset($values[$colID][$uID]['VALUE'][$id]) && !is_array($value)) ? $values[$colID][$uID]['VALUE'][$id] + $value : $value;		//$id + $val nur durchführen, wenn kein array
 									unset($values[$colID][$uID]['VALUE'][$i]);
 								endif;
 							endforeach;
-							
+																					
 						endif;
 					endforeach;
 				endif;

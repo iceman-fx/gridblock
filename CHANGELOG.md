@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.1.10</b>
+- Bugfixing (Aufbereitung MBlock-Werte)
+
 <b>Version 1.1.9</b>
 - Cookieverwendung optimiert
 - Codeoptimierungen

@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	Verwaltung: default
-	v1.0
-	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
+	v1.1.11
+	by Falko Müller @ 2021-2023 (based on 0.1.0-dev von bloep)
 */
 
 //Variablen deklarieren
@@ -29,14 +29,13 @@ if ($func == "save" && (isset($_POST['submit']) || isset($_POST['submit-apply'])
 		echo rex_view::warning($this->i18n('a1620_entry_emptyfields'));
 	else:
 		//Eintrag speichern
-		$db = rex_sql::factory();
-		$db->setQuery("SELECT id FROM ".rex::getTable('1620_gridtemplates'));
-		$maxPrio = $db->getRows();
+		$prio 	= rex_post('f_prio', 'int');
+		
+			//maxPrio prüfen
+			$dbp = rex_sql::factory();
+			$dbp->setQuery("SELECT id FROM ".rex::getTable('1620_gridtemplates'));
+			$prio = ($prio <= 0 || $prio > $dbp->getRows()) ? ($dbp->getRows()+1) : $prio;		
 
-		$prio = rex_post('f_prio', 'int');
-		if ($prio <= 0 || $prio > $maxPrio):
-			$prio = $maxPrio+1;
-		endif;
 
 		$db = rex_sql::factory();
 		$db->setTable(rex::getTable('1620_gridtemplates'));
@@ -68,14 +67,16 @@ if ($func == "save" && (isset($_POST['submit']) || isset($_POST['submit-apply'])
 
 			//Prioritäten korrigieren
 			$dbp = rex_sql::factory();
-			$dbp->setQuery("SELECT id FROM ".rex::getTable('1620_gridtemplates')." WHERE prio >= '".$prio."' AND id <> '".$lastID."' ORDER BY prio ASC");
-
-			for ($i=0; $i < $dbp->getRows(); $i++):
-				$prio++;
-				$db = rex_sql::factory();
-				$db->setQuery("UPDATE ".rex::getTable('1620_gridtemplates')." SET prio = '".$prio."' WHERE id = '".$dbp->getValue('id')."'");
-				$dbp->next();
-			endfor;
+			$dbp->setQuery("SELECT id, prio FROM ".rex::getTable('1620_gridtemplates')." WHERE id <> '".$lastID."' ORDER BY prio ASC");
+				$i = 1;
+				foreach ($dbp as $row):
+					$i = ($i == rex_post('f_prio', 'int')) ? ($i+1) : $i;
+					
+					$db = rex_sql::factory();
+					$db->setQuery("UPDATE ".rex::getTable('1620_gridtemplates')." SET prio = '".$i."' WHERE id = '".$row->getValue('id')."'");
+					$i++;
+				endforeach;			
+			
 
 		else:
 			//Fehler beim Speichern
@@ -106,17 +107,15 @@ elseif ($func == "delete" && $id > 0):
 			echo rex_view::info($this->i18n('a1620_entry_deleted'));
 
 			//Prioritäten korrigieren
-			if ($lastPrio > 0):
-				$dbp = rex_sql::factory();
-				$dbp->setQuery("SELECT id FROM ".rex::getTable('1620_gridtemplates')." WHERE prio >= '".$lastPrio."' ORDER BY prio ASC");
-
-				for ($i=0; $i < $dbp->getRows(); $i++):
+			$dbp = rex_sql::factory();
+			$dbp->setQuery("SELECT id FROM ".rex::getTable('1620_gridtemplates')." ORDER BY prio ASC");
+				$i = 1;
+				foreach ($dbp as $row):
 					$db = rex_sql::factory();
-					$db->setQuery("UPDATE ".rex::getTable('1620_gridtemplates')." SET prio = '".$lastPrio."' WHERE id = '".$dbp->getValue('id')."'");
-					$lastPrio++;
-					$dbp->next();
-				endfor;
-			endif;
+					$db->setQuery("UPDATE ".rex::getTable('1620_gridtemplates')." SET prio = '".$i."' WHERE id = '".$row->getValue('id')."'");
+					$i++;
+				endforeach;
+			
 		else:
 			echo rex_view::warning($this->i18n('a1620_error_deleted'));
 		endif;

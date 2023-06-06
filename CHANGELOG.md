@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.1.11</b>
+- Bugfixing (Prioritäten wurden falsch berechnet)
+
 <b>Version 1.1.10</b>
 - Bugfixing (Aufbereitung MBlock-Werte)
 

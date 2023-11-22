@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.7.1</b>
+- Fix für PHP 8.2
+
 <b>Version 1.7.0</b>
 - Selectfelder können jetzt um Data-Attribute ergänzt werden (siehe Readme)
 

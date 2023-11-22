@@ -1,5 +1,17 @@
 <?php class GridblockContentSettings
 {
+    public $addon;
+    public $plugin;
+    public $fileGlobal;
+    public $fileProject;
+    public $iSettingsId;
+    public $iTemplateId;
+    public $iColumnId;
+    public $aSettings;
+    public $globalData;
+    public $projectData;
+    public $templateData;
+    public $templateGeneralData;
 
 
     public function __construct($iModuleId = null)
@@ -1001,7 +1013,7 @@
         return $sContent;
     }
 
-    public function getBackendSummary($oData = "", $iTemplateId = 0)
+    public function getBackendSummary(object $oData = null, $iTemplateId = 0)
     {
 
         $aColumns = array();

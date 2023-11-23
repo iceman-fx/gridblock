@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Fragment für Modul-INPUT (BE - innerer Spalteninhalt)
-	v1.0.4
+	v1.1.12
 	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
 	
 	
@@ -13,6 +13,10 @@
 	19		ausgewählte Inhaltsmodule aller Spalten
 	20		reserviert für Plugin contentsettings
 */
+
+/** RexStan: Vars vom Check ausschließen */
+/** @var string $moduleId */
+
 
 //Vorgaben
 $config = rex_addon::get('gridblock')->getConfig('config');															//Addon-Eisntellungen holen

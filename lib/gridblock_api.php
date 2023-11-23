@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	API-Anbindung
-	v1.0.11
-	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
+	v1.1.12
+	by Falko Müller @ 2021-2023 (based on 0.1.0-dev von bloep)
 */
 
 class rex_api_gridblock_loadModule extends rex_api_function
@@ -99,6 +99,8 @@ class rex_api_gridblock_setCookie extends rex_api_function
             rex_article_content_gridblock::setCookie($value);
 			exit();
         endif;
+		
+        throw new rex_functional_exception('Action & uid parameter are required!');
     }
 }
 	

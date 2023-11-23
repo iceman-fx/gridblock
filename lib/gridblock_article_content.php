@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Ein-/Ausgabesteuerung der Inhaltsmodule
-	v1.1.9
+	v1.1.12
 	by Falko Müller @ 2021-2023 (based on 0.1.0-dev von bloep)
 */
 
@@ -17,7 +17,7 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 	
 
     //public function getModuleEdit($addModuleID = 0, $colID = 0, $uID, $rexVars = array(), $copyID = "", $copyCOL = 0, $copyCOL = 0, $copySLID = 0)
-	public function getModuleEdit($addModuleID = 0, $colID = 0, $uID, $rexVars = array(), $action = "")
+	public function getModuleEdit($addModuleID = 0, $colID = 0, $uID = 0, $rexVars = array(), $action = "")
     {	$config = rex_addon::get('gridblock')->getConfig('config');
 	
 		rex_gridblock::isBackend(true);				//set isBackend=true in module edit

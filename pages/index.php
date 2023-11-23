@@ -2,12 +2,13 @@
 /*
 	Redaxo-Addon Gridblock
 	Verwaltung: index
-	v1.1.2
-	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
+	v1.1.12
+	by Falko Müller @ 2021-2023 (based on 0.1.0-dev von bloep)
 */
 
-//Fehlerhinweise (E_NOTICE) abschalten
-error_reporting(E_ALL ^  E_NOTICE);
+/** RexStan: Vars vom Check ausschließen */
+/** @var rex_addon $this */
+
 
 //Variablen deklarieren
 $mypage = $this->getProperty('package');
@@ -138,7 +139,7 @@ span.ajaxNavSel { background-color: #CCC; }
 .modalupload { padding: 12px; }
 
 
-<?php if (rex_string::versionCompare(rex::getVersion(), '5.13.0-dev', '>=')): ?>
+<?php if (rex_version::compare(rex::getVersion(), '5.13.0-dev', '>=')): ?>
 @media (prefers-color-scheme: dark){
 	
 	body:not(.rex-theme-light) .checkbox.toggle label input,

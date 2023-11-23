@@ -2,9 +2,18 @@
 /*
 	Redaxo-Addon Gridblock
 	Verwaltung: default
-	v1.1.11
+	v1.1.12
 	by Falko Müller @ 2021-2023 (based on 0.1.0-dev von bloep)
 */
+
+/** RexStan: Vars vom Check ausschließen */
+/** @var rex_addon $this */
+/** @var array $config */
+/** @var string $func */
+/** @var string $page */
+/** @var string $subpage */
+/** @var string $mypage */
+
 
 //Variablen deklarieren
 $mode = rex_request('mode');

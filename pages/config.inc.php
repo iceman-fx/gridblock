@@ -2,9 +2,17 @@
 /*
 	Redaxo-Addon Gridblock
 	Verwaltung: Einstellungen (config)
-	v1.0
+	v1.1.12
 	by Falko Müller @ 2021 (based on 0.1.0-dev von bloep)
 */
+
+/** RexStan: Vars vom Check ausschließen */
+/** @var rex_addon $this */
+/** @var array $config */
+/** @var string $func */
+/** @var string $page */
+/** @var string $subpage */
+
 
 //Variablen deklarieren
 $form_error = 0;

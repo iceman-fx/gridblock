@@ -3,6 +3,10 @@
 
 Changelog
 ---------
+<b>Version 1.1.12</b>
+- Contentsetting: PHP8.2 Anpassungen
+- Codeoptimierungen
+
 <b>Version 1.1.11</b>
 - Bugfixing (Prioritäten wurden falsch berechnet)
 

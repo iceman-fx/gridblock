@@ -2,9 +2,13 @@
 /*
 	Redaxo-Addon Gridblock
 	Boot (weitere Konfigurationen & Einbindung)
-	v1.1.10
+	v1.1.12
 	by Falko Müller @ 2021-2023 (based on 0.1.0-dev von bloep)
 */
+
+/** RexStan: Vars vom Check ausschließen */
+/** @var rex_addon $this */
+
 
 //Variablen deklarieren
 $mypage = $this->getProperty('package');
@@ -24,7 +28,7 @@ global $a1620_mypage;
 $a1620_mypage = $mypage;
 
 global $a1620_darkmode;
-$a1620_darkmode = (rex_string::versionCompare(rex::getVersion(), '5.13.0-dev', '>=')) ? true : false;
+$a1620_darkmode = (rex_version::compare(rex::getVersion(), '5.13.0-dev', '>=')) ? true : false;
 
 
 require_once(rex_path::addon($mypage, "functions/functions.inc.php"));

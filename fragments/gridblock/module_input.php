@@ -407,7 +407,7 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName, action = "") {
 		$('#rex-js-ajax-loader').addClass('rex-visible');
 		
 		$.ajax({
-			url: 'index.php?page=structure&rex-api-call=gridblock_loadModule&moduleid=' +moduleID+ '&colid=' +colID+ '&uid=' +uID+ '&action=' +action+ '&function=edit&slice_id=' +gridblock_sliceid,
+			url: 'index.php?page=structure&rex-api-call=gridblock_loadModule&moduleid=' +moduleID+ '&colid=' +colID+ '&uid=' +uID+ '&action=' +action+ '&function=add&slice_id=' +gridblock_sliceid,
 		}).done(function(data) {
 			//Einfügeposition vorbereiten
 			dst = $('#gridblockColumnSlice'+uID);

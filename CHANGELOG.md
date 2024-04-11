@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.1.13</b>
+- Anpassung für MForm (default-Werte)
+
 <b>Version 1.1.12</b>
 - Contentsetting: PHP8.2 Anpassungen
 - Codeoptimierungen

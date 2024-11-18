@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	Ein-/Ausgabesteuerung der Inhaltsmodule
-	v1.1.12
-	by Falko Müller @ 2021-2023 (based on 0.1.0-dev von bloep)
+	v1.1.14
+	by Falko Müller @ 2021-2024 (based on 0.1.0-dev von bloep)
 */
 
 class rex_article_content_gridblock extends rex_article_content_editor {
@@ -312,12 +312,16 @@ class rex_article_content_gridblock extends rex_article_content_editor {
 				endif;
 			endforeach;
 			
+			//aktuellen Artikel als Basis setzen (für REX_xxx[])
+			$this->setClang(rex_clang::getCurrentId());
+			$this->setArticleId(rex_article::getCurrentId());
+			
+			
 			//dump($rexVars);
 						
 			//REX-MODULE-VARS erweitern
 			$rexVars['moduleID'] = $moduleID;
-			$rexVars['moduleKEY'] = $MOD->getValue('key');
-			
+			$rexVars['moduleKEY'] = $MOD->getValue('key');			
 			
 			//VALUE-Ersetzungen vorbereiten
 			$initDataSql = rex_sql::factory();

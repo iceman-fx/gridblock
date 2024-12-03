@@ -3,6 +3,9 @@
 
 Changelog
 ---------
+<b>Version 1.1.14</b>
+- Verfügbarkeit von Redaxo-Platzhaltern in Modulausgaben verbessert (REX_ARTICLE, REX_CLANG, REX_CATEGORY, REX_TEMPLATE)
+
 <b>Version 1.1.13</b>
 - Anpassung für MForm (default-Werte)
 

@@ -1,5 +1,5 @@
 <?php class GridblockContentSettings
-{
+{ 
     public $addon;
     public $plugin;
     public $fileGlobal;

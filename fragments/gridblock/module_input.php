@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	Fragment für Moduleingabe (BE)
-	v1.0.11
-	by Falko Müller @ 2021-2022 (based on 0.1.0-dev von bloep)
+	v1.1.15
+	by Falko Müller @ 2021-2025 (based on 0.1.0-dev von bloep)
 	
 	
 	genutzte VALUES:
@@ -352,7 +352,7 @@ $(function(){
 			if (!$(this).hasClass(cClass)) {
 				//kopierten Block im Cookie zwischenspeichern
 				$.ajax({
-					url: 'index.php?page=structure&rex-api-call=gridblock_setCookie&sliceid=' +gridblock_sliceid+ '&uid=' +uID+ '&colid=' +colID+ '&modid=' +modID+ '&modstatus=' +modStatus+ '&action=copy',
+					url: 'index.php?page=structure&rex-api-call=gridblock_setCookie&sliceid=' +gridblock_sliceid+ '&uid=' +uID+ '&colid=' +colID+ '&modid=' +modID+ '&modstatus=' +modStatus+ '&action=copy&buster=<?php echo microtime(true); ?>',
 					success: function(data) {},
 					async: false
 				});
@@ -407,7 +407,7 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName, action = "") {
 		$('#rex-js-ajax-loader').addClass('rex-visible');
 		
 		$.ajax({
-			url: 'index.php?page=structure&rex-api-call=gridblock_loadModule&moduleid=' +moduleID+ '&colid=' +colID+ '&uid=' +uID+ '&action=' +action+ '&function=add&slice_id=' +gridblock_sliceid,
+			url: 'index.php?page=structure&rex-api-call=gridblock_loadModule&moduleid=' +moduleID+ '&colid=' +colID+ '&uid=' +uID+ '&action=' +action+ '&function=add&slice_id=' +gridblock_sliceid+ '&buster=<?php echo microtime(true); ?>',
 		}).done(function(data) {
 			//Einfügeposition vorbereiten
 			dst = $('#gridblockColumnSlice'+uID);
@@ -524,7 +524,7 @@ function gridblock_loadModuleSelector(colID = 0, dst = "", mode = "html") {
 		var dst = $(dst);
 		
 		$.ajax({
-			url: 'index.php?page=structure&rex-api-call=gridblock_getModuleSelector&colid=' +colID,
+			url: 'index.php?page=structure&rex-api-call=gridblock_getModuleSelector&colid=' +colID+ '&buster=<?php echo microtime(true); ?>',
 		}).done(function(data) {
 			switch (mode) {
 				case 'prepend':	$(dst).prepend(data).show();
@@ -563,7 +563,7 @@ function gridblock_refreshModuleSelectors() {
 		
 		if (colID > 0 && uID != undefined) {
 			$.ajax({
-				url: 'index.php?page=structure&rex-api-call=gridblock_addModuleSelector&uid=' +uID+ '&colid=' +colID,
+				url: 'index.php?page=structure&rex-api-call=gridblock_addModuleSelector&uid=' +uID+ '&colid=' +colID+ '&buster=<?php echo microtime(true); ?>',
 				success: function(data) { dst.replaceWith(data); }
 			});
 		}
@@ -581,7 +581,7 @@ function gridblock_loadContentSettings(templateID, colID = 0) {
 		var dst = (colID <= 0) ? $('#gridblockoptions') : $('#grid-coloptions'+colID);
 		
 		$.ajax({
-			url: 'index.php?page=structure&rex-api-call=gridblock_loadContentSettings&templateid=' +templateID+ '&colid=' +colID,
+			url: 'index.php?page=structure&rex-api-call=gridblock_loadContentSettings&templateid=' +templateID+ '&colid=' +colID+ '&buster=<?php echo microtime(true); ?>',
 		}).done(function(data) {
 			//contentOptions ausgeben
 			dst.html(data);
@@ -645,7 +645,7 @@ function gridblock_scrollToNewBlock(dst) {
 function gridblock_getCookieName() {
 	var name = "";
 		$.ajax({
-			url: 'index.php?page=structure&rex-api-call=gridblock_getCookieName',
+			url: 'index.php?page=structure&rex-api-call=gridblock_getCookieName&buster=<?php echo microtime(true); ?>',
 			success: function(data) { name = data; },
 			async: false
 		});
@@ -656,7 +656,7 @@ function gridblock_getCookieName() {
 function gridblock_getCookie(key = "") {
 	var value = "";
 		$.ajax({
-			url: 'index.php?page=structure&rex-api-call=gridblock_getCookie&key=' +key,
+			url: 'index.php?page=structure&rex-api-call=gridblock_getCookie&key=' +key+ '&buster=<?php echo microtime(true); ?>',
 			success: function(data) { value = data; },
 			async: false
 		});
@@ -666,7 +666,7 @@ function gridblock_getCookie(key = "") {
 //Copy: Cookie löschen/leeren
 function gridblock_deleteCookie() {
 	$.ajax({
-		url: 'index.php?page=structure&rex-api-call=gridblock_deleteCookie',
+		url: 'index.php?page=structure&rex-api-call=gridblock_deleteCookie&buster=<?php echo microtime(true); ?>',
 		success: function(data) {},
 		async: false
 	});

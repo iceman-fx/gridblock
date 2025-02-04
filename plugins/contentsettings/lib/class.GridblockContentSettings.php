@@ -252,20 +252,21 @@
 
 
         // parents
-
-        foreach ($this->aSettings["options"] as $sKey => $aOptions) {
-            if (isset($aOptions["parent"])) {
-                if (isset($this->aSettings["options"][$sKey])) {
-                    $sParent = $aOptions["parent"];
-                    foreach ($this->aSettings["options"][$sParent] as $sKeyParent => $sValueParent) {
-                        if (!isset($aOptions[$sKeyParent])) {
-                            $this->aSettings["options"][$sKey][$sKeyParent] = $sValueParent;
-                        }
-                    }
-                }
-            }
-        }
-
+		if (isset($this->aSettings["options"])) {
+			foreach ($this->aSettings["options"] as $sKey => $aOptions) {
+				if (isset($aOptions["parent"])) {
+					if (isset($this->aSettings["options"][$sKey])) {
+						$sParent = $aOptions["parent"];
+						foreach ($this->aSettings["options"][$sParent] as $sKeyParent => $sValueParent) {
+							if (!isset($aOptions[$sKeyParent])) {
+								$this->aSettings["options"][$sKey][$sKeyParent] = $sValueParent;
+							}
+						}
+					}
+				}
+			}
+		}
+		
 
         // start_group & end_group
         if (isset($this->aSettings["showOptions"])) {
@@ -517,6 +518,8 @@
                                         $sDisabled = 'disabled="disabled" ';
                                     }
                                 }
+								
+								$uid = uniqid().ceil(rand(0,9999999));
 
                                 switch ($aOption["type"]) {
                                     case "text":
@@ -554,7 +557,7 @@
                                             $sAttributes = $aOption["attributes"];
                                         }
 
-                                        $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="' . $sFieldType . '" ' . $sClass . ' ' . $sAttributes . ' value="' . $sValue . '" ' . $sPlaceholder . ' ' . $sDisabled . '></dd>' . PHP_EOL;
+                                        $sForm .= '<dd><input name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="' . $sFieldType . '" ' . $sClass . ' ' . $sAttributes . ' value="' . $sValue . '" ' . $sPlaceholder . ' ' . $sDisabled . ' id="'.$uid.'"></dd>' . PHP_EOL;
                                         break;
 
                                     case "textarea":
@@ -578,7 +581,7 @@
                                             $sAttributes = $aOption["attributes"];
                                         }
 
-                                        $sForm .= '<dd><textarea name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sClass . ' ' . $sAttributes . ' ' . $sPlaceholder . ' ' . $sDisabled . '>' . $sValue . '</textarea></dd>' . PHP_EOL;
+                                        $sForm .= '<dd><textarea name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sClass . ' ' . $sAttributes . ' ' . $sPlaceholder . ' ' . $sDisabled . ' id="'.$uid.'">' . $sValue . '</textarea></dd>' . PHP_EOL;
                                         break;
 
                                     case "colorpicker":
@@ -602,7 +605,7 @@
                                             $sAttributes = $aOption["attributes"];
                                         }
 
-                                        $sForm .= '<dd><div class="input-group gridblock-colorinput-group"><input data-parsley-excluded="true" type="text" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sAttributes . ' value="' . $sValue . '" maxlength="7" ' . $sPlaceholder . ' pattern="^#([A-Fa-f0-9]{6})$" ' . $sClass . ' ' . $sDisabled . '><span class="input-group-addon gridblock-colorinput"><input type="color" value="' . @$aSavedOptions[$sType][$sKey] . '" pattern="^#([A-Fa-f0-9]{6})$" class="form-control"></span></div>' . PHP_EOL;
+                                        $sForm .= '<dd><div class="input-group gridblock-colorinput-group"><input data-parsley-excluded="true" type="text" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sAttributes . ' value="' . $sValue . '" maxlength="7" ' . $sPlaceholder . ' pattern="^#([A-Fa-f0-9]{6})$" ' . $sClass . ' ' . $sDisabled . ' id="'.$uid.'"><span class="input-group-addon gridblock-colorinput"><input type="color" value="' . @$aSavedOptions[$sType][$sKey] . '" pattern="^#([A-Fa-f0-9]{6})$" class="form-control" id="'.( rand(0, 1000000)*rand(0, 100000) ).'"></span></div>' . PHP_EOL;
                                         break;
 
                                     case "select":
@@ -617,7 +620,7 @@
                                         }
 
                                         $aSelectData = $this->getSelectData($sKey);
-                                        $sForm .= '<dd><select name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sClass . ' ' . $sAttributes . ' ' . $sDisabled . ' data-live-search="true">' . PHP_EOL;
+                                        $sForm .= '<dd><select name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" ' . $sClass . ' ' . $sAttributes . ' ' . $sDisabled . ' data-live-search="true" id="'.$uid.'">' . PHP_EOL;
                                         foreach ($aSelectData as $sSelectKey => $sSelectValue) :
                                             $sSelected = '';
                                             $sSelectLabel = "";
@@ -677,7 +680,7 @@
                                         if (!isset($sChecked)) {
                                             $sChecked = ($sValue == @$aSavedOptions[$sType][$sKey]) ? 'checked="checked"' : '';
                                         }
-                                        $sForm .= '<dd><div class="checkbox toggle"><label><input type="checkbox" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="' . $sValue . '" ' . $sChecked . ' ' . $sClass . ' ' . $sAttributes . ' ' . $sDisabled . '>' . $sText . '</label></div></dd>' . PHP_EOL;
+                                        $sForm .= '<dd><div class="checkbox toggle"><label><input type="checkbox" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" value="' . $sValue . '" ' . $sChecked . ' ' . $sClass . ' ' . $sAttributes . ' ' . $sDisabled . ' id="'.$uid.'">' . $sText . '</label></div></dd>' . PHP_EOL;
                                         unset($sChecked);
                                         break;
 
@@ -689,7 +692,7 @@
                                         $sForm .= '<dd><div class="radio toggle switch">' . PHP_EOL;
                                         $aSelectData = $this->getSelectData($sKey);
                                         foreach ($aSelectData as $sSelectKey => $sSelectValue) :
-                                            $iRand = rand(0, 1000000) * rand(0, 100000);
+                                            //$iRand = rand(0, 1000000) * rand(0, 100000);
                                             $sSelected = '';
                                             if (isset($aSavedOptions[$sType][$sKey])) {
                                                 if ($sSelectKey == @$aSavedOptions[$sType][$sKey] or ($sSelectKey == "gridblockcontentsettingsdefault" && $aOption["default"] == @$aSavedOptions[$sType][$sKey])) {
@@ -703,8 +706,8 @@
                                             }
 
 
-                                            $sForm .= '<label for="' . $iRand . '">' . PHP_EOL;
-                                            $sForm .= '<input id="' . $iRand . '" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="radio" value="' . $sSelectKey . '" ' . $sSelected . ' ' . $sClass . '  ' . $sDisabled . '/> ' . $sSelectValue . PHP_EOL;
+                                            $sForm .= '<label for="' . $uid . '">' . PHP_EOL;
+                                            $sForm .= '<input id="' . $uid . '" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="radio" value="' . $sSelectKey . '" ' . $sSelected . ' ' . $sClass . '  ' . $sDisabled . '/> ' . $sSelectValue . PHP_EOL;
                                             $sForm .= '</label>';
 
                                         endforeach;
@@ -723,8 +726,8 @@
                                                 $aArgs["types"] = $aOption["types"];
                                             }
                                         }
-                                        $iRand = rand(0, 1000000) * rand(0, 100000);
-                                        $sForm .= rex_var_media::getWidget($iRand, "REX_INPUT_VALUE[$this->iSettingsId][$sType][$sKey]", @$aSavedOptions[$sType][$sKey], $aArgs);
+                                        //$iRand = rand(0, 1000000) * rand(0, 100000);
+                                        $sForm .= rex_var_media::getWidget($uid, "REX_INPUT_VALUE[$this->iSettingsId][$sType][$sKey]", @$aSavedOptions[$sType][$sKey], $aArgs);
                                         break;
 
                                     case "medialist":
@@ -735,28 +738,28 @@
                                         if (isset($aOption["types"])) {
                                             $aArgs["types"] = $aOption["types"];
                                         }
-                                        $iRand = rand(0, 1000000) * rand(0, 100000);
-                                        $sForm .= rex_var_medialist::getWidget($iRand, "REX_INPUT_VALUE[$this->iSettingsId][$sType][$sKey]", @$aSavedOptions[$sType][$sKey], $aArgs);
+                                        //$iRand = rand(0, 1000000) * rand(0, 100000);
+                                        $sForm .= rex_var_medialist::getWidget($uid, "REX_INPUT_VALUE[$this->iSettingsId][$sType][$sKey]", @$aSavedOptions[$sType][$sKey], $aArgs);
                                         break;
 
                                     case "link":
                                         $aArgs = array();
-                                        $iRand = rand(0, 1000000) * rand(0, 100000);
-                                        $sForm .= rex_var_link::getWidget($iRand, "REX_INPUT_VALUE[$this->iSettingsId][$sType][$sKey]", @$aSavedOptions[$sType][$sKey], $aArgs);
+                                        //$iRand = rand(0, 1000000) * rand(0, 100000);
+                                        $sForm .= rex_var_link::getWidget($uid, "REX_INPUT_VALUE[$this->iSettingsId][$sType][$sKey]", @$aSavedOptions[$sType][$sKey], $aArgs);
                                         break;
 
                                     case "linklist":
                                         $aArgs = array();
-                                        $iRand = rand(0, 1000000) * rand(0, 100000);
-                                        $sForm .= rex_var_linklist::getWidget($iRand, "REX_INPUT_VALUE[$this->iSettingsId][$sType][$sKey]", @$aSavedOptions[$sType][$sKey], $aArgs);
+                                        //$iRand = rand(0, 1000000) * rand(0, 100000);
+                                        $sForm .= rex_var_linklist::getWidget($uid, "REX_INPUT_VALUE[$this->iSettingsId][$sType][$sKey]", @$aSavedOptions[$sType][$sKey], $aArgs);
                                         break;
                                     case "customlink":
                                         if (!rex_addon::get('mform')->isAvailable()) {
                                             $sForm .= 'To use customlink please install addon mform';
                                         } else {
                                             $aArgs = array();
-                                            $iRand = rand(0, 100) * rand(0, 100);
-                                            $sForm .= rex_var_custom_link::getWidget($iRand, "REX_INPUT_VALUE[$this->iSettingsId][$sType][$sKey]", @$aSavedOptions[$sType][$sKey], $aArgs);
+                                            //$iRand = rand(0, 100) * rand(0, 100);
+                                            $sForm .= rex_var_custom_link::getWidget($uid, "REX_INPUT_VALUE[$this->iSettingsId][$sType][$sKey]", @$aSavedOptions[$sType][$sKey], $aArgs);
                                         }
                                         break;
                                     case "html":
@@ -813,14 +816,14 @@
                                         }
 
 
-                                        $iRand = rand(0, 1000000) * rand(0, 100000);
+                                        //$iRand = rand(0, 1000000) * rand(0, 100000);
 
 
-                                        $sForm .= '<dd><input id="gridblockcontentsettings-slider-' . $iRand . '" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sSliderTooltipSplit . ' ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' ' . $sSliderShowTooltip . ' ' . $sDisabled . '>';
+                                        $sForm .= '<dd><input id="gridblockcontentsettings-slider-' . $uid . '" name="REX_INPUT_VALUE[' . $this->iSettingsId . '][' . $sType . '][' . $sKey . ']" type="text" ' . $sClass . ' value="' . $sValue . '" ' . $sSliderTooltipSplit . ' ' . $sSliderMin . ' ' . $sSliderMax . ' ' . $sSliderRange . ' ' . $sSliderStep . ' ' . $sSliderValue . ' ' . $sSliderShowTooltip . ' ' . $sDisabled . '>';
                                         if (isset($aOption["slider-unit"])) {
                                             $sForm .= "<script>
                                         
-                                        $('#gridblockcontentsettings-slider-" . $iRand . "').slider({			
+                                        $('#gridblockcontentsettings-slider-" . $uid . "').slider({			
                                             formatter: function(value) {
                                                 return value + ' " . $aOption["slider-unit"] . "';
                                             }

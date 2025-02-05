@@ -1037,7 +1037,7 @@
         $sHtml .= '<br /><a href="javascript:void(0)" class="btn btn-abort w-100 text-center gridblockcontentsettings-toggler gridblockcontentsettings-toggler-' . $iBlockId . '" data-id="#gridblockcontentsettings-' . $iBlockId . '" style="width:100%"><strong style="float:left">ContentSettings</strong> &nbsp; <i class="fa fa-cog" style="float:right;padding-top:3px"></i></a><br />' . PHP_EOL;
         $sHtml .= '<div class="gridblockcontentsettings-options" id="gridblockcontentsettings-' . $iBlockId . '">' . PHP_EOL;
 
-        if (isset($oData->template)) {
+        if (is_object($oData) && isset($oData->template)) {
             $sHtml .= '<p><strong>Template</strong></p>' . PHP_EOL;
             $sHtml .= '<ul class="list-group">' . PHP_EOL;
             foreach ($oData->template as $sKey => $oItem) {
@@ -1055,7 +1055,7 @@
             $sHtml .= '</ul>' . PHP_EOL;
         }
         for ($iX = 1; $iX <= $iColumns; $iX++) {
-            if (isset($oData->{"column_" . $iX})) {
+            if (is_object($oData) && isset($oData->{"column_" . $iX})) {
                 $sColumnLabel = "Spalte " . $iX;
                 $iColumn = $iX - 1;
                 if ($aPreview["columns"][$iColumn]["title"] != "") {

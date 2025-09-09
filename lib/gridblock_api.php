@@ -93,9 +93,20 @@ class rex_api_gridblock_setCookie extends rex_api_function
 		$modID 		= rex_request::get('modid', 'int', null);
 		$modStatus	= rex_request::get('modstatus', 'int', null);
 		$action		= rex_request::get('action');
+		$formData   = rex_request::get('form_data', 'string', '');
+		$sourceUID  = rex_request::get('source_uid', 'string', '');
 		
 		if (!empty($uID) && !empty($action)):
-			$value = ['sliceid' => $sliceID, 'uid' => $uID, 'colid' => $colID, 'modid' => $modID, 'modstatus' => $modStatus, 'action' => $action];
+			$value = [
+				'sliceid' => $sliceID, 
+				'uid' => $uID, 
+				'colid' => $colID, 
+				'modid' => $modID, 
+				'modstatus' => $modStatus, 
+				'action' => $action,
+				'form_data' => $formData,
+				'source_uid' => $sourceUID
+			];
             rex_article_content_gridblock::setCookie($value);
 			exit();
         endif;

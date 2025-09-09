@@ -104,4 +104,5 @@ if ($a1620_darkmode) { rex_view::addCssFile($this->getAssetsUrl('style-darkmode.
 
 rex_view::addJsFile($this->getAssetsUrl('sortable.min.js?v=' . $this->getVersion()));
 rex_view::addJsFile($this->getAssetsUrl('script.js?v=' . $this->getVersion()));
+rex_view::addJsFile($this->getAssetsUrl('gridblock_mblock.js?v=' . $this->getVersion()));
 ?>

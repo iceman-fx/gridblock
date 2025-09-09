@@ -350,10 +350,31 @@ $(function(){
 		
 		if (colID > 0 && uID != undefined) {
 			if (!$(this).hasClass(cClass)) {
+				// Vollständige Slice-Daten sammeln
+				var currentSlice = $(this).closest('.column-slice');
+				var allFormData = {};
+				
+				// Alle Formularfelder in diesem Slice sammeln (auch MBlock)
+				currentSlice.find('input, textarea, select').each(function() {
+					var fieldName = $(this).attr('name');
+					var fieldValue = '';
+					
+					if ($(this).is(':checkbox') || $(this).is(':radio')) {
+						if ($(this).is(':checked')) {
+							fieldValue = $(this).val();
+						}
+					} else {
+						fieldValue = $(this).val();
+					}
+					
+					if (fieldName && fieldValue !== undefined && fieldValue !== '') {
+						allFormData[fieldName] = fieldValue;
+					}
+				});
+				
 				//kopierten Block im Cookie zwischenspeichern
 				$.ajax({
-					url: 'index.php?page=structure&rex-api-call=gridblock_setCookie&sliceid=' +gridblock_sliceid+ '&uid=' +uID+ '&colid=' +colID+ '&modid=' +modID+ '&modstatus=' +modStatus+ '&action=copy&buster=<?php echo microtime(true); ?>',
-					success: function(data) {},
+					url: 'index.php?page=structure&rex-api-call=gridblock_setCookie&sliceid=' +gridblock_sliceid+ '&uid=' +uID+ '&colid=' +colID+ '&modid=' +modID+ '&modstatus=' +modStatus+ '&action=copy&form_data=' +encodeURIComponent(JSON.stringify(allFormData))+ '&source_uid=' +uID+ '&buster=<?php echo microtime(true); ?>',
 					async: false
 				});
 				
@@ -425,7 +446,72 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName, action = "") {
 			dst.append(data).show();
 			
 			//kopierten Status setzen
-			if (action == 'copy' && gridblock_getCookie('action') == 'copy' && gridblock_getCookie('modstatus') != 1) { dst.find('.column-slice-sorter a.btn-status').trigger('click'); }
+			if (action == 'copy' && gridblock_getCookie('action') == 'copy' && gridblock_getCookie('modstatus') != 1) { 
+				dst.find('.column-slice-sorter a.btn-status').trigger('click'); 
+			}
+			
+			// MBlock-Daten und andere Formular-Daten wiederherstellen beim Kopieren
+			if (action == 'copy') {
+				
+				setTimeout(function() {
+					var formData = gridblock_getCookie('form_data');
+					var sourceUID = gridblock_getCookie('source_uid');
+					
+					if (formData && formData.length > 0) {
+						try {
+							var parsedData = JSON.parse(decodeURIComponent(formData));
+							
+							var fieldsSet = 0;
+							
+							// 1. Normale Formularfelder wiederherstellen
+							$.each(parsedData, function(fieldName, fieldValue) {
+								// Feldnamen für das neue uID anpassen
+								var newFieldName = fieldName;
+								
+								// Intelligentere UID-Ersetzung: nur die Gridblock-spezifischen UIDs ersetzen
+								// Beispiel: REX_INPUT_VALUE[1][GBSxxx][VALUE][1_MBLOCK][0][label]
+								//           REX_INPUT_VALUE[19][1]['GBSxxx'][id]
+								
+								if (sourceUID && sourceUID.length > 0) {
+									// Variante 1: [GBSxxx] → [neue_UID]
+									var pattern1 = new RegExp('\\[' + sourceUID.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\]', 'g');
+									newFieldName = newFieldName.replace(pattern1, '[' + uID + ']');
+									
+									// Variante 2: ['GBSxxx'] → ['neue_UID'] (für Arrays mit Anführungszeichen)
+									var pattern2 = new RegExp("\\['" + sourceUID.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + "'\\]", 'g');
+									newFieldName = newFieldName.replace(pattern2, "['" + uID + "']");
+								} else {
+									// Fallback: Versuche automatische UID-Erkennung
+									// Suche nach GBS-Pattern und ersetze diese
+									newFieldName = fieldName.replace(/\[GBS[a-f0-9]{40}\]/g, '[' + uID + ']');
+									newFieldName = newFieldName.replace(/\['GBS[a-f0-9]{40}'\]/g, "['" + uID + "']");
+								}
+								
+								// Feld finden und Wert setzen
+								var targetField = dst.find('[name="' + newFieldName + '"]');
+								if (targetField.length > 0) {
+									if (targetField.is(':checkbox') || targetField.is(':radio')) {
+										targetField.prop('checked', targetField.val() == fieldValue);
+									} else {
+										targetField.val(fieldValue);
+									}
+									targetField.trigger('change');
+									fieldsSet++;
+								}
+							});
+							
+							// 2. MBlock-spezifische Nachbearbeitung
+							if (typeof window.GridblockMBlock !== 'undefined') {
+								// MBlock-Daten mit der ausgelagerten Funktion wiederherstellen
+								window.GridblockMBlock.processMBlockData(dst, parsedData, sourceUID, uID);
+							}
+							
+						} catch (e) {
+							console.error('Fehler beim Wiederherstellen der Formulardaten:', e);
+						}
+					}
+				}, 800); // Längere Verzögerung für MBlock-Initialisierung
+			}
 			
 			//Vorgang mit ready abschließen
 			$('body').trigger('rex:ready', [$('body')]);					//macht Probleme -> setzt die Spalten-Navigation zurück

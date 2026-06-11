@@ -427,10 +427,10 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName, action = "") {
 			//kopierten Status setzen
 			if (action == 'copy' && gridblock_getCookie('action') == 'copy' && gridblock_getCookie('modstatus') != 1) { dst.find('.column-slice-sorter a.btn-status').trigger('click'); }
 			
-			//Vorgang mit ready abschließen
-			$('body').trigger('rex:ready', [$('body')]);					//macht Probleme -> setzt die Spalten-Navigation zurück
-			$(document).trigger('ready');
-			$(document).trigger('pjax:success');
+			// Nur den neu geladenen Modulbereich initialisieren statt der ganzen Seite.
+			// Ein globaler $('body').trigger('rex:ready') setzt u.a. die Spalten-Navigation
+			// zurück und initialisiert fremde Widgets (z.B. Editoren) doppelt.
+			dst.trigger('rex:ready', [dst]);
 		}).always(function() {
 			$('#rex-js-ajax-loader').removeClass('rex-visible');
 		}).fail(function() {
@@ -588,9 +588,8 @@ function gridblock_loadContentSettings(templateID, colID = 0) {
 			dst.html(data);
 			gridblock_showHideContentSettings(data.length, templateID, colID);
 			
-			$('body').trigger('rex:ready', [$('body')]);					//macht Probleme -> setzt die Spalten-Navigation zurück
-			$(document).trigger('ready');
-			$(document).trigger('pjax:success');
+			// Nur den neu geladenen Bereich initialisieren statt der ganzen Seite.
+			dst.trigger('rex:ready', [dst]);
 		}).fail(function() {
 			dst.html('<div class="alert alert-danger"><?php echo rex_i18n::msg('a1620_mod_error_loadcontentoptions'); ?></div>');
 		})

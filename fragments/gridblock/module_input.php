@@ -2,8 +2,8 @@
 /*
 	Redaxo-Addon Gridblock
 	Fragment für Moduleingabe (BE)
-	v1.1.15
-	by Falko Müller @ 2021-2025 (based on 0.1.0-dev von bloep)
+	v1.1.17
+	by Falko Müller @ 2021-2026 (based on 0.1.0-dev von bloep)
 	
 	
 	genutzte VALUES:
@@ -257,6 +257,7 @@ $(function(){
 			} else {
 				gridblock_loadModule(moduleID, colID, uID, moduleName);
 			}
+			
 		} else {
 			$('#gridblockModuleContent'+uID).remove();
 		}
@@ -427,10 +428,19 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName, action = "") {
 			//kopierten Status setzen
 			if (action == 'copy' && gridblock_getCookie('action') == 'copy' && gridblock_getCookie('modstatus') != 1) { dst.find('.column-slice-sorter a.btn-status').trigger('click'); }
 			
-			// Nur den neu geladenen Modulbereich initialisieren statt der ganzen Seite.
-			// Ein globaler $('body').trigger('rex:ready') setzt u.a. die Spalten-Navigation
-			// zurück und initialisiert fremde Widgets (z.B. Editoren) doppelt.
+			//Nur den neu geladenen Modulbereich initialisieren statt der ganzen Seite.
+			//Ein globaler $('body').trigger('rex:ready') setzt u.a. die Spalten-Navigation zurück und initialisiert fremde Widgets (z.B. Editoren) doppelt.
+			//Hash vor rex:ready deaktivieren, um ungewollten Seitensprung zu unterbinden
+			
+			const currentDst = dst;
+			const currentHash = window.location.hash;
+			if (currentHash) { history.replaceState(null, '', window.location.pathname + window.location.search); }			
+
 			dst.trigger('rex:ready', [dst]);
+			
+			gridblock_scrollToNewBlock(currentDst);
+			if (currentHash) { history.replaceState(null, '', window.location.pathname + window.location.search + currentHash); }
+			
 		}).always(function() {
 			$('#rex-js-ajax-loader').removeClass('rex-visible');
 		}).fail(function() {
@@ -635,6 +645,10 @@ function gridblock_scrollToNewBlock(dst) {
 	if (dst && dst.length > 0) {
 		pos = dst.offset();
 		posTop = parseFloat(pos.top);
+		
+		console.log(dst.attr('id'));
+		console.log(posTop);
+		
 		
 		if (posTop > 0) { $("body, html").animate({scrollTop: posTop-50}, 1000); }
 	}

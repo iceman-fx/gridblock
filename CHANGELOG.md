@@ -3,6 +3,12 @@ Gridblock
 
 Changelog
 ---------
+<b>Version 1.1.17</b>
+- Bugfixing: ungewollten Seitensprung bei rex:ready unterbinden
+
+<b>Version 1.1.16</b>
+- Bugfixing: rex:ready nur auf den neu geladenen Bereich triggern
+
 <b>Version 1.1.15</b>
 - Beispiel für Helper-Funktion in Hilfe hinterlegt (Danke an Stefan Cukabeka)
 - Verfügbarkeit von Redaxo-Platzhaltern in Grid-Template verbessert (REX_ARTICLE, REX_CLANG, REX_SLICE_ID, REX_CTYPE_ID)

@@ -2,7 +2,7 @@
 /*
 	Redaxo-Addon Gridblock
 	Fragment für Moduleingabe (BE)
-	v1.1.17
+	v1.1.18
 	by Falko Müller @ 2021-2026 (based on 0.1.0-dev von bloep)
 	
 	
@@ -432,14 +432,17 @@ function gridblock_loadModule(moduleID, colID, uID, moduleName, action = "") {
 			//Ein globaler $('body').trigger('rex:ready') setzt u.a. die Spalten-Navigation zurück und initialisiert fremde Widgets (z.B. Editoren) doppelt.
 			//Hash vor rex:ready deaktivieren, um ungewollten Seitensprung zu unterbinden
 			
-			const currentDst = dst;
-			const currentHash = window.location.hash;
-			if (currentHash) { history.replaceState(null, '', window.location.pathname + window.location.search); }			
+			let currentDst = dst;
+			let currentHash = window.location.hash;
+				if (currentHash) { history.replaceState(null, '', window.location.pathname + window.location.search); }			
 
 			dst.trigger('rex:ready', [dst]);
 			
 			gridblock_scrollToNewBlock(currentDst);
 			if (currentHash) { history.replaceState(null, '', window.location.pathname + window.location.search + currentHash); }
+			
+			currentDst.addClass('gridblock-add-glow');
+			setTimeout(function() { currentDst.removeClass('gridblock-add-glow'); }, 1200);
 			
 		}).always(function() {
 			$('#rex-js-ajax-loader').removeClass('rex-visible');
@@ -645,11 +648,7 @@ function gridblock_scrollToNewBlock(dst) {
 	if (dst && dst.length > 0) {
 		pos = dst.offset();
 		posTop = parseFloat(pos.top);
-		
-		console.log(dst.attr('id'));
-		console.log(posTop);
-		
-		
+				
 		if (posTop > 0) { $("body, html").animate({scrollTop: posTop-50}, 1000); }
 	}
 }

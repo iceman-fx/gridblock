@@ -3,6 +3,9 @@ Gridblock
 
 Changelog
 ---------
+<b>Version 1.1.18</b>
+- Glow-Effect (Danke an MBlock) für neue Blöcke hinzugefügt
+
 <b>Version 1.1.17</b>
 - Bugfixing: ungewollten Seitensprung bei rex:ready unterbinden
 

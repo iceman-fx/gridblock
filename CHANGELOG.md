@@ -3,6 +3,9 @@ Gridblock
 
 Changelog
 ---------
+<b>Version 1.1.19</b>
+- Bugfixing: Synchronizer startet nicht mehr bei jedem Request (Danke an rkemmere, Issue #82): kein Session-Start mehr bei Frontend- und Medien-Requests, Abgleich nur noch im Backend, höchstens alle 10 Sekunden und nie parallel
+
 <b>Version 1.1.18</b>
 - Glow-Effect (Danke an MBlock) für neue Blöcke hinzugefügt
 

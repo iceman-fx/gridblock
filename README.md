@@ -1,3 +1,10 @@
+Nachfolger verfügbar: 
+Gridblock 1.x wird nur noch gepflegt. 
+Neue Projekte starten besser mit Gridblock² (Addon gridblock2): visueller Page- und Contentbuilder mit Sektion, Spalten, Custom-Elementen (Hero-Banner, Call-to-Action, Karten u. a.), Live-Vorschau, Favoriten und Einrichtungsassistent mit sanfter Migration von Gridblock 1.x. 
+Details: github.com/iceman-fx/gridblock2
+
+
+
 Gridblock
 =========
 

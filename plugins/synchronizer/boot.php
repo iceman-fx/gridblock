@@ -1,5 +1,5 @@
 <?php
 
-if (rex_backend_login::hasSession()) {
-    GridblockSynchronizer::sync();
+if ('cli' !== PHP_SAPI && rex::isBackend() && rex::getUser()) {
+    GridblockSynchronizer::syncThrottled();
 }
